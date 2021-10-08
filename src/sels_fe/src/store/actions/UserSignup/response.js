@@ -3,18 +3,24 @@ import {
   AUTH_SIGNUP_FAIL
 } from "./action-types"
 
-export const authSignupSuccess = (userData) => {
+export const authSignupSuccess = (user) => {
+  console.log(user)
+  
   return {
     type: AUTH_SIGNUP_SUCCESS,
     payload: {
-      user: userData
+      user
     }
   }
 }
 
 export const authSignupFail = (error) => {
+  console.log(error)
+
   return {
     type: AUTH_SIGNUP_FAIL,
-    error
+    payload: {
+      error
+    }
   }
 }

@@ -4,10 +4,11 @@ import { FormControl } from '@material-ui/core'
 function SignupFormControl ({children, variant='outlined'}) {
   return (
     <FormControl 
-      // variant={variant}
+      variant={variant}
       color="primary"
       margin="normal"
-      sx={{ my: "1rem", width: '70ch' }} 
+      sx={{ mx: 'auto', width: '50ch' }} 
+      fullWidth
     >
       {children}
     </FormControl>

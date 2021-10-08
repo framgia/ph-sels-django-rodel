@@ -4,24 +4,8 @@
 /*/migrations/*.py
 !*/migrations/__init__.py
 
+*/__pycache__/*.pyc
 
-/sels_fe/src/node_modules
-/sels_fe/src/.pnp
-.pnp.js
 
-# testing
-/sels_fe/src/coverage
-
-# production
-/sels_fe/src/build
-
-# misc
-/sels_fe/src/.DS_Store
-/sels_fe/src/.env.local
-/sels_fe/src/.env.development.local
-/sels_fe/src/.env.test.local
-/sels_fe/src/.env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+#uncomment before creating commit for user authentication
+/sels_core/permissions.py

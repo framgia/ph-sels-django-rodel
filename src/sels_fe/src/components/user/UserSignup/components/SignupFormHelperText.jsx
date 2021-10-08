@@ -2,10 +2,10 @@
 import { FormHelperText } from '@material-ui/core'
 
 
-function SignupFormHelperText ({signup})  {
+function SignupFormHelperText ({error})  {
   return (
     <FormHelperText error >
-      {signup.email.length > 0 && signup.email[0]}
+      {error}
     </FormHelperText>
   )
 }

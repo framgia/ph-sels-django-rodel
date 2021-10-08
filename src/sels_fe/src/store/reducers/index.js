@@ -4,9 +4,8 @@ import { signupReducer } from './user-signup'
 
 
 
-
 const reducers = combineReducers({
-  signupReducer: signupReducer
+  Signup: signupReducer
 })
 
 

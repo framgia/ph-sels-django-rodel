@@ -21,9 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-<<<<<<< HEAD
-=======
 
-/*/migrations/*.py
-!*/migrations/__init__.py
->>>>>>> 31822ac7 ([TASK] [FE] feature/user-signup-integration)
+#uncomment before creating commit for user authentication
+/src/store/actions/UserSignin
+/src/components/user/UserSignin
+

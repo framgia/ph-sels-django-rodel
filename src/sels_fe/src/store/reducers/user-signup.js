@@ -5,38 +5,35 @@ import {
 
 
 export const initialState = {
-  signup: {
-    msg: {
-      email: null,
-      username: null,
-      password1: null,
-      password2: null
-    }
-  },
-}
-
-const authSignUpSuccess = (state=initialState, action) => {
-  return {...state, 
-    signup: {
-      ...state.signup,
-      msg: 'Signup Success!',
-    }
+  msg: null,
+  user: {},
+  error: {
+    email: null,
+    username: null,
+    password: null,
+    password2: null
   }
 }
 
-const authSignUpFail = (state=initialState, action) => {
+const authSignupSuccess = (state=initialState, action) => {
   return {...state, 
-    signup: {
-      ...state.signup,
-      msg: 'Signup Failed.',
-    }
+    msg: 'Signup Success!',
+    user: action.payload.user,
+    error: null
+  }
+}
+
+const authSignupFail = (state=initialState, action) => {
+  return {...state, 
+    msg: 'Signup Failed!',
+    error: action.payload.error
   }
 }
 
 const signupReducer = (state=initialState, action ) => {
   switch (action.type) {
-    case AUTH_SIGNUP_SUCCESS: return authSignUpSuccess(state, action) 
-    case AUTH_SIGNUP_FAIL: return authSignUpFail(state, action) 
+    case AUTH_SIGNUP_SUCCESS: return authSignupSuccess(state, action) 
+    case AUTH_SIGNUP_FAIL: return authSignupFail(state, action) 
     default: return state
   }
 }

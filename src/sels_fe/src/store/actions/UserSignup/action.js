@@ -1,4 +1,4 @@
-import { handleSignup } from "./handler"
+import { handleSignup } from "../UserSignup/handler"
 
 
 const authSignup = (user_data) => {
