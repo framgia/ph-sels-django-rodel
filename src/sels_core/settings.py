@@ -27,7 +27,22 @@ DEBUG = True
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = []
+=======
+<<<<<<< HEAD
+ALLOWED_HOSTS = []
+=======
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+CORS_URLS_REGEX = r'^/api/.*$'
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]
+>>>>>>> 31822ac7 ([TASK] [FE] feature/user-signup-integration)
+>>>>>>> 9f70664a ([TASK] [BE] User Signup :hammer: (#1))
 
 # Application definition
 
@@ -38,6 +53,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    'corsheaders',
+>>>>>>> 31822ac7 ([TASK] [FE] feature/user-signup-integration)
+>>>>>>> 9f70664a ([TASK] [BE] User Signup :hammer: (#1))
     
     'user',
     'rest_framework',
@@ -46,6 +68,10 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+<<<<<<< HEAD
+=======
+    'corsheaders.middleware.CorsMiddleware',
+>>>>>>> 31822ac7 ([TASK] [FE] feature/user-signup-integration)
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
