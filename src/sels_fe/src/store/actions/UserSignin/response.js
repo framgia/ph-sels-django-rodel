@@ -6,38 +6,42 @@ import {
   AUTH_LOGOUT
 } from "./action-types"
 
-export const authStart = () => {
+const authStart = () => {
   return {
     type: AUTH_START
   }  
 }
 
-export const authSuccess = () => {
+const authSuccess = user => {
   return {
     type: AUTH_SUCCESS,
     payload: {
-      user_email: localStorage.getItem("auth_user_email")
+      user: localStorage.getItem("auth_user"),
     }
   }
 }
 
-export const authFail = error => {
+const authFail = error => {
   return {
     type: AUTH_FAIL,
-    error: error
+    payload: {
+      msg: "User Authentication Failed",
+      error: error
+    }
   }
 }
 
-export const authRefresh = () => {
+const authRefresh = user => {
   return {
     type: AUTH_REFRESH,
     payload: {
-      user_email: localStorage.getItem("auth_user_email")
+      user: localStorage.getItem("auth_user"),
+      msg: "User Session has been Refreshed.",
     }
   }  
 }
 
-export const authLogout = () => {
+const authSignout = () => {
   localStorage.removeItem("access_token")
   localStorage.removeItem("refresh_token")
   localStorage.removeItem("access_expiration")
@@ -45,8 +49,16 @@ export const authLogout = () => {
   return {
     type: AUTH_LOGOUT,
     payload: {
-      msg: "session has expired",
-      error: "Auth session has expired"
+      msg: "User Session has Expired",
+      error: "Auth Session has Expired"
     }
   }
+}
+
+export {
+  authStart,
+  authSuccess,
+  authFail,
+  authRefresh,
+  authSignout
 }
