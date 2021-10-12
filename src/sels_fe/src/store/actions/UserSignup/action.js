@@ -8,4 +8,4 @@ const authSignup = (user_data) => {
 }
 
 
-export default authSignup
+export { authSignup } 

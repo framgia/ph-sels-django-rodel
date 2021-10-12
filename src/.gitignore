@@ -4,8 +4,9 @@
 /*/migrations/*.py
 !*/migrations/__init__.py
 
-*/__pycache__/*.pyc
+/*/__pycache__/*
 
 
 #uncomment before creating commit for user authentication
-/sels_core/permissions.py
+# /sels_core/permissions.py
+/follow
