@@ -6,7 +6,12 @@ import {
 } from './UserSignin/action';
 import { getUserList } from './GetUsers/action';
 
-
+import {
+  followUser,
+  unfollowUser
+} from './FollowUnfollowUser/action'
+import { getFollowedUserList } from './GetFollowedUsers/action';
+import { getAuthUserDetails } from './GetAuthUserDetails/action'
 
 
 export {
@@ -15,4 +20,8 @@ export {
   authCheckState,
   authSignout,
   getUserList,
+  followUser,
+  unfollowUser,
+  getFollowedUserList,
+  getAuthUserDetails,
 }
