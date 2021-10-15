@@ -1,6 +1,6 @@
 import {
-  GET_USER_SUCCESS,
-  GET_USER_FAIL
+  GET_USERS_SUCCESS,
+  GET_USERS_FAIL
 } from '../actions/GetUsers/action-types'
 
 
@@ -30,8 +30,8 @@ const getUserFail = (state=initialState, action) => {
 
 const gettUsersReducer = (state=initialState, action ) => {
   switch (action.type) {
-    case GET_USER_SUCCESS: return getUserSuccess(state, action)     
-    case GET_USER_FAIL: return getUserFail(state, action) 
+    case GET_USERS_SUCCESS: return getUserSuccess(state, action)     
+    case GET_USERS_FAIL: return getUserFail(state, action) 
     default: return state
   }
 }

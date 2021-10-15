@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 
-/*/migrations/*.py
+/*/migrations/*
 !*/migrations/__init__.py
 
 /*/__pycache__/*
@@ -9,4 +9,4 @@
 
 #uncomment before creating commit for user authentication
 # /sels_core/permissions.py
-/follow
+# /follow

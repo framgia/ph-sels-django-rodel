@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 #remove or comment out before creating commit for user authentication
-/src/store/actions/GetUsers
-/src/components/follow
+# /src/store/actions/GetUsers
+# /src/components/follow
