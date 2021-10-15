@@ -1,18 +1,20 @@
-import './App.css'
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import "./App.css"
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
-import { authCheckState, getAuthUserDetails } from './store/actions'
+import { authCheckState, getAuthUserDetails } from "./store/actions"
 
 import {
   SigninSuccessRedirect,
   SignupSuccessRedirect,
   UserSignin,
   UserSignup,
-} from './components/user'
-import { FollowedUser, FollowUser } from './components/follow'
-import { Question, Quiz } from './components/quiz'
+} from "./components/user"
+import { FollowedUser, FollowUser } from "./components/follow"
+import { Question } from "./components/quiz"
+import QuizMain from "./pages/quiz"
+import QuestionMain from "./pages/quiz/QuestionMain"
 
 function App() {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
@@ -36,8 +38,9 @@ function App() {
           <Route path="/follow" component={FollowUser} />
           <Route path="/following" component={FollowedUser} />
           <Route path="/questions" component={Question} />
-          <Route path="/quiz" component={Quiz} />
         </Switch>
+        <Route path="/quiz" component={QuizMain} />
+        <Route path="/question" component={QuestionMain} />
       </Router>
     </div>
   )
