@@ -41,7 +41,7 @@ class Choice(models.Model):
 class Answer(models.Model):
     choice = models.ForeignKey(Choice, default=1, on_delete=models.DO_NOTHING)
     question = models.ForeignKey(
-        Question, related_name='question_answer', default=1, on_delete=models.DO_NOTHING)
+        Question, related_name='question_answer', default=1, on_delete=models.CASCADE)
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 
