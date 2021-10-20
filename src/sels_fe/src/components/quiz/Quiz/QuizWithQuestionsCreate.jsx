@@ -133,6 +133,8 @@ function QuizWithQuestionsCreate() {
     setActiveStep(0)
     setCompleted([])
     history.push("/quiz")
+    currentQuiz = null
+    currentQuestions = null
   }
 
   useEffect(() => {

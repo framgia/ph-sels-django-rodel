@@ -87,7 +87,3 @@ const AnswersSelect = ({ questions, choices }) => {
 }
 
 export default AnswersSelect
-
-// .filter((choice) => choice.question === question.id)
-// <React.Fragment key={index}>
-// </React.Fragment>
