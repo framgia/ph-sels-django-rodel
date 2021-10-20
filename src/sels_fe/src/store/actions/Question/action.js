@@ -24,15 +24,15 @@ const getQuestionList = () => {
   }
 }
 
-const updateQuestion = (question_id) => {
+const updateQuestion = (question_id, data) => {
   return (dispatch) => {
-    handleUpdateQuestion(dispatch)
+    handleUpdateQuestion(question_id, data, dispatch)
   }
 }
 
 const deleteQuestion = (question_id) => {
   return (dispatch) => {
-    handleDeleteQuestion(dispatch)
+    handleDeleteQuestion(question_id, dispatch)
   }
 }
 

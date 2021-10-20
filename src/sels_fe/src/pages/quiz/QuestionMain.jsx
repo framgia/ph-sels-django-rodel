@@ -6,9 +6,13 @@ import { useDispatch, useSelector } from "react-redux"
 import { getQuestionList } from "../../store/actions"
 
 import { Typography } from "@mui/material"
+import {
+  QuestionUpdate,
+  QuestionDelete,
+  QuestionDetail,
+} from "../../components/quiz"
 
-import QuestionCreate from "./../../components/quiz/Question/QuestionCreate"
-// import QuestionList from "./../../components/quiz/Question/QuestionList"
+// import QuestionCreate from "./../../components/question/Question/QuestionCreate"
 
 function QuestionMain() {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
@@ -24,11 +28,11 @@ function QuestionMain() {
       {/* <Route path={`${path}`} exact> */}
       {/* <QuestionList questions={question_list} /> */}
       {/* </Route> */}
-      {/* <Route path={`${path}/details/:name`} component={QuizCreate} /> */}
-      <Route path={`${path}/create`} component={QuestionCreate} />
-      {/* <Route path={`${path}/new`} component={QuizWithQuestionsCreate} />
-      <Route path={`${path}/:id/edit`} component={QuizUpdate} />
-      <Route path={`${path}/:id/delete`} component={QuizDelete} /> */}
+      {/* <Route path={`${path}/details/:name`} component={QuestionCreate} /> */}
+      {/* <Route path={`${path}/create`} component={QuestionCreate} /> */}
+      <Route path={`${path}/:id`} component={QuestionDetail} />
+      <Route path={`${path}/:id/edit`} component={QuestionUpdate} />
+      <Route path={`${path}/:id/delete`} component={QuestionDelete} />
     </Switch>
   ) : (
     <Typography variant="h6" color="primary">

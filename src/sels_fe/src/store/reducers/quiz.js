@@ -56,13 +56,15 @@ const getQuizListFail = (state = initialState, action) => {
 }
 
 const updateQuizSuccess = (state = initialState, action) => {
+  const index = state.quiz_list.findIndex(
+    (quiz) => quiz.id === action.payload.quiz.id
+  )
+  const newArray = [...state.quiz_list]
+  newArray[index] = action.payload.quiz
+
   return {
     ...state,
-    quiz_list: [
-      state.quiz_list.find((quiz) =>
-        quiz.id === action.payload.quiz.id ? action.payload.quiz : quiz
-      ),
-    ],
+    quiz_list: newArray,
     error: null,
   }
 }

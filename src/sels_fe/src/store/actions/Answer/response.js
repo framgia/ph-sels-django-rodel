@@ -11,11 +11,11 @@ import {
   DELETE_ANSWER_FAIL,
 } from "./action-types"
 
-const postAnswerSuccess = (qnswer) => {
+const postAnswerSuccess = (answer) => {
   return {
     type: POST_ANSWER_SUCCESS,
     payload: {
-      qnswer,
+      answer,
     },
   }
 }
@@ -47,11 +47,11 @@ const getAnswerFail = (error) => {
   }
 }
 
-const getAnswerListSuccess = (qnswers) => {
+const getAnswerListSuccess = (answers) => {
   return {
     type: GET_ANSWER_LIST_SUCCESS,
     payload: {
-      qnswers,
+      answers,
     },
   }
 }
@@ -65,11 +65,11 @@ const getAnswerListFail = (error) => {
   }
 }
 
-const updateAnswerSuccess = (qnswer) => {
+const updateAnswerSuccess = (answer) => {
   return {
     type: UPDATE_ANSWER_SUCCESS,
     payload: {
-      qnswer,
+      answer,
     },
   }
 }
@@ -83,11 +83,11 @@ const updateAnswerFail = (error) => {
   }
 }
 
-const deleteAnswerSuccess = (qnswer_id) => {
+const deleteAnswerSuccess = (answer_id) => {
   return {
     type: DELETE_ANSWER_SUCCESS,
     payload: {
-      qnswer_id,
+      answer_id,
     },
   }
 }

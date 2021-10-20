@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom"
 
 import { updateQuiz } from "../../../store/actions"
 
@@ -17,17 +17,22 @@ const QuizUpdate = () => {
   })
   const dispatch = useDispatch()
   const { id } = useParams()
-  // const history = useHistory()
-  const { isAuthenticated } = useSelector((state) => state.Signin)
+  const history = useHistory()
   const error = useSelector((state) => state.Quiz.error)
+  const { quiz_list } = useSelector((state) => state.Quiz)
 
   const handleChange = (event) => {
     const { name, value } = event.target
     setQuiz({ ...quiz, [name]: value })
   }
+  useEffect(() => {
+    const q = quiz_list?.find((item) => parseInt(item.id) === parseInt(id))
+    setQuiz({ ...quiz, name: q.name, description: q.description })
+  }, [quiz_list])
 
   const handleSubmitQuiz = () => {
     dispatch(updateQuiz(id, quiz))
+    history.push("/quiz")
   }
 
   return (

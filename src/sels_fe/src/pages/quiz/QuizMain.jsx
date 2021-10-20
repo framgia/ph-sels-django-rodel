@@ -7,6 +7,7 @@ import {
   getQuizList,
   getQuestionList,
   getChoiceList,
+  getAnswerList,
 } from "../../store/actions"
 
 import { Typography } from "@mui/material"
@@ -31,6 +32,7 @@ function QuizMain() {
     dispatch(getQuizList())
     dispatch(getQuestionList())
     dispatch(getChoiceList())
+    dispatch(getAnswerList())
   }, [dispatch])
 
   return isAuthenticated ? (
@@ -41,9 +43,9 @@ function QuizMain() {
       <Route path={`${path}/try`} component={ChoiceSelect} />
       <Route path={`${path}/create`} component={QuizCreate} />
       <Route path={`${path}/new`} component={QuizWithQuestionsCreate} />
-      <Route path={`${path}/:id`} component={QuizDetail} />
       <Route path={`${path}/:id/edit`} component={QuizUpdate} />
       <Route path={`${path}/:id/delete`} component={QuizDelete} />
+      <Route path={`${path}/:id`} component={QuizDetail} />
     </Switch>
   ) : (
     <Typography variant="h6" color="primary">

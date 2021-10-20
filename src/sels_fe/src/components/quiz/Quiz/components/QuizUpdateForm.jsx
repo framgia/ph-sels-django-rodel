@@ -17,6 +17,7 @@ const QuizUpdateForm = ({ quiz, onChange, error }) => {
           type="text"
           name="name"
           label="Quiz Name"
+          defaultValue={quiz.name}
           value={quiz.name}
           onChange={onChange}
           sx={{ width: "50ch" }}
@@ -34,6 +35,7 @@ const QuizUpdateForm = ({ quiz, onChange, error }) => {
           multiline
           maxRows={4}
           variant="outlined"
+          defaultValue={quiz.description}
           value={quiz.description}
           onChange={onChange}
           sx={{ width: "50ch" }}

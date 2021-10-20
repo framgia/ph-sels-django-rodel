@@ -60,6 +60,7 @@ const fetchAnswerList = async () => {
 }
 
 const updateAnswer = async (answer_id, data) => {
+  console.log(answer_id, data)
   const accessToken = localStorage.getItem("access_token")
   const url = `${baseURL}answer/${answer_id}/`
   const resquestOption = {
@@ -69,7 +70,7 @@ const updateAnswer = async (answer_id, data) => {
       Accept: "application/json",
       Authorization: `Bearer ${accessToken}`,
     },
-    body: JSON.stringify(answer_id),
+    body: JSON.stringify(data),
   }
   const response = await fetch(url, resquestOption)
   return await response
@@ -131,11 +132,17 @@ function handleGetAnswerList(dispatch) {
       if (res.ok) {
         return res.json()
       } else {
-        throw res.json()
+        throw res
       }
     })
     .then((data) => dispatch(getAnswerListSuccess(data)))
-    .catch((error) => dispatch(getAnswerListFail(error)))
+    .catch((err) => {
+      try {
+        err.json().then((error) => dispatch(getAnswerListFail(error)))
+      } catch (e) {
+        console.log(err)
+      }
+    })
 }
 
 function handleUpdateAnswer(answer_id, data, dispatch) {

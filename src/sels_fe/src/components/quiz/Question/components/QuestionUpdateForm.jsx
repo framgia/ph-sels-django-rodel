@@ -4,47 +4,44 @@ import { OutlinedInput, TextField } from "@material-ui/core"
 
 import { CustomFormControl } from "./CustomFormControl"
 import { CustomInputLabel } from "./CustomInputLabel"
-import { Stack } from "@mui/material"
+import { CustomHelperText } from "./CustomHelperText"
 
-const QuestionForm = ({ question, onChange, error, index }) => {
+const QuestionUpdateForm = ({ question, onChange, error }) => {
   return (
-    <Stack
-      direction="column"
-      spacing={2}
-      sx={{ justifyContent: "center", width: "100%" }}
-    >
+    <>
       <CustomFormControl>
-        <CustomInputLabel
-          labelFor={`question-question-${index}`}
-          label="Question"
-        />
+        <CustomInputLabel labelFor="question-question" label="Question" />
         <OutlinedInput
           required
-          id={`question-question-${index}`}
+          id="question-question"
           type="text"
-          name="question"
+          name="name"
           label="Question"
-          value={question.question || ""}
-          onChange={(e) => onChange(index, e)}
+          value={question.question}
+          onChange={onChange}
           sx={{ width: "50ch" }}
         />
+        {/* <CustomHelperText
+          error={error?.name?.[0] || error?.non_field_errors?.[0]}
+        /> */}
       </CustomFormControl>
       <CustomFormControl>
         <TextField
-          id={`question-description-${index}`}
+          id="question-name"
           type="text"
           name="description"
           label="Description"
           multiline
           maxRows={4}
           variant="outlined"
-          value={question.description || ""}
-          onChange={(e) => onChange(index, e)}
+          defaultValue={question.description}
+          value={question.description}
+          onChange={onChange}
           sx={{ width: "50ch" }}
         />
       </CustomFormControl>
-    </Stack>
+    </>
   )
 }
 
-export default QuestionForm
+export default QuestionUpdateForm

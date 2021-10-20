@@ -13,41 +13,44 @@ import {
 import { Divider, Stack } from "@mui/material"
 import { Assignment, Delete, Edit } from "@material-ui/icons"
 
-const Quizzes = ({ quizzes }) => {
+const Questions = ({ questions }) => {
   const history = useHistory()
   const [update, setUpdate] = useState(false)
   useEffect(() => {
     setUpdate(!update)
   }, [history])
 
-  const handleViewQuiz = (quiz_id) => {
-    history.push(`/quiz/${quiz_id}`)
+  const handleViewQuestion = (question_id) => {
+    history.push(`/question/${question_id}`)
   }
-  const handleEditQuiz = (quiz_id, quiz_name) => {
+  const handleEditQuestion = (question_id, question_name) => {
     history.push({
-      pathname: `/quiz/${quiz_id}/edit`,
-      quiz: { id: quiz_id, name: quiz_name },
+      pathname: `/question/${question_id}/edit`,
+      question: { id: question_id, name: question_name },
     })
   }
-  const handleDeleteQuiz = (quiz_id, quiz_name) => {
+  const handleDeleteQuestion = (question_id, question_name) => {
     history.push({
-      pathname: `/quiz/${quiz_id}/delete`,
-      quiz: { id: quiz_id, name: quiz_name },
+      pathname: `/question/${question_id}/delete`,
+      question: { id: question_id, name: question_name },
     })
   }
 
   return (
     <>
       <List>
-        {quizzes.length > 0
-          ? quizzes.map((quiz) => (
-              <React.Fragment key={quiz.id}>
+        {questions.length > 0
+          ? questions.map((question) => (
+              <React.Fragment key={question.id}>
                 <Divider />
-                <ListItem button onClick={() => handleViewQuiz(quiz.id)}>
+                <ListItem
+                  button
+                  onClick={() => handleViewQuestion(question.id)}
+                >
                   <ListItemIcon>
                     <Assignment fontSize="large" />
                   </ListItemIcon>
-                  <ListItemText primary={quiz.name} />
+                  <ListItemText primary={question.name} />
                   <ListItemSecondaryAction>
                     <Stack
                       direction="row"
@@ -55,13 +58,17 @@ const Quizzes = ({ quizzes }) => {
                       sx={{ justifyContent: "center" }}
                     >
                       <IconButton
-                        onClick={() => handleEditQuiz(quiz.id, quiz.name)}
+                        onClick={() =>
+                          handleEditQuestion(question.id, question.name)
+                        }
                       >
                         <Edit fontSize="medium" />
                       </IconButton>
                       <IconButton
                         color="secondary"
-                        onClick={() => handleDeleteQuiz(quiz.id, quiz.name)}
+                        onClick={() =>
+                          handleDeleteQuestion(question.id, question.name)
+                        }
                       >
                         <Delete fontSize="medium" />
                       </IconButton>
@@ -76,4 +83,4 @@ const Quizzes = ({ quizzes }) => {
   )
 }
 
-export default Quizzes
+export default Questions

@@ -12,9 +12,9 @@ const postAnswer = (data) => {
   }
 }
 
-const getAnswer = (qnswer_id) => {
+const getAnswer = (answer_id) => {
   return (dispatch) => {
-    handleGetAnswer(qnswer_id, dispatch)
+    handleGetAnswer(answer_id, dispatch)
   }
 }
 
@@ -24,15 +24,15 @@ const getAnswerList = () => {
   }
 }
 
-const updateAnswer = (qnswer_id) => {
+const updateAnswer = (answer_id, data) => {
   return (dispatch) => {
-    handleUpdateAnswer(dispatch)
+    handleUpdateAnswer(answer_id, data, dispatch)
   }
 }
 
-const deleteAnswer = (qnswer_id) => {
+const deleteAnswer = (answer_id) => {
   return (dispatch) => {
-    handleDeleteAnswer(dispatch)
+    handleDeleteAnswer(answer_id, dispatch)
   }
 }
 

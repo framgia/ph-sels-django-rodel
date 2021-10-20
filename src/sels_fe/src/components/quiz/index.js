@@ -6,7 +6,12 @@ import {
   QuizDelete,
   QuizWithQuestionsCreate,
 } from "./Quiz"
-import { Question } from "./Question"
+import {
+  QuestionCreate,
+  QuestionDetail,
+  QuestionUpdate,
+  QuestionDelete,
+} from "./Question"
 
 export {
   QuizCreate,
@@ -14,6 +19,9 @@ export {
   QuizDetail,
   QuizUpdate,
   QuizDelete,
-  Question,
   QuizWithQuestionsCreate,
+  QuestionCreate,
+  QuestionDetail,
+  QuestionUpdate,
+  QuestionDelete,
 }

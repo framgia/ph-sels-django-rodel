@@ -48,7 +48,7 @@ const getAnswerFail = (state = initialState, action) => {
 }
 
 const getAnswerListSuccess = (state = initialState, action) => {
-  return { ...state, answer_list: action.payload.answerzes, error: null }
+  return { ...state, answer_list: action.payload.answers, error: null }
 }
 
 const getAnswerListFail = (state = initialState, action) => {

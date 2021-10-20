@@ -28,6 +28,29 @@ const QuizDetail = () => {
 
   const history = useHistory()
 
+  const handleEditQuestion = (question_id, question_question) => {
+    history.push({
+      pathname: `/question/${question_id}/edit`,
+      quiz: { id: id },
+      question: { id: question_id, question: question_question },
+    })
+  }
+
+  const handleDeleteQuestion = (question_id, question_question) => {
+    history.push({
+      pathname: `/question/${question_id}/delete`,
+      quiz: { id: id },
+      question: { id: question_id, question: question_question },
+    })
+  }
+
+  const handleViewQuestion = (question_id, question_question) => {
+    history.push({
+      pathname: `/question/${question_id}`,
+      question: { id: question_id, question: question_question },
+    })
+  }
+
   useEffect(() => {
     setupdate(!update)
   }, [history])
@@ -38,23 +61,26 @@ const QuizDetail = () => {
       question_list?.filter((question) => question.quiz[0] === quizDetail.id)
     )
   }, [quiz_list, question_list, update])
-  console.log(questions)
 
   return (
     <Box component="div" sx={{ m: "1rem", mx: "auto", maxWidth: "60%" }}>
       <Typography variant="h5" color="primary">
         {quizDetail?.name}
       </Typography>
-      <Typography variant="h6" color="secondary">
-        {quizDetail?.description}
-      </Typography>
-
+      <br />
+      <Typography variant="h6">{quizDetail?.description}</Typography>
+      <br />
       <List>
         {questions.length > 0
           ? questions.map((question) => (
               <React.Fragment key={question.id}>
                 <Divider />
-                <ListItem>
+                <ListItem
+                  button
+                  onClick={() =>
+                    handleViewQuestion(question.id, question.question)
+                  }
+                >
                   <ListItemIcon>
                     <QuestionAnswerIcon fontSize="large" />
                   </ListItemIcon>
@@ -66,17 +92,17 @@ const QuizDetail = () => {
                       sx={{ justifyContent: "center" }}
                     >
                       <IconButton
-                      // onClick={() =>
-                      //   handleEditQuestion(question.id, question.question)
-                      // }
+                        onClick={() =>
+                          handleEditQuestion(question.id, question.question)
+                        }
                       >
                         <Edit fontSize="medium" />
                       </IconButton>
                       <IconButton
                         color="secondary"
-                        // onClick={() =>
-                        //   handleDeleteQuestion(question.id, question.name)
-                        // }
+                        onClick={() =>
+                          handleDeleteQuestion(question.id, question.name)
+                        }
                       >
                         <Delete fontSize="medium" />
                       </IconButton>

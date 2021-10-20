@@ -3,25 +3,25 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useLocation } from "react-router-dom"
 import { useParams } from "react-router-dom"
 
-import { deleteQuiz } from "../../../store/actions"
+import { deleteQuestion } from "../../../store/actions"
 
 import Button from "@material-ui/core/Button"
 import { Box, Typography } from "@material-ui/core"
 import { Stack } from "@mui/material"
 
-const QuizDelete = () => {
+const QuestionDelete = () => {
   const { id } = useParams()
-  const _quizzes = useSelector((state) => state.Quiz.quiz_list)
+  const _questions = useSelector((state) => state.Question.question_list)
   const dispatch = useDispatch()
   const history = useHistory()
-  const quiz = useLocation().quiz
-  const handleDeleteQuiz = () => {
-    dispatch(deleteQuiz(id))
-    history.push("/quiz")
+  const { question, quiz } = useLocation()
+  const handleDeleteQuestion = () => {
+    dispatch(deleteQuestion(id))
+    history.push(`/quiz/${quiz.id}`)
   }
-  const quizExist = _quizzes.some((q) => parseInt(q.id) === parseInt(id))
+  // const questionExist = _questions.some((q) => parseInt(q.id) === parseInt(id))
 
-  // _quizzes.map(
+  // _questions.map(
   //   (item) => parseInt(item.id) === parseInt(id) && console.log(item.id, id)
   // )
   return (
@@ -34,7 +34,7 @@ const QuizDelete = () => {
       sx={{ m: "1rem", mx: "auto", maxWidth: "60%" }}
     >
       <Typography variant="h5" color="primary">
-        Are you sure you want to delete {quiz?.name || "this Quiz"} ?
+        Are you sure you want to delete {question?.name || "this Question"} ?
       </Typography>
       <br />
       <Stack direction="row" spacing="2rem" sx={{ justifyContent: "center" }}>
@@ -43,7 +43,7 @@ const QuizDelete = () => {
           type="secondary"
           color="secondary"
           variant="contained"
-          onClick={handleDeleteQuiz}
+          onClick={handleDeleteQuestion}
         >
           Yes, Delete
         </Button>
@@ -52,7 +52,7 @@ const QuizDelete = () => {
           type="secondary"
           color="primary"
           variant="contained"
-          onClick={() => history.push("/quiz")}
+          onClick={() => history.push(`/quiz/${quiz.id}`)}
         >
           Cancel
         </Button>
@@ -61,4 +61,4 @@ const QuizDelete = () => {
   )
 }
 
-export default QuizDelete
+export default QuestionDelete

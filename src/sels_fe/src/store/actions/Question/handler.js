@@ -69,7 +69,7 @@ const updateQuestion = async (question_id, data) => {
       Accept: "application/json",
       Authorization: `Bearer ${accessToken}`,
     },
-    body: JSON.stringify(question_id),
+    body: JSON.stringify(data),
   }
   const response = await fetch(url, resquestOption)
   return await response
@@ -138,8 +138,8 @@ function handleGetQuestionList(dispatch) {
     .catch((error) => dispatch(getQuestionListFail(error)))
 }
 
-function handleUpdateQuestion(question_id, data, dispatch) {
-  const response = updateQuestion(question_id, data)
+function handleUpdateQuestion(question_id, question_data, dispatch) {
+  const response = updateQuestion(question_id, question_data)
   response
     .then((res) => {
       if (res.ok) {
@@ -165,11 +165,17 @@ function handleDeleteQuestion(question_id, dispatch) {
       if (res.ok) {
         return dispatch(deleteQuestionSuccess(question_id))
       } else {
-        throw res.json()
+        throw res
       }
     })
     .then(() => console.log(`question ${question_id} deleted`))
-    .catch((error) => dispatch(deleteQuestionFail(error)))
+    .catch((err) => {
+      try {
+        err.json().then((error) => dispatch(deleteQuestionFail(error)))
+      } catch (e) {
+        console.log(err)
+      }
+    })
 }
 
 export {

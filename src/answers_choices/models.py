@@ -9,7 +9,8 @@ QUIZ = 'quiz.Quiz'
 
 class Question(models.Model):
     question = models.CharField(max_length=120)
-    quiz = models.ManyToManyField(QUIZ, related_name='quizzes', blank=True)
+    quiz = models.ManyToManyField(
+        QUIZ, related_name='quizzes', blank=True)
     description = models.CharField(max_length=255, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
