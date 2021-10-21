@@ -1,6 +1,6 @@
 import { authSignup } from "./UserSignup/action"
 import { authSignin, authCheckState, authSignout } from "./UserSignin/action"
-// import { getUserList } from "./GetUsers/action"
+import { getUserList } from "./GetUsers/action"
 
 import { followUser, unfollowUser } from "./FollowUnfollowUser/action"
 import { getFollowedUserList } from "./GetFollowedUsers/action"
@@ -53,6 +53,7 @@ export {
   unfollowUser,
   getFollowedUserList,
   getAuthUserDetails,
+  getUserList,
   postQuiz,
   getQuiz,
   getQuizList,
