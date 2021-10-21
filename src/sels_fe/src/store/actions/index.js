@@ -36,13 +36,13 @@ import {
   updateAnswer,
   deleteAnswer,
 } from "./Answer/action"
-import {
-  postUser,
-  getUser,
-  getUserList,
-  updateUser,
-  deleteUser,
-} from "./User/action"
+// import {
+//   postUser,
+//   getUser,
+//   getUserList,
+//   updateUser,
+//   deleteUser,
+// } from "./User/action"
 
 export {
   authSignup,
@@ -76,9 +76,9 @@ export {
   getAnswerList,
   updateAnswer,
   deleteAnswer,
-  postUser,
-  getUser,
-  getUserList,
-  updateUser,
-  deleteUser,
+  // postUser,
+  // getUser,
+  // getUserList,
+  // updateUser,
+  // deleteUser,
 }
