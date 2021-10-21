@@ -1,5 +1,6 @@
 import {
   handlePostQuestion,
+  handlePostBulkQuestion,
   handleGetQuestion,
   handleGetQuestionList,
   handleUpdateQuestion,
@@ -9,6 +10,12 @@ import {
 const postQuestion = (data) => {
   return (dispatch) => {
     handlePostQuestion(data, dispatch)
+  }
+}
+
+const postBulkQuestion = (data) => {
+  return (dispatch) => {
+    handlePostBulkQuestion(data, dispatch)
   }
 }
 
@@ -38,6 +45,7 @@ const deleteQuestion = (question_id) => {
 
 export {
   postQuestion,
+  postBulkQuestion,
   getQuestion,
   getQuestionList,
   updateQuestion,

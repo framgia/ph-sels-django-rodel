@@ -1,6 +1,8 @@
 import {
   postAnswerSuccess,
   postAnswerFail,
+  postBulkAnswerSuccess,
+  postBulkAnswerFail,
   getAnswerSuccess,
   getAnswerFail,
   getAnswerListSuccess,
@@ -16,6 +18,22 @@ import { baseURL } from "../../../adapters"
 const postAnswer = async (data) => {
   const accessToken = localStorage.getItem("access_token")
   const url = `${baseURL}answer/`
+  const resquestOption = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(data),
+  }
+  const response = await fetch(url, resquestOption)
+  return await response
+}
+
+const postBulkAnswer = async (data) => {
+  const accessToken = localStorage.getItem("access_token")
+  const url = `${baseURL}answers/bulk`
   const resquestOption = {
     method: "POST",
     headers: {
@@ -111,6 +129,26 @@ function handlePostAnswer(data, dispatch) {
     })
 }
 
+function handlePostBulkAnswer(data, dispatch) {
+  const response = postBulkAnswer(data)
+  response
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw res
+      }
+    })
+    .then((data) => dispatch(postBulkAnswerSuccess(data)))
+    .catch((err) => {
+      try {
+        err.json().then((error) => dispatch(postBulkAnswerFail(error)))
+      } catch (e) {
+        console.log(err)
+      }
+    })
+}
+
 function handleGetAnswer(answer_id, dispatch) {
   const response = fetchAnswer(answer_id)
   response
@@ -181,6 +219,7 @@ function handleDeleteAnswer(answer_id, dispatch) {
 
 export {
   handlePostAnswer,
+  handlePostBulkAnswer,
   handleGetAnswer,
   handleGetAnswerList,
   handleUpdateAnswer,

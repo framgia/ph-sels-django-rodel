@@ -1,5 +1,6 @@
 import {
   handlePostAnswer,
+  handlePostBulkAnswer,
   handleGetAnswer,
   handleGetAnswerList,
   handleUpdateAnswer,
@@ -9,6 +10,12 @@ import {
 const postAnswer = (data) => {
   return (dispatch) => {
     handlePostAnswer(data, dispatch)
+  }
+}
+
+const postBulkAnswer = (data) => {
+  return (dispatch) => {
+    handlePostBulkAnswer(data, dispatch)
   }
 }
 
@@ -36,4 +43,11 @@ const deleteAnswer = (answer_id) => {
   }
 }
 
-export { postAnswer, getAnswer, getAnswerList, updateAnswer, deleteAnswer }
+export {
+  postAnswer,
+  postBulkAnswer,
+  getAnswer,
+  getAnswerList,
+  updateAnswer,
+  deleteAnswer,
+}

@@ -1,6 +1,8 @@
 import {
   postQuestionSuccess,
   postQuestionFail,
+  postBulkQuestionSuccess,
+  postBulkQuestionFail,
   getQuestionSuccess,
   getQuestionFail,
   getQuestionListSuccess,
@@ -16,6 +18,22 @@ import { baseURL } from "../../../adapters"
 const postQuestion = async (data) => {
   const accessToken = localStorage.getItem("access_token")
   const url = `${baseURL}question/`
+  const resquestOption = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(data),
+  }
+  const response = await fetch(url, resquestOption)
+  return await response
+}
+
+const postBulkQuestion = async (data) => {
+  const accessToken = localStorage.getItem("access_token")
+  const url = `${baseURL}questions/bulk`
   const resquestOption = {
     method: "POST",
     headers: {
@@ -110,6 +128,26 @@ function handlePostQuestion(data, dispatch) {
     })
 }
 
+function handlePostBulkQuestion(data, dispatch) {
+  const response = postBulkQuestion(data)
+  response
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw res
+      }
+    })
+    .then((data) => dispatch(postBulkQuestionSuccess(data)))
+    .catch((err) => {
+      try {
+        err.json().then((error) => dispatch(postBulkQuestionFail(error)))
+      } catch (e) {
+        console.log(err)
+      }
+    })
+}
+
 function handleGetQuestion(question_id, dispatch) {
   const response = fetchQuestion(question_id)
   response
@@ -180,6 +218,7 @@ function handleDeleteQuestion(question_id, dispatch) {
 
 export {
   handlePostQuestion,
+  handlePostBulkQuestion,
   handleGetQuestion,
   handleGetQuestionList,
   handleUpdateQuestion,

@@ -21,9 +21,6 @@ const QuestionUpdateForm = ({ question, onChange, error }) => {
           onChange={onChange}
           sx={{ width: "50ch" }}
         />
-        {/* <CustomHelperText
-          error={error?.name?.[0] || error?.non_field_errors?.[0]}
-        /> */}
       </CustomFormControl>
       <CustomFormControl>
         <TextField

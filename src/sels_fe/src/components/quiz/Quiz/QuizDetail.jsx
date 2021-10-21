@@ -58,7 +58,7 @@ const QuizDetail = () => {
   useEffect(() => {
     setQuizDetail(quiz_list?.find((quiz) => quiz.id === parseInt(id)))
     setQuestions(
-      question_list?.filter((question) => question.quiz[0] === quizDetail.id)
+      question_list?.filter((question) => question.quiz === quizDetail.id)
     )
   }, [quiz_list, question_list, update])
 

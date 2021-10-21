@@ -5,7 +5,7 @@ import { OutlinedInput, Typography, Button } from "@material-ui/core"
 import { CustomFormControl } from "./CustomFormControl"
 import { CustomInputLabel } from "./CustomInputLabel"
 import { Box, Checkbox, Stack, Stepper, Step, StepLabel } from "@mui/material"
-import { postChoice } from "../../../../store/actions"
+import { postBulkChoice } from "../../../../store/actions"
 import { useDispatch } from "react-redux"
 
 const ChoiceForm = ({ questions }) => {
@@ -22,6 +22,7 @@ const ChoiceForm = ({ questions }) => {
   const handleChoiceChange = (q_index, c_index, event) => {
     let choicesFormValue = [...choices]
     choicesFormValue[c_index][event.target.name] = event.target.value
+    // choicesFormValue[c_index]["question"] = [questions[activeStep].id]
     setChoices(choicesFormValue)
   }
 
@@ -31,12 +32,12 @@ const ChoiceForm = ({ questions }) => {
   }
 
   const handleSaveChoices = (id) => {
-    choices.map((choice, index) => {
-      const question_id = new Array()
-      question_id.push(id)
-      choice["question"] = question_id
-      dispatch(postChoice(choice))
-    })
+    console.log(choices)
+    console.log(questions[activeStep].id)
+    let question_id = new Array()
+    question_id.push(questions[activeStep].id)
+    choices.map((choice) => (choice["question"] = question_id))
+    dispatch(postBulkChoice(choices))
   }
 
   const handleBack = () => {
@@ -48,14 +49,15 @@ const ChoiceForm = ({ questions }) => {
   }
 
   return (
-    <Box sx={{ width: "80%" }}>
+    <Box sx={{ m: "1rem", width: "80%" }}>
       <Stepper activeStep={activeStep}>
         {questions.map((question, index) => (
           <Step key={question.id}>
-            <StepLabel>{question.name}</StepLabel>
+            <StepLabel></StepLabel>
           </Step>
         ))}
       </Stepper>
+      <br />
       {activeStep === questions.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
@@ -64,9 +66,14 @@ const ChoiceForm = ({ questions }) => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            Question {activeStep + 1}
-          </Typography>
+          {questions.map(
+            (question, index) =>
+              activeStep === index && (
+                <Typography sx={{ mt: 2, mb: 1 }}>
+                  {activeStep + 1}. {question.question}
+                </Typography>
+              )
+          )}
           {choices?.map((choice, i) => (
             <React.Fragment key={`${activeStep}-${i}`}>
               <CustomFormControl control={<Checkbox />}>

@@ -1,6 +1,8 @@
 import {
   postChoiceSuccess,
   postChoiceFail,
+  postBulkChoiceSuccess,
+  postBulkChoiceFail,
   getChoiceSuccess,
   getChoiceFail,
   getChoiceListSuccess,
@@ -16,6 +18,22 @@ import { baseURL } from "../../../adapters"
 const postChoice = async (data) => {
   const accessToken = localStorage.getItem("access_token")
   const url = `${baseURL}choice/`
+  const resquestOption = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(data),
+  }
+  const response = await fetch(url, resquestOption)
+  return await response
+}
+
+const postBulkChoice = async (data) => {
+  const accessToken = localStorage.getItem("access_token")
+  const url = `${baseURL}choices/bulk`
   const resquestOption = {
     method: "POST",
     headers: {
@@ -110,6 +128,26 @@ function handlePostChoice(data, dispatch) {
     })
 }
 
+function handlePostBulkChoice(data, dispatch) {
+  const response = postBulkChoice(data)
+  response
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw res
+      }
+    })
+    .then((data) => dispatch(postBulkChoiceSuccess(data)))
+    .catch((err) => {
+      try {
+        err.json().then((error) => dispatch(postBulkChoiceFail(error)))
+      } catch (e) {
+        console.log(err)
+      }
+    })
+}
+
 function handleGetChoice(choice_id, dispatch) {
   const response = fetchChoice(choice_id)
   response
@@ -168,6 +206,7 @@ function handleDeleteChoice(choice_id, dispatch) {
 
 export {
   handlePostChoice,
+  handlePostBulkChoice,
   handleGetChoice,
   handleGetChoiceList,
   handleUpdateChoice,

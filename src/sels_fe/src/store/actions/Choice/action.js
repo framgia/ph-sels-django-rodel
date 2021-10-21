@@ -1,5 +1,6 @@
 import {
   handlePostChoice,
+  handlePostBulkChoice,
   handleGetChoice,
   handleGetChoiceList,
   handleUpdateChoice,
@@ -9,6 +10,13 @@ import {
 const postChoice = (data) => {
   return (dispatch) => {
     handlePostChoice(data, dispatch)
+  }
+}
+
+const postBulkChoice = (data) => {
+  console.log(data)
+  return (dispatch) => {
+    handlePostBulkChoice(data, dispatch)
   }
 }
 
@@ -36,4 +44,11 @@ const deleteChoice = (choice_id) => {
   }
 }
 
-export { postChoice, getChoice, getChoiceList, updateChoice, deleteChoice }
+export {
+  postChoice,
+  postBulkChoice,
+  getChoice,
+  getChoiceList,
+  updateChoice,
+  deleteChoice,
+}

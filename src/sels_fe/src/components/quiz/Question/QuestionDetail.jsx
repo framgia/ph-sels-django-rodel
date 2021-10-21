@@ -46,7 +46,7 @@ const QuestionDetail = () => {
   const handleSetAnswer = (choice_id, answer_id) => {
     setAnswer({ choice: choice_id, question: question.id })
     dispatch(
-      updateAnswer(answerID, { choice: choice_id, question: question.id })
+      updateAnswer(answer_id, { choice: choice_id, question: question.id })
     )
   }
 
@@ -62,7 +62,7 @@ const QuestionDetail = () => {
       choice_list?.filter((choice) => choice.question[0] === questionDetail.id)
     )
     setAnswer(answer_list?.find((ans) => ans.question === question.id))
-    setAnswerID(answer.id)
+    setAnswerID(answer?.id)
     console.log(answer)
   }, [question_list, choice_list])
 

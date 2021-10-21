@@ -1,6 +1,8 @@
 import {
   POST_QUESTION_SUCCESS,
   POST_QUESTION_FAIL,
+  POST_BULK_QUESTION_SUCCESS,
+  POST_BULK_QUESTION_FAIL,
   GET_QUESTION_SUCCESS,
   GET_QUESTION_FAIL,
   GET_QUESTION_LIST_SUCCESS,
@@ -29,11 +31,30 @@ const postQuestionFail = (error) => {
   }
 }
 
-const getQuestionSuccess = (answer) => {
+const postBulkQuestionSuccess = (questions) => {
+  console.log(questions)
+  return {
+    type: POST_BULK_QUESTION_SUCCESS,
+    payload: {
+      questions,
+    },
+  }
+}
+
+const postBulkQuestionFail = (error) => {
+  return {
+    type: POST_BULK_QUESTION_FAIL,
+    payload: {
+      error,
+    },
+  }
+}
+
+const getQuestionSuccess = (question) => {
   return {
     type: GET_QUESTION_SUCCESS,
     payload: {
-      answer,
+      question,
     },
   }
 }
@@ -104,6 +125,8 @@ const deleteQuestionFail = (error) => {
 export {
   postQuestionSuccess,
   postQuestionFail,
+  postBulkQuestionSuccess,
+  postBulkQuestionFail,
   getQuestionSuccess,
   getQuestionFail,
   getQuestionListSuccess,

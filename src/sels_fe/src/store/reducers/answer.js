@@ -1,6 +1,8 @@
 import {
   POST_ANSWER_SUCCESS,
   POST_ANSWER_FAIL,
+  POST_BULK_ANSWER_SUCCESS,
+  POST_BULK_ANSWER_FAIL,
   GET_ANSWER_SUCCESS,
   GET_ANSWER_FAIL,
   GET_ANSWER_LIST_SUCCESS,
@@ -27,6 +29,19 @@ const postAnswerSuccess = (state = initialState, action) => {
 }
 
 const postAnswerFail = (state = initialState, action) => {
+  return { ...state, msg: action.payload.msg, error: action.payload.error }
+}
+
+const postBulkAnswerSuccess = (state = initialState, action) => {
+  return {
+    ...state,
+    answer_list: [...state.answer_list, ...action.payload.answers],
+    msg: "Answers has created.",
+    error: null,
+  }
+}
+
+const postBulkAnswerFail = (state = initialState, action) => {
   return { ...state, msg: action.payload.msg, error: action.payload.error }
 }
 
@@ -92,6 +107,10 @@ const answerReducer = (state = initialState, action) => {
       return postAnswerSuccess(state, action)
     case POST_ANSWER_FAIL:
       return postAnswerFail(state, action)
+    case POST_BULK_ANSWER_SUCCESS:
+      return postBulkAnswerSuccess(state, action)
+    case POST_BULK_ANSWER_FAIL:
+      return postBulkAnswerFail(state, action)
     case GET_ANSWER_SUCCESS:
       return getAnswerSuccess(state, action)
     case GET_ANSWER_FAIL:

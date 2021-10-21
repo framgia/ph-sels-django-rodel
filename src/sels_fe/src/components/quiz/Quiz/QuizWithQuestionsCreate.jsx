@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router"
 
 import {
-  postQuestion,
+  postBulkQuestion,
   postQuiz,
   updateQuestion,
   updateQuiz,
@@ -26,17 +26,16 @@ const steps = [
   "Add Choices",
   "Select Answers",
 ]
-let currentQuiz = null
-let currentQuestions = null
-
 function QuizWithQuestionsCreate() {
-  const quizzes = useSelector((state) => state.Quiz.quiz_list)
+  const quiz_list = useSelector((state) => state.Quiz.quiz_list)
   const question_list = useSelector((state) => state.Question.question_list)
   const choices = useSelector((state) => state.Choice.choice_list)
   let errorQuiz = useSelector((state) => state.Quiz.error)
 
   const [activeStep, setActiveStep] = useState(0)
   const [completed, setCompleted] = useState([])
+  const [currentQuiz, setCurrentQuiz] = useState({})
+  const [currentQuestions, setCurrentQuestions] = useState([])
   const [update, setUpdate] = useState(false)
 
   const [quiz, setQuiz] = useState({ name: "", description: "" })
@@ -80,31 +79,15 @@ function QuizWithQuestionsCreate() {
     if (activeStep === 0) {
       completed[0] !== true
         ? dispatch(postQuiz(quiz))
-        : dispatch(updateQuiz(currentQuiz[0]?.id, quiz))
+        : dispatch(updateQuiz(currentQuiz?.id, quiz))
     }
     if (activeStep === 1) {
-      questions.map((question, index) => {
-        const question_id = new Array()
-        question_id.push(currentQuiz[0]?.id)
-        question["quiz"] = question_id
-        completed[1] !== true
-          ? dispatch(postQuestion(question))
-          : dispatch(updateQuestion(currentQuestions[index]?.id, question))
-      })
+      console.log(currentQuiz)
+      questions.map((question) => (question["quiz"] = currentQuiz.id))
+      completed[1] !== true && dispatch(postBulkQuestion(questions))
     }
+    setUpdate(!update)
   }
-
-  useEffect(() => {
-    currentQuiz = quizzes.filter((q) => q.name === quiz.name)
-    if (currentQuiz[0]?.id) handleComplete()
-  }, [quizzes])
-
-  useEffect(() => {
-    currentQuestions = question_list.filter(
-      (quest) => quest.quiz[0] === currentQuiz[0]?.id
-    )
-    if (currentQuestions?.id) handleComplete()
-  }, [question_list, update])
 
   const handleNext = () => {
     const newActiveStep =
@@ -112,29 +95,37 @@ function QuizWithQuestionsCreate() {
         ? steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1
     setActiveStep(newActiveStep)
+    setUpdate(!update)
   }
+
+  const handleComplete = () => {
+    handleSubmit()
+    const newCompleted = completed
+    newCompleted[activeStep] = true
+    setCompleted(newCompleted)
+    handleNext()
+  }
+
+  useEffect(() => {
+    setCurrentQuiz(quiz_list.filter((q) => q.name === quiz.name)[0])
+  }, [quiz_list, update])
+
+  useEffect(() => {
+    setCurrentQuestions(
+      question_list?.filter((quest) => quest.quiz === currentQuiz?.id)
+    )
+  }, [question_list, update])
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
   }
 
-  const handleComplete = () => {
-    setUpdate(!update)
-    handleSubmit()
-    if (currentQuiz[0]?.id) {
-      handleNext()
-      const newCompleted = completed
-      newCompleted[activeStep] = true
-      setCompleted(newCompleted)
-    }
-  }
-
   const handleFinish = () => {
     setActiveStep(0)
     setCompleted([])
+    setCurrentQuiz({})
+    setCurrentQuestions({})
     history.push("/quiz")
-    currentQuiz = null
-    currentQuestions = null
   }
 
   useEffect(() => {

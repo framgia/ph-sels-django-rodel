@@ -1,6 +1,8 @@
 import {
   POST_ANSWER_SUCCESS,
   POST_ANSWER_FAIL,
+  POST_BULK_ANSWER_SUCCESS,
+  POST_BULK_ANSWER_FAIL,
   GET_ANSWER_SUCCESS,
   GET_ANSWER_FAIL,
   GET_ANSWER_LIST_SUCCESS,
@@ -23,6 +25,24 @@ const postAnswerSuccess = (answer) => {
 const postAnswerFail = (error) => {
   return {
     type: POST_ANSWER_FAIL,
+    payload: {
+      error,
+    },
+  }
+}
+
+const postBulkAnswerSuccess = (answers) => {
+  return {
+    type: POST_BULK_ANSWER_SUCCESS,
+    payload: {
+      answers,
+    },
+  }
+}
+
+const postBulkAnswerFail = (error) => {
+  return {
+    type: POST_BULK_ANSWER_FAIL,
     payload: {
       error,
     },
@@ -104,6 +124,8 @@ const deleteAnswerFail = (error) => {
 export {
   postAnswerSuccess,
   postAnswerFail,
+  postBulkAnswerSuccess,
+  postBulkAnswerFail,
   getAnswerSuccess,
   getAnswerFail,
   getAnswerListSuccess,

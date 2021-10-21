@@ -1,6 +1,8 @@
 import {
   POST_QUESTION_SUCCESS,
   POST_QUESTION_FAIL,
+  POST_BULK_QUESTION_SUCCESS,
+  POST_BULK_QUESTION_FAIL,
   GET_QUESTION_SUCCESS,
   GET_QUESTION_FAIL,
   GET_QUESTION_LIST_SUCCESS,
@@ -27,6 +29,19 @@ const postQuestionSuccess = (state = initialState, action) => {
 }
 
 const postQuestionFail = (state = initialState, action) => {
+  return { ...state, msg: action.payload.msg, error: action.payload.error }
+}
+
+const postBulkQuestionSuccess = (state = initialState, action) => {
+  return {
+    ...state,
+    question_list: [...state.question_list, ...action.payload.questions],
+    msg: "Questions has created.",
+    error: null,
+  }
+}
+
+const postBulkQuestionFail = (state = initialState, action) => {
   return { ...state, msg: action.payload.msg, error: action.payload.error }
 }
 
@@ -97,6 +112,10 @@ const questionReducer = (state = initialState, action) => {
       return postQuestionSuccess(state, action)
     case POST_QUESTION_FAIL:
       return postQuestionFail(state, action)
+    case POST_BULK_QUESTION_SUCCESS:
+      return postBulkQuestionSuccess(state, action)
+    case POST_BULK_QUESTION_FAIL:
+      return postBulkQuestionFail(state, action)
     case GET_QUESTION_SUCCESS:
       return getQuestionSuccess(state, action)
     case GET_QUESTION_FAIL:

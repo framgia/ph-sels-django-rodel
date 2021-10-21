@@ -1,6 +1,8 @@
 import {
   POST_CHOICE_SUCCESS,
   POST_CHOICE_FAIL,
+  POST_BULK_CHOICE_SUCCESS,
+  POST_BULK_CHOICE_FAIL,
   GET_CHOICE_SUCCESS,
   GET_CHOICE_FAIL,
   GET_CHOICE_LIST_SUCCESS,
@@ -27,6 +29,19 @@ const postChoiceSuccess = (state = initialState, action) => {
 }
 
 const postChoiceFail = (state = initialState, action) => {
+  return { ...state, msg: action.payload.msg, error: action.payload.error }
+}
+
+const postBulkChoiceSuccess = (state = initialState, action) => {
+  return {
+    ...state,
+    choice_list: [...state.choice_list, ...action.payload.choices],
+    msg: "Choices has created.",
+    error: null,
+  }
+}
+
+const postBulkChoiceFail = (state = initialState, action) => {
   return { ...state, msg: action.payload.msg, error: action.payload.error }
 }
 
@@ -92,6 +107,10 @@ const choiceReducer = (state = initialState, action) => {
       return postChoiceSuccess(state, action)
     case POST_CHOICE_FAIL:
       return postChoiceFail(state, action)
+    case POST_BULK_CHOICE_SUCCESS:
+      return postBulkChoiceSuccess(state, action)
+    case POST_BULK_CHOICE_FAIL:
+      return postBulkChoiceFail(state, action)
     case GET_CHOICE_SUCCESS:
       return getChoiceSuccess(state, action)
     case GET_CHOICE_FAIL:

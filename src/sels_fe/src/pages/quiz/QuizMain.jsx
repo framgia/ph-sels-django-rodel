@@ -40,7 +40,6 @@ function QuizMain() {
       <Route path={`${path}`} exact>
         <QuizList quizzes={quiz_list} />
       </Route>
-      <Route path={`${path}/try`} component={ChoiceSelect} />
       <Route path={`${path}/create`} component={QuizCreate} />
       <Route path={`${path}/new`} component={QuizWithQuestionsCreate} />
       <Route path={`${path}/:id/edit`} component={QuizUpdate} />

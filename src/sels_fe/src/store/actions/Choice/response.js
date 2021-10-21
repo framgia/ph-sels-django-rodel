@@ -1,6 +1,8 @@
 import {
   POST_CHOICE_SUCCESS,
   POST_CHOICE_FAIL,
+  POST_BULK_CHOICE_SUCCESS,
+  POST_BULK_CHOICE_FAIL,
   GET_CHOICE_SUCCESS,
   GET_CHOICE_FAIL,
   GET_CHOICE_LIST_SUCCESS,
@@ -23,6 +25,25 @@ const postChoiceSuccess = (choice) => {
 const postChoiceFail = (error) => {
   return {
     type: POST_CHOICE_FAIL,
+    payload: {
+      error,
+    },
+  }
+}
+
+const postBulkChoiceSuccess = (choices) => {
+  console.log(choices)
+  return {
+    type: POST_BULK_CHOICE_SUCCESS,
+    payload: {
+      choices,
+    },
+  }
+}
+
+const postBulkChoiceFail = (error) => {
+  return {
+    type: POST_BULK_CHOICE_FAIL,
     payload: {
       error,
     },
@@ -104,6 +125,8 @@ const deleteChoiceFail = (error) => {
 export {
   postChoiceSuccess,
   postChoiceFail,
+  postBulkChoiceSuccess,
+  postBulkChoiceFail,
   getChoiceSuccess,
   getChoiceFail,
   getChoiceListSuccess,
