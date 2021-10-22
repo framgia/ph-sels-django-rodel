@@ -79,7 +79,7 @@ const ESLNavBar = () => {
                 open={userMenuOpen}
                 onClose={handleClose}
                 anchorOrigin={{
-                  vertical: "bottom",
+                  vertical: "top",
                   horizontal: "right",
                 }}
                 transformOrigin={{
