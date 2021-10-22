@@ -24,7 +24,7 @@ import FollowButton from "./components/FollowButton"
 const FollowUser = () => {
   const authUser = useSelector((state) => state.AuthUser.data)
   const { isAuthenticated, username } = useSelector((state) => state.Signin)
-  const users = useSelector((state) => state.Users.user_list)
+  const users = useSelector((state) => state.User.user_list)
 
   const followedUsers = useSelector(
     (state) => state.FollowedUsers.followed_user_list
