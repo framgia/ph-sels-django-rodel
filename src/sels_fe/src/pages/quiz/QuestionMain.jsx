@@ -18,7 +18,7 @@ function QuestionMain() {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
   let { path } = useRouteMatch()
   const dispatch = useDispatch()
-
+  console.log(path)
   useEffect(() => {
     dispatch(getQuestionList())
   }, [dispatch])
@@ -30,9 +30,12 @@ function QuestionMain() {
       {/* </Route> */}
       {/* <Route path={`${path}/details/:name`} component={QuestionCreate} /> */}
       {/* <Route path={`${path}/create`} component={QuestionCreate} /> */}
-      <Route path={`${path}/:id`} component={QuestionDetail} />
-      <Route path={`${path}/:id/edit`} component={QuestionUpdate} />
-      <Route path={`${path}/:id/delete`} component={QuestionDelete} />
+      <Route path={`${path}/:question_id`} component={QuestionDetail} />
+      <Route path={`${path}/:question_id/edit`} component={QuestionUpdate} />
+      <Route
+        path={`quiz/:id/${path}/:question_id/delete`}
+        component={QuestionDelete}
+      />
     </Switch>
   ) : (
     <Typography variant="h6" color="primary">

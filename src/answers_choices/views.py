@@ -3,10 +3,13 @@ from django.contrib.auth import get_user_model
 
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.authentication import SessionAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.response import Response
 from rest_framework import status
 
 
+from sels_core.permissions import IsAdminOrReadonly
 from .serializers import (
     AnswerSerializer,
     ChoiceSerializer,
@@ -18,7 +21,8 @@ from .models import Answer, Choice, Question
 class AnswerViewSet(viewsets.ModelViewSet):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
-    # permission_classes = [ IsAuthenticated ]
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
+    permission_classes = [IsAdminOrReadonly]
 
     @action(methods=['POST'], detail=False)
     def bulk_create(self, request):
@@ -31,7 +35,8 @@ class AnswerViewSet(viewsets.ModelViewSet):
 class ChoiceViewSet(viewsets.ModelViewSet):
     queryset = Choice.objects.all()
     serializer_class = ChoiceSerializer
-    # permission_classes = [ IsAuthenticated ]
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
+    permission_classes = [IsAdminOrReadonly]
 
     @action(methods=['POST'], detail=False)
     def bulk_create(self, request):
@@ -44,7 +49,8 @@ class ChoiceViewSet(viewsets.ModelViewSet):
 class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
-    # permission_classes = [ IsAuthenticated ]
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
+    permission_classes = [IsAdminOrReadonly]
 
     @action(methods=['POST'], detail=False)
     def bulk_create(self, request):

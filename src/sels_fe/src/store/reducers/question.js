@@ -73,15 +73,15 @@ const getQuestionListFail = (state = initialState, action) => {
 }
 
 const updateQuestionSuccess = (state = initialState, action) => {
+  const index = state.question_list.findIndex(
+    (question) => question.id === action.payload.question.id
+  )
+  const newArray = [...state.question_list]
+  newArray[index] = action.payload.question
+
   return {
     ...state,
-    question_list: [
-      state.question_list.find((question) =>
-        question.id === action.payload.question.id
-          ? action.payload.question
-          : question
-      ),
-    ],
+    question_list: newArray,
     error: null,
   }
 }

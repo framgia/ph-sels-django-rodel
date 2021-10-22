@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams, useLocation } from "react-router-dom"
+import { useRouteMatch } from "react-router"
+
+import {
+  postAnswer,
+  postBulkChoice,
+  updateAnswer,
+} from "../../../store/actions"
 
 import {
   Box,
@@ -14,27 +21,36 @@ import {
   Button,
 } from "@material-ui/core"
 
-import { Divider, Stack } from "@mui/material"
+import { Divider, Stack, Fab } from "@mui/material"
 import { Delete, Edit } from "@material-ui/icons"
 import LabelImportantIcon from "@mui/icons-material/LabelImportant"
 import TurnedInNotIcon from "@mui/icons-material/TurnedInNot"
-import { updateAnswer } from "../../../store/actions"
+
+import { QuestionUpdate } from "."
+import { ChoiceCreate, ChoiceUpdate } from "../Choice/"
+
+const testData = [
+  { id: 93, value: "Choice 1", question: [80] },
+  { id: 94, value: "Choice 2", question: [80] },
+  { id: 95, value: "Choice 3", question: [80] },
+  { id: 96, value: "All of the above", question: [80] },
+]
 
 const QuestionDetail = () => {
   const { question_list } = useSelector((state) => state.Question)
   const { choice_list } = useSelector((state) => state.Choice)
   const answer_list = useSelector((state) => state.Answer.answer_list)
-  const { question } = useLocation()
-  const [update, setupdate] = useState(false)
+  // const { question } = useLocation()
+  const [update, setUpdate] = useState(false)
+  const [updateChoices, setUpdateChoices] = useState(false)
   const [questionDetail, setQuestionDetail] = useState({})
   const [choices, setChoices] = useState([])
   const [answer, setAnswer] = useState({ choice: 0, question: 0 })
-  const [answerID, setAnswerID] = useState(0)
-  const { id } = useParams()
-  console.log(answer_list)
+  const { id, question_id } = useParams()
 
   const history = useHistory()
-  const dispatch = useDispatch(0)
+  const dispatch = useDispatch()
+  const { path, url } = useRouteMatch(0)
 
   const handleEditChoice = (choice_id, choice_value) => {
     // history.push({
@@ -42,83 +58,91 @@ const QuestionDetail = () => {
     //   choice: { id: choice_id, value: choice_value },
     // })
   }
+  const handleEditQuestion = () => {
+    // history.push({
+    //   pathname: `/choice/${choice_id}/edit`,
+    //   choice: { id: choice_id, value: choice_value },
+    // })
+  }
+  const handleDeleteQuestion = () => {
+    // history.push({
+    //   pathname: `/choice/${choice_id}/edit`,
+    //   choice: { id: choice_id, value: choice_value },
+    // })
+  }
 
-  const handleSetAnswer = (choice_id, answer_id) => {
-    setAnswer({ choice: choice_id, question: question.id })
-    dispatch(
-      updateAnswer(answer_id, { choice: choice_id, question: question.id })
-    )
+  const handleSetAnswer = (choice_id) => {
+    setAnswer({ choice: choice_id, question: parseInt(question_id) })
+    handleSaveAnswer(choice_id)
+  }
+
+  const handleSaveAnswer = (choice_id) => {
+    answer === undefined
+      ? dispatch(
+          postAnswer({
+            choice: choice_id,
+            question: parseInt(question_id),
+          })
+        )
+      : dispatch(
+          updateAnswer(answer?.id, {
+            choice: choice_id,
+            question: parseInt(question_id),
+          })
+        )
+    setUpdate(!update)
   }
 
   useEffect(() => {
-    setupdate(!update)
-  }, [history])
-
-  useEffect(() => {
     setQuestionDetail(
-      question_list?.find((question) => question.id === parseInt(id))
+      question_list?.find((question) => question.id === parseInt(question_id))
     )
     setChoices(
-      choice_list?.filter((choice) => choice.question[0] === questionDetail.id)
+      choice_list.filter(
+        (choice) => choice.question[0] === parseInt(question_id)
+      )
     )
-    setAnswer(answer_list?.find((ans) => ans.question === question.id))
-    setAnswerID(answer?.id)
-    console.log(answer)
-  }, [question_list, choice_list])
+    setAnswer(
+      answer_list?.find((ans) => ans.question === parseInt(question_id))
+    )
+  }, [choice_list, question_id])
+
+  useEffect(() => {
+    setAnswer(
+      answer_list?.find((ans) => ans.question === parseInt(question_id))
+    )
+  }, [answer_list, update])
 
   return (
-    <Box component="div" sx={{ m: "1rem", mx: "auto", maxWidth: "60%" }}>
+    <Box component="div" sx={{ maxWidth: "90%", mx: "auto" }}>
+      <br />
       <Typography variant="h5" color="primary">
         {questionDetail?.question}
       </Typography>
-      <br />
-      <Typography variant="h6">{questionDetail?.description}</Typography>
+      <Typography variant="subtitle1">{questionDetail?.description}</Typography>
       <br />
       <List>
-        {choices.length > 0
-          ? choices.map((choice) => (
-              <React.Fragment key={choice.id}>
-                <Divider />
-                <ListItem
-                  button
-                  onClick={(e) => handleSetAnswer(choice.id, answer.id, e)}
-                >
-                  <ListItemIcon>
-                    {answer.choice === choice.id ? (
-                      <LabelImportantIcon fontSize="large" />
-                    ) : (
-                      <TurnedInNotIcon fontSize="large" />
-                    )}
-                  </ListItemIcon>
-                  <ListItemText primary={choice.value} />
-                  <ListItemSecondaryAction>
-                    <Stack
-                      direction="row"
-                      spacing="0.5rem"
-                      sx={{ justifyContent: "center" }}
-                    >
-                      {/* <IconButton
-                        onClick={() =>
-                          handleEditChoice(choice.id, choice.value)
-                        }
-                      >
-                        <Edit fontSize="medium" />
-                      </IconButton> */}
-                    </Stack>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </React.Fragment>
-            ))
-          : null}
+        {choices.length > 0 ? (
+          choices.map((choice) => (
+            <React.Fragment key={choice.id}>
+              <Divider />
+              <ListItem button onClick={(e) => handleSetAnswer(choice.id, e)}>
+                <ListItemIcon>
+                  {answer?.choice === choice.id ? (
+                    <LabelImportantIcon fontSize="large" />
+                  ) : (
+                    <TurnedInNotIcon fontSize="large" />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary={choice.value} />
+                <ListItemSecondaryAction></ListItemSecondaryAction>
+              </ListItem>
+            </React.Fragment>
+          ))
+        ) : (
+          <ChoiceCreate />
+        )}
       </List>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => history.push(`/quiz`)}
-        sx={{ mt: "2rem" }}
-      >
-        Back
-      </Button>
     </Box>
   )
 }

@@ -32,7 +32,6 @@ const postChoiceFail = (error) => {
 }
 
 const postBulkChoiceSuccess = (choices) => {
-  console.log(choices)
   return {
     type: POST_BULK_CHOICE_SUCCESS,
     payload: {

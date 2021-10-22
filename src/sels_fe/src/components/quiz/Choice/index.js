@@ -1,4 +1,4 @@
-import Question from './Question';
+import ChoiceCreate from "./ChoiceCreate"
+import ChoiceUpdate from "./ChoiceUpdate"
 
-
-export { Question }
+export { ChoiceCreate, ChoiceUpdate }

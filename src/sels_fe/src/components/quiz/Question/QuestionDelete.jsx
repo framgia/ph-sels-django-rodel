@@ -10,20 +10,34 @@ import { Box, Typography } from "@material-ui/core"
 import { Stack } from "@mui/material"
 
 const QuestionDelete = () => {
-  const { id } = useParams()
-  const _questions = useSelector((state) => state.Question.question_list)
+  const [question, setQuestion] = useState({
+    question: "",
+    description: "",
+  })
+  const { id, question_id } = useParams()
+  const [update, setUpdate] = useState(false)
+  const [questiondetails, setQuestiondetails] = useState(false)
   const dispatch = useDispatch()
   const history = useHistory()
-  const { question, quiz } = useLocation()
-  const handleDeleteQuestion = () => {
-    dispatch(deleteQuestion(id))
-    history.push(`/quiz/${quiz.id}`)
-  }
-  // const questionExist = _questions.some((q) => parseInt(q.id) === parseInt(id))
+  const error = useSelector((state) => state.Question.error)
+  const { question_list } = useSelector((state) => state.Question)
 
-  // _questions.map(
-  //   (item) => parseInt(item.id) === parseInt(id) && console.log(item.id, id)
-  // )
+  const handleChange = (index, event) => {
+    const { name, value } = event.target
+    setQuestion({ ...question, [name]: value })
+  }
+
+  useEffect(() => {
+    setQuestion(
+      question_list.find((quest) => quest.id === parseInt(question_id))
+    )
+  }, [question_id])
+
+  const handleDeleteQuestion = () => {
+    console.log(question)
+    dispatch(deleteQuestion(question_id))
+    history.push(`/quiz/${id}`)
+  }
   return (
     <Box
       component="form"
@@ -52,7 +66,7 @@ const QuestionDelete = () => {
           type="secondary"
           color="primary"
           variant="contained"
-          onClick={() => history.push(`/quiz/${quiz.id}`)}
+          onClick={() => history.push(`/quiz/${id}/question/${question_id}`)}
         >
           Cancel
         </Button>

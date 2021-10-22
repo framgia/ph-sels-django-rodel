@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useParams, useHistory } from "react-router-dom"
 
 import { postQuestion, getQuestionList } from "../../../store/actions"
 
@@ -12,13 +13,15 @@ import { CustomInputLabel } from "./components/CustomInputLabel"
 import QuestionForm from "./components/QuestionForm"
 
 const QuestionCreate = () => {
-  const dispatch = useDispatch()
-  const [question, setQuestion] = useState({
-    name: "",
-    description: "",
-    quiz: [47, 48],
-  })
   const error = useSelector((state) => state.Question.error)
+  const { id } = useParams()
+  const [question, setQuestion] = useState({
+    question: "",
+    description: "",
+    quiz: parseInt(id),
+  })
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -27,6 +30,7 @@ const QuestionCreate = () => {
 
   const handleSubmitQuestion = () => {
     dispatch(postQuestion(question))
+    history.push(`/quiz/${id}`)
   }
 
   useEffect(() => {
@@ -51,9 +55,9 @@ const QuestionCreate = () => {
           required
           id={`question-name`}
           type="text"
-          name="name"
+          name="question"
           label="Question Name"
-          value={question.name}
+          value={question.question}
           onChange={handleChange}
           sx={{ width: "50ch" }}
         />

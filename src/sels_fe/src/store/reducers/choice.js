@@ -71,13 +71,15 @@ const getChoiceListFail = (state = initialState, action) => {
 }
 
 const updateChoiceSuccess = (state = initialState, action) => {
+  const index = state.choice_list.findIndex(
+    (choice) => choice.id === action.payload.choice.id
+  )
+  const newArray = [...state.choice_list]
+  newArray[index] = action.payload.choice
+
   return {
     ...state,
-    choice_list: [
-      state.choice_list.find((choice) =>
-        choice.id === action.payload.choice.id ? action.payload.choice : choice
-      ),
-    ],
+    choice_list: newArray,
     error: null,
   }
 }

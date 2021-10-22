@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory, useParams } from "react-router-dom"
+import {
+  useHistory,
+  useParams,
+  Switch,
+  Route,
+  useRouteMatch,
+} from "react-router-dom"
 
 import {
   Box,
+  Grid,
   Typography,
   List,
   ListItem,
@@ -14,113 +21,186 @@ import {
   Button,
 } from "@material-ui/core"
 
-import { Divider, Stack } from "@mui/material"
+import { Divider, Stack, Pagination } from "@mui/material"
 import { Delete, Edit } from "@material-ui/icons"
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer"
+import {
+  QuestionCreate,
+  QuestionDetail,
+  QuestionUpdate,
+  QuestionDelete,
+} from ".."
 
 const QuizDetail = () => {
   const { quiz_list } = useSelector((state) => state.Quiz)
   const { question_list } = useSelector((state) => state.Question)
-  const [update, setupdate] = useState(false)
+  const authUser = useSelector((state) => state.AuthUser.data)
+  // const authUser = useSelector((state) => state.AuthUser.data)
+  //       authUser?.is_admin ? (
+
+  const [update, setUpdate] = useState(false)
   const [quizDetail, setQuizDetail] = useState({})
   const [questions, setQuestions] = useState([])
-  const { id } = useParams()
+  const [page, setPage] = useState(1)
+  const [pageLimit, setPageLimit] = useState(5)
+  const [showQuestions, setShowQuestions] = useState([])
 
+  const { id, question_id } = useParams()
+  const { path } = useRouteMatch()
   const history = useHistory()
 
-  const handleEditQuestion = (question_id, question_question) => {
-    history.push({
-      pathname: `/question/${question_id}/edit`,
-      quiz: { id: id },
-      question: { id: question_id, question: question_question },
-    })
+  const handlePageChange = (event, value) => {
+    setPage(value)
   }
 
-  const handleDeleteQuestion = (question_id, question_question) => {
-    history.push({
-      pathname: `/question/${question_id}/delete`,
-      quiz: { id: id },
-      question: { id: question_id, question: question_question },
-    })
+  const handleEditQuestion = (question_id) => {
+    history.push(`/quiz/${id}/question/${question_id}/edit`)
   }
 
-  const handleViewQuestion = (question_id, question_question) => {
-    history.push({
-      pathname: `/question/${question_id}`,
-      question: { id: question_id, question: question_question },
-    })
+  const handleDeleteQuestion = (question_id) => {
+    history.push(`/quiz/${id}/question/${question_id}/delete`)
+  }
+
+  const handleViewQuestion = (question_id) => {
+    history.push(`/quiz/${id}/question/${question_id}`)
+  }
+
+  const handleAddQuestion = () => {
+    history.push(`/quiz/${id}/question/create`)
   }
 
   useEffect(() => {
-    setupdate(!update)
-  }, [history])
+    setUpdate(!update)
+  }, [question_id, quiz_list])
 
   useEffect(() => {
+    let nPages = questions.length / 5
+    const remainder = questions.length % 5
+    remainder > 0
+      ? setPageLimit(parseInt(nPages + 1))
+      : setPageLimit(parseInt(nPages))
+
     setQuizDetail(quiz_list?.find((quiz) => quiz.id === parseInt(id)))
     setQuestions(
-      question_list?.filter((question) => question.quiz === quizDetail.id)
+      question_list?.filter((question) => question.quiz === parseInt(id))
     )
   }, [quiz_list, question_list, update])
 
   return (
-    <Box component="div" sx={{ m: "1rem", mx: "auto", maxWidth: "60%" }}>
-      <Typography variant="h5" color="primary">
+    <Box component="div" sx={{ m: "1rem", mx: "auto", maxWidth: "95%" }}>
+      <Typography variant="h4" color="primary">
         {quizDetail?.name}
       </Typography>
+      <Typography variant="subtitle2">{quizDetail?.description}</Typography>
       <br />
-      <Typography variant="h6">{quizDetail?.description}</Typography>
-      <br />
-      <List>
-        {questions.length > 0
-          ? questions.map((question) => (
-              <React.Fragment key={question.id}>
-                <Divider />
-                <ListItem
-                  button
-                  onClick={() =>
-                    handleViewQuestion(question.id, question.question)
-                  }
-                >
-                  <ListItemIcon>
-                    <QuestionAnswerIcon fontSize="large" />
-                  </ListItemIcon>
-                  <ListItemText primary={question.question} />
-                  <ListItemSecondaryAction>
-                    <Stack
-                      direction="row"
-                      spacing="0.5rem"
-                      sx={{ justifyContent: "center" }}
+      <Divider />
+      <Grid container spacing={2}>
+        <Grid item xs={6} md={6}>
+          <List>
+            {questions.length > 0
+              ? questions.map((question) => (
+                  <React.Fragment key={question.id}>
+                    <ListItem
+                      button
+                      onClick={() =>
+                        handleViewQuestion(question.id, question.question)
+                      }
                     >
-                      <IconButton
-                        onClick={() =>
-                          handleEditQuestion(question.id, question.question)
-                        }
-                      >
-                        <Edit fontSize="medium" />
-                      </IconButton>
-                      <IconButton
-                        color="secondary"
-                        onClick={() =>
-                          handleDeleteQuestion(question.id, question.name)
-                        }
-                      >
-                        <Delete fontSize="medium" />
-                      </IconButton>
-                    </Stack>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </React.Fragment>
-            ))
-          : null}
-      </List>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => history.push("/quiz")}
-        sx={{ mt: "2rem" }}
+                      <ListItemIcon>
+                        <QuestionAnswerIcon fontSize="large" />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={question.question}
+                        secondary={question.description}
+                      />
+                      <ListItemSecondaryAction>
+                        {authUser?.is_admin ? (
+                          <Stack
+                            direction="row"
+                            spacing="0.5rem"
+                            sx={{ justifyContent: "center" }}
+                          >
+                            <IconButton
+                              onClick={() =>
+                                handleEditQuestion(
+                                  question.id,
+                                  question.question
+                                )
+                              }
+                            >
+                              <Edit fontSize="medium" />
+                            </IconButton>
+                            <IconButton
+                              color="secondary"
+                              onClick={() =>
+                                handleDeleteQuestion(question.id, question.name)
+                              }
+                            >
+                              <Delete fontSize="medium" />
+                            </IconButton>
+                          </Stack>
+                        ) : null}
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                    <Divider />
+                  </React.Fragment>
+                ))
+              : null}
+          </List>
+          <Stack
+            spacing={4}
+            sx={{ maxWidth: "100%", justifyContent: "center" }}
+          >
+            {/* <Pagination
+              count={pageLimit}
+              variant="outlined"
+              color="primary"
+              shape="circular"
+              page={page}
+              onChange={handlePageChange}
+              sx={{ alignSelf: "center" }}
+            /> */}
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => handleAddQuestion()}
+            >
+              Add Question
+            </Button>
+          </Stack>
+        </Grid>
+        <Divider orientation="vertical" flexItem />
+        <Grid item xs={5} md={5}>
+          <Switch>
+            <Route path={`${path}/question/create`}>
+              <QuestionCreate />
+            </Route>
+            <Route path={`${path}/question/:question_id/edit`}>
+              <QuestionUpdate />
+            </Route>
+            <Route path={`${path}/question/:question_id/delete`}>
+              <QuestionDelete />
+            </Route>
+            <Route path={`${path}/question/:question_id`}>
+              <QuestionDetail />
+            </Route>
+          </Switch>
+        </Grid>
+      </Grid>
+
+      <Stack
+        direction="row"
+        spacing="3rem"
+        sx={{ m: "3rem", justifyContent: "left" }}
       >
-        Back
-      </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => history.push("/quiz")}
+        >
+          Back
+        </Button>
+      </Stack>
     </Box>
   )
 }
