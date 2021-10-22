@@ -43,7 +43,8 @@ const QuizDetail = () => {
   const [questions, setQuestions] = useState([])
   const [page, setPage] = useState(1)
   const [pageLimit, setPageLimit] = useState(5)
-  const [showQuestions, setShowQuestions] = useState([])
+  const [pageCount, setPageCount] = useState(5)
+  const [pageQuestions, setPageQuestions] = useState([])
 
   const { id, question_id } = useParams()
   const { path } = useRouteMatch()
@@ -51,6 +52,13 @@ const QuizDetail = () => {
 
   const handlePageChange = (event, value) => {
     setPage(value)
+  }
+
+  const getPageQuestions = () => {
+    const startIndex = page * pageLimit - pageLimit
+    const endIndex = startIndex + pageLimit
+    console.log(startIndex, endIndex)
+    return questions.slice(startIndex, endIndex)
   }
 
   const handleEditQuestion = (question_id) => {
@@ -70,15 +78,17 @@ const QuizDetail = () => {
   }
 
   useEffect(() => {
+    setPageQuestions(getPageQuestions())
+    console.log(getPageQuestions())
+  }, [page])
+
+  useEffect(() => {
     setUpdate(!update)
   }, [question_id, quiz_list])
 
   useEffect(() => {
-    let nPages = questions.length / 5
-    const remainder = questions.length % 5
-    remainder > 0
-      ? setPageLimit(parseInt(nPages + 1))
-      : setPageLimit(parseInt(nPages))
+    let nPages = questions.length / pageLimit
+    setPageCount(Math.ceil(nPages))
 
     setQuizDetail(quiz_list?.find((quiz) => quiz.id === parseInt(id)))
     setQuestions(
@@ -97,8 +107,8 @@ const QuizDetail = () => {
       <Grid container spacing={2}>
         <Grid item xs={6} md={6}>
           <List>
-            {questions.length > 0
-              ? questions.map((question) => (
+            {pageQuestions.length > 0
+              ? pageQuestions.map((question) => (
                   <React.Fragment key={question.id}>
                     <ListItem
                       button
@@ -111,7 +121,7 @@ const QuizDetail = () => {
                       </ListItemIcon>
                       <ListItemText
                         primary={question.question}
-                        secondary={question.description}
+                        // secondary={question.description}
                       />
                       <ListItemSecondaryAction>
                         {authUser?.is_admin ? (
@@ -151,15 +161,15 @@ const QuizDetail = () => {
             spacing={4}
             sx={{ maxWidth: "100%", justifyContent: "center" }}
           >
-            {/* <Pagination
-              count={pageLimit}
+            <Pagination
+              count={pageCount}
               variant="outlined"
               color="primary"
               shape="circular"
               page={page}
               onChange={handlePageChange}
               sx={{ alignSelf: "center" }}
-            /> */}
+            />
             <Button
               variant="outlined"
               color="primary"
@@ -167,6 +177,19 @@ const QuizDetail = () => {
             >
               Add Question
             </Button>
+            <Stack
+              direction="row"
+              spacing="3rem"
+              sx={{ m: "3rem", justifyContent: "left" }}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => history.push("/quiz")}
+              >
+                Back
+              </Button>
+            </Stack>
           </Stack>
         </Grid>
         <Divider orientation="vertical" flexItem />
@@ -187,20 +210,6 @@ const QuizDetail = () => {
           </Switch>
         </Grid>
       </Grid>
-
-      <Stack
-        direction="row"
-        spacing="3rem"
-        sx={{ m: "3rem", justifyContent: "left" }}
-      >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => history.push("/quiz")}
-        >
-          Back
-        </Button>
-      </Stack>
     </Box>
   )
 }
