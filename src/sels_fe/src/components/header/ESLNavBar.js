@@ -3,11 +3,21 @@ import { useHistory } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 import { Box } from "@mui/system"
-import { Button, IconButton, Menu, MenuItem } from "@material-ui/core"
-import { AppBar, Toolbar, Typography, Stack } from "@mui/material"
+import {
+  Button,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
+} from "@material-ui/core"
+import { AppBar, Toolbar, Typography, Stack, Divider } from "@mui/material"
+import Popup from "reactjs-popup"
+import "reactjs-popup/dist/index.css"
 
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
+import ExitToAppIcon from "@mui/icons-material/ExitToApp"
 
 const ESLNavBar = () => {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
@@ -59,37 +69,37 @@ const ESLNavBar = () => {
             ) : null}
           </Stack>
           {isAuthenticated ? (
-            <>
-              <IconButton
-                size="medium"
-                edge="start"
-                color="inherit"
-                aria-controls="demo-positioned-menu"
-                aria-haspopup="true"
-                aria-expanded={userMenuOpen}
-                sx={{ mr: 2 }}
-                onClick={handleUserMenu}
-              >
-                <AccountCircleIcon fontSize="large" />
-              </IconButton>
-              <Menu
-                id="demo-positioned-menu"
-                aria-labelledby="demo-positioned-button"
-                anchorEl={anchorEl}
-                open={userMenuOpen}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-              >
-                <MenuItem onClick={handleSignout}>Signout</MenuItem>
-              </Menu>
-            </>
+            <Popup
+              trigger={
+                <IconButton
+                  size="medium"
+                  color="inherit"
+                  sx={{ mr: 2 }}
+                  onClick={handleUserMenu}
+                >
+                  <AccountCircleIcon fontSize="large" />
+                </IconButton>
+              }
+              position="bottom right"
+            >
+              <MenuList>
+                <MenuItem>
+                  <ListItemIcon>
+                    <AccountCircleIcon fontSize="Large" />
+                  </ListItemIcon>
+                  <ListItemText>User Account</ListItemText>
+                </MenuItem>
+                <Divider />
+
+                <MenuItem button onClick={handleSignout}>
+                  <ListItemIcon>
+                    <ExitToAppIcon fontSize="Large" />
+                  </ListItemIcon>
+                  <ListItemText>Signout</ListItemText>
+                </MenuItem>
+              </MenuList>
+              <Divider />
+            </Popup>
           ) : (
             <Button onClick={() => history.push(`/signin`)}>Login</Button>
           )}
