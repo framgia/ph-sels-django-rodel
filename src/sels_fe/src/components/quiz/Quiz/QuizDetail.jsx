@@ -42,7 +42,7 @@ const QuizDetail = () => {
   const [quizDetail, setQuizDetail] = useState({})
   const [questions, setQuestions] = useState([])
   const [page, setPage] = useState(1)
-  const [pageLimit, setPageLimit] = useState(5)
+  const pageLimit = 5
   const [pageCount, setPageCount] = useState(5)
   const [pageQuestions, setPageQuestions] = useState([])
 
@@ -57,7 +57,6 @@ const QuizDetail = () => {
   const getPageQuestions = () => {
     const startIndex = page * pageLimit - pageLimit
     const endIndex = startIndex + pageLimit
-    console.log(startIndex, endIndex)
     return questions.slice(startIndex, endIndex)
   }
 
@@ -79,8 +78,7 @@ const QuizDetail = () => {
 
   useEffect(() => {
     setPageQuestions(getPageQuestions())
-    console.log(getPageQuestions())
-  }, [page])
+  }, [page, update])
 
   useEffect(() => {
     setUpdate(!update)
