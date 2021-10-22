@@ -10,10 +10,6 @@ import {
 } from "@material-ui/core"
 
 const ChoiceForm = ({ question, choices, onChange, index }) => {
-  const n_choices = Array.from(Array(4).keys())
-  console.log(question, choices, onChange, index)
-
-  choices.map((choice, index) => console.log(choice))
   return (
     <Box component="div" sx={{ m: "1rem", mx: "auto", maxWidth: "60%" }}>
       <Typography>Question: {question.question}</Typography>
@@ -29,13 +25,9 @@ const ChoiceForm = ({ question, choices, onChange, index }) => {
           label="Choice-1"
           onChange={(e) => onChange(index, e)}
         >
-          {
-            // n_choices.forEach(n=>{
-            choices.map((choice, index) => (
-              <MenuItem value={choice.value}>{choice.value}</MenuItem>
-            ))
-            // })
-          }
+          {choices.map((choice, index) => (
+            <MenuItem value={choice.value}>{choice.value}</MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>

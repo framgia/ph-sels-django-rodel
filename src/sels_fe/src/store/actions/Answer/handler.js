@@ -78,7 +78,6 @@ const fetchAnswerList = async () => {
 }
 
 const updateAnswer = async (answer_id, data) => {
-  console.log(answer_id, data)
   const accessToken = localStorage.getItem("access_token")
   const url = `${baseURL}answer/${answer_id}/`
   const resquestOption = {

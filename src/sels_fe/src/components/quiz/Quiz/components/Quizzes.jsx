@@ -47,7 +47,10 @@ const Quizzes = ({ quizzes }) => {
                   <ListItemIcon>
                     <Assignment fontSize="large" />
                   </ListItemIcon>
-                  <ListItemText primary={quiz.name} />
+                  <ListItemText
+                    primary={quiz.name}
+                    secondary={quiz.description}
+                  />
                   <ListItemSecondaryAction>
                     <Stack
                       direction="row"

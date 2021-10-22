@@ -1,6 +1,5 @@
 import { authSignup } from "./UserSignup/action"
 import { authSignin, authCheckState, authSignout } from "./UserSignin/action"
-import { getUserList } from "./GetUsers/action"
 
 import { followUser, unfollowUser } from "./FollowUnfollowUser/action"
 import { getFollowedUserList } from "./GetFollowedUsers/action"
@@ -36,13 +35,13 @@ import {
   updateAnswer,
   deleteAnswer,
 } from "./Answer/action"
-// import {
-//   postUser,
-//   getUser,
-//   getUserList,
-//   updateUser,
-//   deleteUser,
-// } from "./User/action"
+import {
+  postUser,
+  getUser,
+  getUserList,
+  updateUser,
+  deleteUser,
+} from "./User/action"
 
 export {
   authSignup,
@@ -53,7 +52,6 @@ export {
   unfollowUser,
   getFollowedUserList,
   getAuthUserDetails,
-  getUserList,
   postQuiz,
   getQuiz,
   getQuizList,
@@ -77,9 +75,9 @@ export {
   getAnswerList,
   updateAnswer,
   deleteAnswer,
-  // postUser,
-  // getUser,
-  // getUserList,
-  // updateUser,
-  // deleteUser,
+  postUser,
+  getUser,
+  getUserList,
+  updateUser,
+  deleteUser,
 }

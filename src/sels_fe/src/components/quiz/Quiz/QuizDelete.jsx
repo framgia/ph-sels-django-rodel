@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useLocation } from "react-router-dom"
 import { useParams } from "react-router-dom"
@@ -15,15 +15,12 @@ const QuizDelete = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const quiz = useLocation().quiz
+
   const handleDeleteQuiz = () => {
     dispatch(deleteQuiz(id))
     history.push("/quiz")
   }
-  const quizExist = _quizzes.some((q) => parseInt(q.id) === parseInt(id))
 
-  // _quizzes.map(
-  //   (item) => parseInt(item.id) === parseInt(id) && console.log(item.id, id)
-  // )
   return (
     <Box
       component="form"

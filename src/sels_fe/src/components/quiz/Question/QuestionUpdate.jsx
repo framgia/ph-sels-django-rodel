@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { useHistory, useLocation } from "react-router-dom"
 
 import { updateQuestion } from "../../../store/actions"
 
@@ -15,10 +14,8 @@ const QuestionUpdate = () => {
     question: "",
     description: "",
   })
+  const { question_id } = useParams()
   const dispatch = useDispatch()
-  const location = useLocation()
-  const { id } = useParams()
-  const history = useHistory()
   const error = useSelector((state) => state.Question.error)
   const { question_list } = useSelector((state) => state.Question)
 
@@ -28,18 +25,13 @@ const QuestionUpdate = () => {
   }
 
   useEffect(() => {
-    const q = question_list?.find((item) => parseInt(item.id) === parseInt(id))
-    setQuestion({
-      ...question,
-      question: q.question,
-      description: q.description,
-    })
-  }, [question_list])
+    setQuestion(
+      question_list.find((quest) => quest.id === parseInt(question_id))
+    )
+  }, [question_id])
 
   const handleSubmitQuestion = () => {
-    console.log(question)
-    dispatch(updateQuestion(id, question))
-    history.push(`/quiz/${location.quiz.id}`)
+    dispatch(updateQuestion(question_id, question))
   }
 
   return (

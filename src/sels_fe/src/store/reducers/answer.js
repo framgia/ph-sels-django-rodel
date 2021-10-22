@@ -71,13 +71,15 @@ const getAnswerListFail = (state = initialState, action) => {
 }
 
 const updateAnswerSuccess = (state = initialState, action) => {
+  const index = state.answer_list.findIndex(
+    (answer) => answer.id === action.payload.answer.id
+  )
+  const newArray = [...state.answer_list]
+  newArray[index] = action.payload.answer
+
   return {
     ...state,
-    answer_list: [
-      state.answer_list.find((answer) =>
-        answer.id === action.payload.answer.id ? action.payload.answer : answer
-      ),
-    ],
+    answer_list: newArray,
     error: null,
   }
 }

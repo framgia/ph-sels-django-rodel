@@ -8,6 +8,7 @@ import { quizReducer } from "./quiz"
 import { questionReducer } from "./question"
 import { choiceReducer } from "./choice"
 import { answerReducer } from "./answer"
+import { userReducer } from "./user"
 
 const reducers = combineReducers({
   Signup: signupReducer,
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   Question: questionReducer,
   Choice: choiceReducer,
   Answer: answerReducer,
+  User: userReducer,
 })
 
 export default reducers

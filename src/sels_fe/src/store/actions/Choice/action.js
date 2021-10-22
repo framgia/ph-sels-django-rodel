@@ -14,7 +14,6 @@ const postChoice = (data) => {
 }
 
 const postBulkChoice = (data) => {
-  console.log(data)
   return (dispatch) => {
     handlePostBulkChoice(data, dispatch)
   }

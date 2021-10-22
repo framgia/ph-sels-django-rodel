@@ -22,7 +22,6 @@ const ChoiceForm = ({ questions }) => {
   const handleChoiceChange = (q_index, c_index, event) => {
     let choicesFormValue = [...choices]
     choicesFormValue[c_index][event.target.name] = event.target.value
-    // choicesFormValue[c_index]["question"] = [questions[activeStep].id]
     setChoices(choicesFormValue)
   }
 
@@ -32,8 +31,6 @@ const ChoiceForm = ({ questions }) => {
   }
 
   const handleSaveChoices = (id) => {
-    console.log(choices)
-    console.log(questions[activeStep].id)
     let question_id = new Array()
     question_id.push(questions[activeStep].id)
     choices.map((choice) => (choice["question"] = question_id))
@@ -42,10 +39,6 @@ const ChoiceForm = ({ questions }) => {
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
-  }
-
-  const handleReset = () => {
-    setActiveStep(0)
   }
 
   return (

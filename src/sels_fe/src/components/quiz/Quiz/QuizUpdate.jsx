@@ -8,7 +8,7 @@ import { updateQuiz } from "../../../store/actions"
 import Button from "@material-ui/core/Button"
 import { Box, Typography } from "@material-ui/core"
 
-import QuizUpdateForm from "./components/QuizForm"
+import QuizUpdateForm from "./components/QuizUpdateForm"
 
 const QuizUpdate = () => {
   const [quiz, setQuiz] = useState({
@@ -36,14 +36,7 @@ const QuizUpdate = () => {
   }
 
   return (
-    <Box
-      component="form"
-      type="submit"
-      noValidate
-      autoComplete="off"
-      onSubmit={(e) => e.preventDefault()}
-      sx={{ m: "1rem", mx: "auto", maxWidth: "60%" }}
-    >
+    <Box sx={{ m: "1rem", mx: "auto", maxWidth: "60%" }}>
       <Typography variant="h4" color="primary">
         Update Quiz
       </Typography>

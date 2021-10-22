@@ -16,6 +16,7 @@ import {
 import { baseURL } from "../../../adapters"
 
 const postQuestion = async (data) => {
+  console.log(data)
   const accessToken = localStorage.getItem("access_token")
   const url = `${baseURL}question/`
   const resquestOption = {
