@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-// import { useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
 
 import Button from "@material-ui/core/Button"
@@ -10,7 +9,6 @@ import Quizzes from "./components/Quizzes"
 const QuizList = ({ quizzes }) => {
   const [update, setupdate] = useState(false)
   const history = useHistory()
-  // const { quiz_list } = useSelector((state) => state.Quiz)
 
   useEffect(() => {
     setupdate(!update)

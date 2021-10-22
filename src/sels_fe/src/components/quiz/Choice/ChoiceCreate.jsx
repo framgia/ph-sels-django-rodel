@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { useParams, useHistory, useRouteMatch } from "react-router-dom"
 
-import { OutlinedInput, Typography, Button } from "@material-ui/core"
+import { OutlinedInput, Button } from "@material-ui/core"
 
 import { CustomFormControl } from "./components/CustomFormControl"
 import { CustomInputLabel } from "./components/CustomInputLabel"
-import { Box, Checkbox, Stack } from "@mui/material"
+import { Box, Checkbox } from "@mui/material"
 import { postBulkChoice } from "../../../store/actions"
 import { useDispatch } from "react-redux"
-import {} from "react-router"
 
 const ChoiceCreate = ({ onUpdate }) => {
   const { id, question_id } = useParams()

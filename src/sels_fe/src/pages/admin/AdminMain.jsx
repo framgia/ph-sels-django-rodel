@@ -7,15 +7,11 @@ import { getUserList } from "../../store/actions"
 
 import { Typography } from "@mui/material"
 
-// import {} from "../../components/admin"
-
 function AdminMain() {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
   const authUser = useSelector((state) => state.AuthUser.data)
-  const { user_list } = useSelector((state) => state.User)
   let { path } = useRouteMatch()
   const dispatch = useDispatch()
-  console.log(authUser.is_admin)
   useEffect(() => {
     dispatch(getUserList())
   }, [dispatch])

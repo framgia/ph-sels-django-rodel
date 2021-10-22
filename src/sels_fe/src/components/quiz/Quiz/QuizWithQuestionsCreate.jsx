@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router"
 
-import {
-  postBulkQuestion,
-  postQuiz,
-  updateQuestion,
-  updateQuiz,
-} from "../../../store/actions"
+import { postBulkQuestion, postQuiz, updateQuiz } from "../../../store/actions"
 
 import { Stepper, StepButton, Step, Box } from "@mui/material"
 import { IconButton, Button, Typography } from "@material-ui/core"
@@ -82,7 +77,6 @@ function QuizWithQuestionsCreate() {
         : dispatch(updateQuiz(currentQuiz?.id, quiz))
     }
     if (activeStep === 1) {
-      console.log(currentQuiz)
       questions.map((question) => (question["quiz"] = currentQuiz.id))
       completed[1] !== true && dispatch(postBulkQuestion(questions))
     }

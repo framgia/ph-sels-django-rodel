@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory, useLocation } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { useParams } from "react-router-dom"
 
 import { deleteQuestion } from "../../../store/actions"
@@ -15,17 +15,9 @@ const QuestionDelete = () => {
     description: "",
   })
   const { id, question_id } = useParams()
-  const [update, setUpdate] = useState(false)
-  const [questiondetails, setQuestiondetails] = useState(false)
   const dispatch = useDispatch()
   const history = useHistory()
-  const error = useSelector((state) => state.Question.error)
   const { question_list } = useSelector((state) => state.Question)
-
-  const handleChange = (index, event) => {
-    const { name, value } = event.target
-    setQuestion({ ...question, [name]: value })
-  }
 
   useEffect(() => {
     setQuestion(
@@ -34,7 +26,6 @@ const QuestionDelete = () => {
   }, [question_id])
 
   const handleDeleteQuestion = () => {
-    console.log(question)
     dispatch(deleteQuestion(question_id))
     history.push(`/quiz/${id}`)
   }

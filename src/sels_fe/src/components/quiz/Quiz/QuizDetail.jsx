@@ -35,8 +35,6 @@ const QuizDetail = () => {
   const { quiz_list } = useSelector((state) => state.Quiz)
   const { question_list } = useSelector((state) => state.Question)
   const authUser = useSelector((state) => state.AuthUser.data)
-  // const authUser = useSelector((state) => state.AuthUser.data)
-  //       authUser?.is_admin ? (
 
   const [update, setUpdate] = useState(false)
   const [quizDetail, setQuizDetail] = useState({})

@@ -31,7 +31,6 @@ const QuestionUpdate = () => {
   }, [question_id])
 
   const handleSubmitQuestion = () => {
-    console.log(question)
     dispatch(updateQuestion(question_id, question))
   }
 

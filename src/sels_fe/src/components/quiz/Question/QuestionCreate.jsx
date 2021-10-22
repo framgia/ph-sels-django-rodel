@@ -10,10 +10,7 @@ import { Box, OutlinedInput, TextField, Typography } from "@material-ui/core"
 import { CustomFormControl } from "./components/CustomFormControl"
 import { CustomInputLabel } from "./components/CustomInputLabel"
 
-import QuestionForm from "./components/QuestionForm"
-
 const QuestionCreate = () => {
-  const error = useSelector((state) => state.Question.error)
   const { id } = useParams()
   const [question, setQuestion] = useState({
     question: "",
