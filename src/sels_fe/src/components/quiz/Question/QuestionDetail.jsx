@@ -28,7 +28,7 @@ const QuestionDetail = () => {
   const [questionDetail, setQuestionDetail] = useState({})
   const [choices, setChoices] = useState([])
   const [answer, setAnswer] = useState({ choice: 0, question: 0 })
-  const { id, question_id } = useParams()
+  const { question_id } = useParams()
 
   const dispatch = useDispatch()
 
@@ -58,13 +58,13 @@ const QuestionDetail = () => {
     setQuestionDetail(
       question_list?.find((question) => question.id === parseInt(question_id))
     )
+  }, [question_list, question_id])
+
+  useEffect(() => {
     setChoices(
       choice_list.filter(
         (choice) => choice.question[0] === parseInt(question_id)
       )
-    )
-    setAnswer(
-      answer_list?.find((ans) => ans.question === parseInt(question_id))
     )
   }, [choice_list, question_id])
 
@@ -72,7 +72,7 @@ const QuestionDetail = () => {
     setAnswer(
       answer_list?.find((ans) => ans.question === parseInt(question_id))
     )
-  }, [answer_list, update])
+  }, [answer_list, question_id])
 
   return (
     <Box component="div" sx={{ maxWidth: "90%", mx: "auto" }}>

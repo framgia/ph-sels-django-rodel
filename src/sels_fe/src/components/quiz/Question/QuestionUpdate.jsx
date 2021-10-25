@@ -28,7 +28,7 @@ const QuestionUpdate = () => {
     setQuestion(
       question_list.find((quest) => quest.id === parseInt(question_id))
     )
-  }, [question_id])
+  }, [question_id, question_list])
 
   const handleSubmitQuestion = () => {
     dispatch(updateQuestion(question_id, question))

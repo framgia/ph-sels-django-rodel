@@ -42,6 +42,20 @@ import {
   updateUser,
   deleteUser,
 } from "./User/action"
+import {
+  postLesson,
+  getLesson,
+  getLessonList,
+  updateLesson,
+  deleteLesson,
+} from "./Lesson/action"
+import {
+  postAnswered,
+  getAnswered,
+  getAnsweredList,
+  updateAnswered,
+  deleteAnswered,
+} from "./Answered/action"
 
 export {
   authSignup,
@@ -80,4 +94,14 @@ export {
   getUserList,
   updateUser,
   deleteUser,
+  postLesson,
+  getLesson,
+  getLessonList,
+  updateLesson,
+  deleteLesson,
+  postAnswered,
+  getAnswered,
+  getAnsweredList,
+  updateAnswered,
+  deleteAnswered,
 }
