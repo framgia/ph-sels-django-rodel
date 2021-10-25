@@ -17,4 +17,6 @@ urlpatterns = [
     path('api/', include('follow.urls'), name='follow_api'),
     path('api/', include('quiz.urls'), name='quiz_api'),
     path('api/', include('answers_choices.urls'), name='answers_choices_api'),
+    path('api/', include('lesson.urls'), name='lesson_api'),
+    path('api/', include('answered_question.urls'), name='answered_question_api'),
 ]
