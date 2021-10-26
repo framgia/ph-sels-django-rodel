@@ -102,13 +102,13 @@ function QuizWithQuestionsCreate() {
 
   useEffect(() => {
     setCurrentQuiz(quiz_list.filter((q) => q.name === quiz.name)[0])
-  }, [quiz_list, update])
+  }, [quiz_list, quiz, update])
 
   useEffect(() => {
     setCurrentQuestions(
       question_list?.filter((quest) => quest.quiz === currentQuiz?.id)
     )
-  }, [question_list, update])
+  }, [question_list, currentQuiz, update])
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
@@ -272,6 +272,11 @@ function QuizWithQuestionsCreate() {
                   <Button
                     color="primary"
                     variant="outlined"
+                    // disabled={
+                    //   activeStep === 2 && currentQuestions.length > 0
+                    //     ? false
+                    //     : true
+                    // }
                     onClick={handleComplete}
                   >
                     {completedSteps() === totalSteps() - 1

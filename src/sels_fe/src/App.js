@@ -15,6 +15,7 @@ import { FollowedUser, FollowUser } from "./components/follow"
 import { QuizMain } from "./pages/quiz"
 import { HomeMain } from "./pages/home"
 import { AdminMain } from "./pages/admin"
+import { LessonMain } from "./pages/lesson"
 
 function App() {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
@@ -38,8 +39,9 @@ function App() {
           <Route path="/follow" component={FollowUser} />
           <Route path="/following" component={FollowedUser} />
         </Switch>
-        <Route path="/quiz" component={QuizMain} />
         <Route path="/" component={HomeMain} />
+        <Route path="/quiz" component={QuizMain} />
+        <Route path="/lesson" component={LessonMain} />
         <Route path="/admin" component={AdminMain} />
       </Router>
     </div>

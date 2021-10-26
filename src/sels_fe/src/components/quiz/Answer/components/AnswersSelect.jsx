@@ -12,33 +12,37 @@ import {
   Stack,
   Divider,
 } from "@mui/material"
-import { postAnswer } from "../../../../store/actions"
-
-let initialAnswers = []
+import { postBulkAnswer } from "../../../../store/actions"
 
 const AnswersSelect = ({ questions, choices }) => {
-  const [answers, setAnswers] = useState(initialAnswers)
+  const [answers, setAnswers] = useState([])
   const [onSubmit, setOnSubmit] = useState(false)
+  const [update, setUpdate] = useState(false)
   const dispatch = useDispatch()
 
   const handleAnswersChange = (index, question_id, event) => {
-    const { name, value } = event.target
     let AnswerValue = [...answers]
-    AnswerValue[index]["choice"] = parseInt(value)
+    AnswerValue[index]["choice"] = parseInt(event.target.value)
     AnswerValue[index]["question"] = question_id
     setAnswers(AnswerValue)
   }
 
   const handleSubmit = () => {
-    answers.map((answer) => dispatch(postAnswer(answer)))
+    dispatch(postBulkAnswer(answers))
     setOnSubmit(!onSubmit)
   }
+
   useEffect(() => {
-    for (const key in questions) {
+    let initialAnswers = []
+    questions.forEach(() => {
       initialAnswers.push({ choice: 0, question: 0 })
-    }
-    console.log(answers)
-  }, [])
+    })
+    setAnswers(initialAnswers)
+  }, [questions])
+
+  useEffect(() => {
+    setUpdate(!update)
+  }, [answers])
 
   return (
     <Box component="div" sx={{ m: "1rem", mx: "auto", maxWidth: "60%" }}>
@@ -60,12 +64,14 @@ const AnswersSelect = ({ questions, choices }) => {
                 {choices
                   .filter((choice) => choice.question[0] === question.id)
                   .map((opt, index) => (
-                    <FormControlLabel
-                      value={opt.id}
-                      control={<Radio />}
-                      label={opt.value}
-                      labelPlacement="bottom"
-                    />
+                    <React.Fragment key={index}>
+                      <FormControlLabel
+                        value={opt.id}
+                        control={<Radio />}
+                        label={opt.value}
+                        labelPlacement="bottom"
+                      />
+                    </React.Fragment>
                   ))}
               </Stack>
               <Divider />

@@ -10,7 +10,7 @@ import { postBulkChoice } from "../../../store/actions"
 import { useDispatch } from "react-redux"
 
 const ChoiceUpdate = ({ onUpdate }) => {
-  const { id, question_id } = useParams()
+  const { question_id } = useParams()
   const [choices, setChoices] = useState([
     { value: "", question: [] },
     { value: "", question: [] },
@@ -29,7 +29,7 @@ const ChoiceUpdate = ({ onUpdate }) => {
   const handleSaveChoices = () => {
     setDisableSave(!disableSave)
     onUpdate()
-    let q_id = new Array()
+    let q_id = []
     q_id.push(parseInt(question_id))
     choices.map((choice) => (choice["question"] = q_id))
     dispatch(postBulkChoice(choices))

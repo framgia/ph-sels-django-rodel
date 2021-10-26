@@ -28,7 +28,7 @@ const QuizUpdate = () => {
   useEffect(() => {
     const q = quiz_list?.find((item) => parseInt(item.id) === parseInt(id))
     setQuiz({ ...quiz, name: q.name, description: q.description })
-  }, [quiz_list])
+  }, [quiz_list, id])
 
   const handleSubmitQuiz = () => {
     dispatch(updateQuiz(id, quiz))

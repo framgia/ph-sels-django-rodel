@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import {
   useHistory,
   useParams,
@@ -39,9 +39,9 @@ const QuizDetail = () => {
   const [update, setUpdate] = useState(false)
   const [quizDetail, setQuizDetail] = useState({})
   const [questions, setQuestions] = useState([])
-  const [page, setPage] = useState(1)
   const pageLimit = 5
-  const [pageCount, setPageCount] = useState(5)
+  const [page, setPage] = useState(1)
+  const [pageCount, setPageCount] = useState(1)
   const [pageQuestions, setPageQuestions] = useState([])
 
   const { id, question_id } = useParams()
@@ -50,12 +50,6 @@ const QuizDetail = () => {
 
   const handlePageChange = (event, value) => {
     setPage(value)
-  }
-
-  const getPageQuestions = () => {
-    const startIndex = page * pageLimit - pageLimit
-    const endIndex = startIndex + pageLimit
-    return questions.slice(startIndex, endIndex)
   }
 
   const handleEditQuestion = (question_id) => {
@@ -75,22 +69,21 @@ const QuizDetail = () => {
   }
 
   useEffect(() => {
-    setPageQuestions(getPageQuestions())
-  }, [page, update])
-
-  useEffect(() => {
-    setUpdate(!update)
-  }, [question_id, quiz_list])
-
-  useEffect(() => {
+    const startIndex = page * pageLimit - pageLimit
+    const endIndex = startIndex + pageLimit
     let nPages = questions.length / pageLimit
-    setPageCount(Math.ceil(nPages))
 
     setQuizDetail(quiz_list?.find((quiz) => quiz.id === parseInt(id)))
     setQuestions(
       question_list?.filter((question) => question.quiz === parseInt(id))
     )
-  }, [quiz_list, question_list, update])
+    setPageQuestions(questions.slice(startIndex, endIndex))
+    setPageCount(Math.ceil(nPages))
+  }, [quiz_list, question_list, page, pageCount, questions.length, id, update])
+
+  useEffect(() => {
+    setUpdate(!update)
+  }, [question_id, quiz_list, pageCount, question_list])
 
   return (
     <Box component="div" sx={{ m: "1rem", mx: "auto", maxWidth: "95%" }}>

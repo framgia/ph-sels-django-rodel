@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { useHistory } from "react-router-dom"
 import { useSelector } from "react-redux"
 
@@ -17,31 +17,17 @@ import "reactjs-popup/dist/index.css"
 
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
+import PersonIcon from "@mui/icons-material/Person"
 import ExitToAppIcon from "@mui/icons-material/ExitToApp"
 
 const ESLNavBar = () => {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
   const authUser = useSelector((state) => state.AuthUser.data)
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [userMenuOpen, setUserMenuOpen] = useState(false)
   const history = useHistory()
 
-  const handleUserMenu = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-
   const handleSignout = () => {
-    handleClose()
     history.push(`/signout`)
   }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
-  useEffect(() => {
-    setUserMenuOpen(Boolean(anchorEl))
-  }, [anchorEl])
 
   return (
     <Box color="primary" sx={{ flexGrow: 1 }}>
@@ -57,48 +43,48 @@ const ESLNavBar = () => {
           >
             E-Learning System
           </Typography>
-          <Stack
-            direction="row"
-            spacing={4}
-            sx={{ mx: "auto", alignSelf: "center" }}
-          >
+          <Stack direction="row" spacing={2} sx={{ mr: "5rem" }}>
+            {isAuthenticated ? (
+              <Button color="inherit" onClick={() => history.push(`/lesson`)}>
+                Categories
+              </Button>
+            ) : null}
             {authUser?.is_admin ? (
               <Button color="inherit" onClick={() => history.push(`/quiz`)}>
-                Quiz
+                Quiz|Admin
               </Button>
             ) : null}
           </Stack>
           {isAuthenticated ? (
             <Popup
               trigger={
-                <IconButton
-                  size="medium"
-                  color="inherit"
-                  sx={{ mr: 2 }}
-                  onClick={handleUserMenu}
-                >
+                <IconButton size="medium" color="inherit" sx={{ mr: 2 }}>
                   <AccountCircleIcon fontSize="large" />
                 </IconButton>
               }
+              closeOnDocumentClick
+              mouseLeaveDelay={300}
+              mouseEnterDelay={0}
+              arrow={false}
               position="bottom right"
             >
               <MenuList>
+                <Divider />
                 <MenuItem>
                   <ListItemIcon>
-                    <AccountCircleIcon fontSize="Large" />
+                    <PersonIcon fontSize="Large" />
                   </ListItemIcon>
                   <ListItemText>User Account</ListItemText>
                 </MenuItem>
                 <Divider />
-
                 <MenuItem button onClick={handleSignout}>
                   <ListItemIcon>
                     <ExitToAppIcon fontSize="Large" />
                   </ListItemIcon>
                   <ListItemText>Signout</ListItemText>
                 </MenuItem>
+                <Divider />
               </MenuList>
-              <Divider />
             </Popup>
           ) : (
             <Button onClick={() => history.push(`/signin`)}>Login</Button>

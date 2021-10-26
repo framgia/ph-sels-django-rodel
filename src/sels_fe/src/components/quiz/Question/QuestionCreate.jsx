@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
 
 import { postQuestion, getQuestionList } from "../../../store/actions"
@@ -75,11 +75,11 @@ const QuestionCreate = () => {
       </CustomFormControl>
       <br />
       <Button
-        sx={{ mx: "auto", mb: 1, width: "50ch", borderRadius: "5px" }}
         type="secondary"
         color="primary"
         variant="contained"
         onClick={handleSubmitQuestion}
+        sx={{ mx: "auto", mb: 1, width: "50ch", borderRadius: "5px" }}
       >
         Save
       </Button>

@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'follow',
     'quiz',
     'answers_choices',
+    'lesson',
+    'answered_question',
 
     'rest_framework',
     'rest_framework_simplejwt',

@@ -4,7 +4,7 @@ import { OutlinedInput, Typography, Button } from "@material-ui/core"
 
 import { CustomFormControl } from "./CustomFormControl"
 import { CustomInputLabel } from "./CustomInputLabel"
-import { Box, Checkbox, Stack, Stepper, Step, StepLabel } from "@mui/material"
+import { Box, Checkbox, Stepper, Step, StepLabel } from "@mui/material"
 import { postBulkChoice } from "../../../../store/actions"
 import { useDispatch } from "react-redux"
 
@@ -31,7 +31,7 @@ const ChoiceForm = ({ questions }) => {
   }
 
   const handleSaveChoices = (id) => {
-    let question_id = new Array()
+    let question_id = []
     question_id.push(questions[activeStep].id)
     choices.map((choice) => (choice["question"] = question_id))
     dispatch(postBulkChoice(choices))
@@ -62,7 +62,7 @@ const ChoiceForm = ({ questions }) => {
           {questions.map(
             (question, index) =>
               activeStep === index && (
-                <Typography sx={{ mt: 2, mb: 1 }}>
+                <Typography key={question.id} sx={{ mt: 2, mb: 1 }}>
                   {activeStep + 1}. {question.question}
                 </Typography>
               )

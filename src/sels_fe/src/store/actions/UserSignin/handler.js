@@ -9,7 +9,7 @@ import {
 import { baseURL } from "../../../adapters"
 
 const tokenTimeout = {
-  access: 60,
+  access: 600,
   refresh: 86400,
   accessTimer: setTimeout(() => {}),
   refreshTimer: setTimeout(() => {}),

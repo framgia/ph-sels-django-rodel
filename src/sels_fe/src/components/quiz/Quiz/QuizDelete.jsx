@@ -1,5 +1,5 @@
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useHistory, useLocation } from "react-router-dom"
 import { useParams } from "react-router-dom"
 
@@ -11,7 +11,6 @@ import { Stack } from "@mui/material"
 
 const QuizDelete = () => {
   const { id } = useParams()
-  const _quizzes = useSelector((state) => state.Quiz.quiz_list)
   const dispatch = useDispatch()
   const history = useHistory()
   const quiz = useLocation().quiz

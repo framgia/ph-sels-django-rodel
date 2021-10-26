@@ -16,7 +16,7 @@ const QuizCreate = () => {
   })
   const error = useSelector((state) => state.Quiz.error)
   let quizzes = useSelector((state) => state.Quiz.quiz_list)
-  let currentQuiz = null
+  const [currentQuiz, setCurrentQuiz] = useState({})
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -30,8 +30,8 @@ const QuizCreate = () => {
   }
 
   useEffect(() => {
-    currentQuiz ? (currentQuiz = quizzes.at(-1)) : console.log(currentQuiz)
-  }, [quizzes])
+    setCurrentQuiz(quizzes.at(-1))
+  }, [quizzes, currentQuiz])
 
   useEffect(() => {
     dispatch(getQuizList())

@@ -9,8 +9,8 @@ import { Box, Checkbox } from "@mui/material"
 import { postBulkChoice } from "../../../store/actions"
 import { useDispatch } from "react-redux"
 
-const ChoiceCreate = ({ onUpdate }) => {
-  const { id, question_id } = useParams()
+const ChoiceCreate = () => {
+  const { question_id } = useParams()
   const { url } = useRouteMatch()
   const [choices, setChoices] = useState([
     { value: "", question: [] },
@@ -30,7 +30,7 @@ const ChoiceCreate = ({ onUpdate }) => {
 
   const handleSaveChoices = () => {
     setDisableSave(!disableSave)
-    let q_id = new Array()
+    let q_id = []
     q_id.push(parseInt(question_id))
     choices.map((choice) => (choice["question"] = q_id))
     dispatch(postBulkChoice(choices))
@@ -39,7 +39,7 @@ const ChoiceCreate = ({ onUpdate }) => {
 
   useEffect(() => {
     history.push(`${url}/add-choices`)
-  }, [])
+  }, [history, url])
 
   return (
     <Box sx={{ m: "auto", width: "80%" }}>
