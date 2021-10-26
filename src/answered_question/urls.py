@@ -15,4 +15,7 @@ app_name = 'answered_question'
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('answeredquestions/bulk',
+         AnsweredQuestionViewSet.as_view({'post': 'bulk_create'}),
+         name='create-answeredquestions'),
 ]

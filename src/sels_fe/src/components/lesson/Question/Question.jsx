@@ -30,7 +30,7 @@ function Question({ question, handleAnswered }) {
       <Box
         component="div"
         sx={{
-          p: "3rem",
+          p: "2rem 3.5rem",
           mx: "auto",
           maxWidth: "80%",
           bgcolor: "#f0f0f0",

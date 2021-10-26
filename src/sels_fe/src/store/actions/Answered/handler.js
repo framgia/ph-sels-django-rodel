@@ -34,7 +34,7 @@ const postAnswered = async (data) => {
 
 const postBulkAnswered = async (data) => {
   const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}answereds/bulk`
+  const url = `${baseURL}answeredquestions/bulk`
   const resquestOption = {
     method: "POST",
     headers: {

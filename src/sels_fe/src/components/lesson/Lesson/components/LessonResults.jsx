@@ -30,22 +30,32 @@ const LessonResult = ({ correctAnswersCount, answers, questions, results }) => {
     let _stars = []
     if (percentage >= 50) {
       for (let i = 0; i < Math.floor(n_stars); i++) {
-        _stars.push(<StarIcon fontSize="medium" style={{ fill: "#f7eb0a" }} />)
+        _stars.push(
+          <StarIcon key={i} fontSize="medium" sx={{ fill: "#f7eb0a" }} />
+        )
       }
       n_stars - Math.floor(n_stars) !== 0 &&
         _stars.push(
-          <StarHalfIcon fontSize="medium" style={{ fill: "#e8ce05" }} />
+          <StarHalfIcon
+            key={_stars.length}
+            fontSize="medium"
+            sx={{ fill: "#e8ce05" }}
+          />
         )
 
       for (let i = 0; i < 5 - Math.ceil(n_stars); i++) {
         _stars.push(
-          <StarBorderIcon fontSize="medium" style={{ fill: "#ccb504" }} />
+          <StarBorderIcon
+            key={_stars.length + i}
+            fontSize="medium"
+            sx={{ fill: "#ccb504" }}
+          />
         )
       }
     } else {
       for (let i = 0; i < 5; i++) {
         _stars.push(
-          <StarBorderIcon fontSize="medium" style={{ fill: "#7d2604" }} />
+          <StarBorderIcon key={i} fontSize="medium" sx={{ fill: "#7d2604" }} />
         )
       }
     }

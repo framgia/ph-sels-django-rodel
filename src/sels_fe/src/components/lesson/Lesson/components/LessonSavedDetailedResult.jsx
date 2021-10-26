@@ -48,7 +48,7 @@ function LessonSavedDetailedResult({
                 <TableHead>
                   <TableRow>
                     <TableCell align="left">Question</TableCell>
-                    {/* <TableCell align="left">Answer</TableCell> */}
+                    <TableCell align="left">Answer</TableCell>
                     <TableCell align="center">Result</TableCell>
                   </TableRow>
                 </TableHead>

@@ -39,11 +39,7 @@ function LessonMain() {
         <Route exact path={`${path}`}>
           <CategoryList user={authUser} />
         </Route>
-        {/* <Route path={`${path}/create`} component={UserCreate} /> */}
-        {/* <Route path={`${path}/new`} component={UserWithQuestionsCreate} />
-      <Route path={`${path}/:id/edit`} component={UserUpdate} />
-      <Route path={`${path}/:id/delete`} component={UserDelete} /> */}
-        <Route path={`${path}/:id`}>
+        <Route path={`${path}/:id`} onLeave={<TakeLesson user={authUser} />}>
           <TakeLesson user={authUser} />
         </Route>
       </Switch>

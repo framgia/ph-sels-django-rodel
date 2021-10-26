@@ -32,7 +32,6 @@ const postAnsweredFail = (error) => {
 }
 
 const postBulkAnsweredSuccess = (answereds) => {
-  console.log(answereds)
   return {
     type: POST_BULK_ANSWERED_SUCCESS,
     payload: {

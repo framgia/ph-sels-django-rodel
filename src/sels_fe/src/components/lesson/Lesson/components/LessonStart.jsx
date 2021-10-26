@@ -8,7 +8,6 @@ const LessonStart = ({
   correctAnswersCount,
   questions,
   handleSubmit,
-  handleSkipQuestion,
   handleAnswered,
 }) => {
   return (
@@ -28,21 +27,12 @@ const LessonStart = ({
           {correctAnswersCount}/{questions.length}
         </Typography>
       </Stack>
-      <br />
       <Question
         question={questions[activeStep]}
         handleAnswered={handleAnswered}
       />
       <br />
       <Stack direction="row" sx={{ mx: "auto", width: "85%" }}>
-        <Button
-          color="primary"
-          variant="contained"
-          disabled={isAnswered}
-          onClick={handleSkipQuestion}
-        >
-          Skip
-        </Button>
         <Box sx={{ flex: "1 1 auto" }} />
         <Button
           color="primary"

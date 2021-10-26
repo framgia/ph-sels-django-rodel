@@ -51,6 +51,7 @@ import {
 } from "./Lesson/action"
 import {
   postAnswered,
+  postBulkAnswered,
   getAnswered,
   getAnsweredList,
   updateAnswered,
@@ -100,6 +101,7 @@ export {
   updateLesson,
   deleteLesson,
   postAnswered,
+  postBulkAnswered,
   getAnswered,
   getAnsweredList,
   updateAnswered,

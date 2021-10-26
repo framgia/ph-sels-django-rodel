@@ -4,7 +4,7 @@ import { useHistory, useRouteMatch } from "react-router-dom"
 import { Grid } from "@mui/material"
 import LessonCard from "./LessonCard"
 
-const Lessons = ({ quizzes, taken_lessons }) => {
+const Lessons = ({ quizzes, takenLessons }) => {
   const history = useHistory()
   const { path } = useRouteMatch()
 
@@ -26,7 +26,7 @@ const Lessons = ({ quizzes, taken_lessons }) => {
                 <Grid item xs={2} sm={4} md={4} key={index}>
                   <LessonCard
                     quiz={quiz}
-                    isTaken={taken_lessons.some(
+                    isTaken={takenLessons.some(
                       (lesson) => lesson.quiz === quiz.id
                     )}
                     handleLesson={handleLesson}
