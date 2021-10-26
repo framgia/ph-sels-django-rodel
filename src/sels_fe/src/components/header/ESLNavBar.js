@@ -15,7 +15,6 @@ import { AppBar, Toolbar, Typography, Stack, Divider } from "@mui/material"
 import Popup from "reactjs-popup"
 import "reactjs-popup/dist/index.css"
 
-// import { Settings } from "@material-ui/icons"
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import PersonIcon from "@mui/icons-material/Person"
@@ -25,8 +24,6 @@ const ESLNavBar = () => {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
   const authUser = useSelector((state) => state.AuthUser.data)
   const history = useHistory()
-
-  // const handleUserMenu = (event) => {}
 
   const handleSignout = () => {
     history.push(`/signout`)
@@ -79,15 +76,6 @@ const ESLNavBar = () => {
                   </ListItemIcon>
                   <ListItemText>User Account</ListItemText>
                 </MenuItem>
-                {/* <Divider />
-                <MenuItem>
-                  <ListItemIcon>
-                    <Settings fontSize="Large" />
-                  </ListItemIcon>
-                  <ListItemText>Settings</ListItemText>
-                </MenuItem>
-                <Divider />
-                <br /> */}
                 <Divider />
                 <MenuItem button onClick={handleSignout}>
                   <ListItemIcon>
