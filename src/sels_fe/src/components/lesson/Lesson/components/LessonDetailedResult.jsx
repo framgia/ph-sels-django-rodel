@@ -20,10 +20,6 @@ import DoDisturbIcon from "@mui/icons-material/DoDisturb"
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline"
 
 function LessonDetailedResult({ questions, answers, results }) {
-  // const {id} = useParams()
-  // const choice_list = useSelector((state) => state.Choice.choice_list)
-  // const answer_list = useSelector((state) => state.Answer.answer_list)
-
   return (
     <Box component="div" sx={{ m: "auto", width: "90%", color: "success" }}>
       <Stack direction="row" sx={{ mx: "auto", justifyContent: "center" }}>
