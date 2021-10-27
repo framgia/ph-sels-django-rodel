@@ -16,7 +16,6 @@ import {
 import { baseURL } from "../../../adapters"
 
 const postLesson = async (data) => {
-  console.log(data)
   const accessToken = localStorage.getItem("access_token")
   const url = `${baseURL}lesson/`
   const resquestOption = {

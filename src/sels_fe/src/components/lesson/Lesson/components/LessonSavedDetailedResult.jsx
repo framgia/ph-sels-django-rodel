@@ -1,5 +1,4 @@
 import React from "react"
-
 import { Box } from "@mui/system"
 import {
   Stack,
@@ -17,7 +16,13 @@ import {
 import DoDisturbIcon from "@mui/icons-material/DoDisturb"
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline"
 
-function LessonDetailedResult({ questions, answers, results }) {
+function LessonSavedDetailedResult({
+  questions,
+  answers,
+  choices,
+  answeredQuestions,
+  results,
+}) {
   return (
     <Box component="div" sx={{ m: "auto", width: "90%", color: "success" }}>
       <Stack direction="row" sx={{ mx: "auto", justifyContent: "center" }}>
@@ -44,24 +49,36 @@ function LessonDetailedResult({ questions, answers, results }) {
                   <TableRow>
                     <TableCell align="left">Question</TableCell>
                     <TableCell align="left">Answer</TableCell>
-                    <TableCell align="left">Result</TableCell>
+                    <TableCell align="center">Result</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {answers.map((answer, index) => (
+                  {answeredQuestions.map((answered, index) => (
                     <TableRow
-                      key={answer.question[0]}
+                      key={answered.id}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell component="th" scope="row">
-                        {questions.map(
-                          (question) =>
-                            question.id === answer.question[0] &&
-                            question.question
-                        )}
-                      </TableCell>
-                      <TableCell align="left">{answer.value}</TableCell>
-                      <TableCell align="left">
+                      {questions.map(
+                        (question) =>
+                          question.id === answered.question && (
+                            <TableCell
+                              key={question.id}
+                              component="th"
+                              scope="row"
+                            >
+                              {question.question}
+                            </TableCell>
+                          )
+                      )}
+                      {choices.map(
+                        (choice) =>
+                          choice.id === answered.answer && (
+                            <TableCell key={choice.id} align="left">
+                              {choice.value}
+                            </TableCell>
+                          )
+                      )}
+                      <TableCell align="center">
                         {results[index] ? (
                           <CheckCircleOutlineIcon sx={{ fill: "green" }} />
                         ) : (
@@ -80,4 +97,4 @@ function LessonDetailedResult({ questions, answers, results }) {
   )
 }
 
-export default LessonDetailedResult
+export default LessonSavedDetailedResult

@@ -1,6 +1,7 @@
 import React from "react"
 
 import {
+  // Box,
   Stack,
   Card,
   CardMedia,
@@ -43,16 +44,33 @@ const LessonCard = ({ quiz, isTaken, handleLesson }) => {
           {quiz.description}
         </Typography>
       </CardContent>
-      <Stack direction="row" spacing="2rem" sx={{ justifyContent: "right" }}>
+      <Stack
+        direction="row"
+        spacing="2rem"
+        sx={{ justifyContent: isTaken ? "center" : "right" }}
+      >
         <CardActions>
-          <Button
-            size="medium"
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleLesson(quiz.id, e)}
-          >
-            {isTaken ? "View Results" : "Start Lesson"}
-          </Button>
+          {isTaken ? (
+            <Button
+              size="medium"
+              variant="contained"
+              onClick={(e) => handleLesson(quiz.id, e)}
+              style={{
+                backgroundColor: "#0e6900",
+              }}
+            >
+              Results
+            </Button>
+          ) : (
+            <Button
+              size="medium"
+              variant="contained"
+              color="primary"
+              onClick={(e) => handleLesson(quiz.id, e)}
+            >
+              Start Lesson
+            </Button>
+          )}
         </CardActions>
       </Stack>
     </Card>
