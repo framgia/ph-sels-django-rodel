@@ -19,9 +19,9 @@ import StarBorderIcon from "@mui/icons-material/StarBorder"
 import LessonSavedDetailedResult from "./LessonSavedDetailedResult"
 
 const LessonSavedResults = ({ lesson, questions }) => {
-  const { answered_list } = useSelector((state) => state.Answered)
-  const { answer_list } = useSelector((state) => state.Answer)
-  const { choice_list } = useSelector((state) => state.Choice)
+  const answeredList = useSelector((state) => state.Answered.answered_list)
+  const answerList = useSelector((state) => state.Answer.answer_list)
+  const choiceList = useSelector((state) => state.Choice.choice_list)
   const [answers, setAnswers] = useState([])
   const [answeredQuestions, setAnsweredQuestions] = useState([]) //answer serlected from choice by user
 
@@ -42,27 +42,27 @@ const LessonSavedResults = ({ lesson, questions }) => {
 
   useEffect(() => {
     const newAnswer = []
-    answer_list.length > 0 &&
-      answer_list.map((ans) =>
+    answerList.length > 0 &&
+      answerList.map((ans) =>
         questions?.map(
           (quest) => ans.question === quest.id && newAnswer.push(ans)
         )
       )
     setAnswers(newAnswer)
-  }, [answer_list, questions])
+  }, [answerList, questions])
 
   useEffect(() => {
     const newAnswered = []
-    answered_list.length > 0 &&
+    answeredList.length > 0 &&
       questions?.map((quest) =>
-        answered_list.map(
+        answeredList.map(
           (answered) =>
             (answered.question === quest.id) &
               (answered.lesson === lesson.id) && newAnswered.push(answered)
         )
       )
     setAnsweredQuestions(newAnswered)
-  }, [answered_list, questions, lesson])
+  }, [answeredList, questions, lesson])
 
   useEffect(() => {
     let newResults = []
@@ -123,7 +123,7 @@ const LessonSavedResults = ({ lesson, questions }) => {
         <LessonSavedDetailedResult
           questions={questions}
           answers={answers}
-          choices={choice_list}
+          choices={choiceList}
           answeredQuestions={answeredQuestions}
           results={results}
         />

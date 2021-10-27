@@ -11,9 +11,10 @@ import LessonSavedResults from "./components/LessonSavedResults"
 
 function TakeLesson({ user }) {
   const { id } = useParams()
-  const quiz_list = useSelector((state) => state.Quiz.quiz_list)
-  const question_list = useSelector((state) => state.Question.question_list)
-  const { lesson_list, error } = useSelector((state) => state.Lesson)
+  const quizList = useSelector((state) => state.Quiz.quiz_list)
+  const questionList = useSelector((state) => state.Question.question_list)
+  const lessonList = useSelector((state) => state.Lesson.lesson_list)
+  const error = useSelector((state) => state.Lesson.error)
   const [currentQuiz, setCurrentQuiz] = useState({})
   const [questions, setQuestions] = useState([])
   const [answerChoices, setAnswerChoices] = useState([])
@@ -68,8 +69,8 @@ function TakeLesson({ user }) {
   }, [dispatch, id, user])
 
   useEffect(() => {
-    setLesson(lesson_list.find((lesson) => lesson.quiz === parseInt(id)))
-  }, [lesson_list, id])
+    setLesson(lessonList.find((lesson) => lesson.quiz === parseInt(id)))
+  }, [lessonList, id])
 
   useEffect(() => {
     lesson?.id && error !== null
@@ -78,12 +79,12 @@ function TakeLesson({ user }) {
   }, [lesson, error, id])
 
   useEffect(() => {
-    setCurrentQuiz(quiz_list.find((quiz) => quiz.id === parseInt(id)))
-  }, [quiz_list, id])
+    setCurrentQuiz(quizList.find((quiz) => quiz.id === parseInt(id)))
+  }, [quizList, id])
 
   useEffect(() => {
-    setQuestions(question_list.filter((quest) => quest.quiz === parseInt(id)))
-  }, [question_list, id])
+    setQuestions(questionList.filter((quest) => quest.quiz === parseInt(id)))
+  }, [questionList, id])
 
   useEffect(() => {
     setAnswered({ ...answered, question: questions[activeStep]?.id })
@@ -105,6 +106,7 @@ function TakeLesson({ user }) {
         variant="determinate"
         value={(activeStep * 100) / questions.length}
       />
+      <br />
       {activeStep === questions.length ? (
         <LessonResults
           correctAnswersCount={correctAnswersCount}
