@@ -1,23 +1,19 @@
-import React, { Fragment, useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import {
   getUserList,
   getFollowedUserList,
-  followUser,
-  unfollowUser,
   getAuthUserDetails,
 } from "../../../store/actions"
 
 import {
   Box,
-  Stack,
   List,
   ListItem,
   ListItemText,
   ListItemIcon,
   Typography,
-  Button,
   Divider,
 } from "@mui/material"
 import { Person } from "@material-ui/icons"
@@ -37,21 +33,6 @@ const FollowUser = () => {
     dispatch(getAuthUserDetails())
     dispatch(getFollowedUserList())
   }, [dispatch])
-
-  const isFollowing = (username) => {
-    return followedUsers.some(
-      (followed) => followed.followee.username === username
-    )
-  }
-
-  // useEffect(() => {
-
-  // }, [followedUsers])
-
-  // useEffect(() => {
-  //   followedUsers.map((followed) => console.log(followed.followee.username))
-  //   console.log(followedUsers)
-  // }, [followedUsers])
 
   return (
     <Box component="div" sx={{ m: "1rem", mx: "auto", maxWidth: "30rem" }}>

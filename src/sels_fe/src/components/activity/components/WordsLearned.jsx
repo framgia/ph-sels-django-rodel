@@ -1,62 +1,55 @@
 import React, { Fragment, useEffect, useState } from "react"
 
 import {
+  Box,
   Stack,
   Card,
   CardContent,
-  CardMedia,
-  Typography,
   List,
   ListItem,
   ListItemText,
+  Typography,
 } from "@mui/material"
-import {
-  profileCardStyle,
-  profileCardContentStyle,
-  profileStyle,
-  profileMedia,
-} from "./style"
-import { getAuthUserActivtyPrimaryText } from "./helper"
+import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
+import { cardStyle, cardContentStyle, listStyle } from "./style"
+import { getActivtyPrimaryText } from "./helper"
 
-const ProfileCard = ({ authUserActivities, authUser }) => {
+dayjs.extend(relativeTime)
+
+const ActivityCard = ({ activities, authUser }) => {
+  const [authUsername, setAuthUsername] = useState(null)
+
+  useEffect(() => {
+    setAuthUsername(authUser?.username)
+  }, [authUser])
+
   return (
-    <Stack direction="row" spacing={6} sx={{ justifyContent: "left" }}>
-      <Card elevation={0} sx={profileCardStyle}>
-        <CardContent sx={profileCardContentStyle}>
-          <Stack direction="row" spacing={0} sx={{ justifyContent: "left" }}>
-            <CardMedia
-              component="img"
-              image="static/images/profile.png"
-              alt="quiz icon"
-              sx={profileMedia}
-            />
-            <Stack
-              direction="column"
-              spacing={0}
-              sx={{ justifyContent: "center" }}
-            >
-              <Typography variant="h6" sx={{}}>
-                {authUser?.username}
-              </Typography>
-              <List sx={{ justifyContent: "left" }}>
-                {authUserActivities?.map((activity) => (
-                  <Fragment key={activity.id}>
-                    <Stack direction="column" spacing="2rem">
-                      <ListItem button>
-                        <ListItemText
-                          primary={getAuthUserActivtyPrimaryText(activity)}
-                        />
-                      </ListItem>
-                    </Stack>
-                  </Fragment>
-                ))}
-              </List>
-            </Stack>
-          </Stack>
+    <Stack direction="row" spacing="2rem" sx={{ justifyContent: "right" }}>
+      <Card elevation={5} sx={cardStyle}>
+        <CardContent sx={cardContentStyle}>
+          <List sx={listStyle} subheader={<li />}>
+            {activities?.map((activity) => (
+              <Fragment key={activity.id}>
+                <Stack direction="column" spacing="2rem">
+                  <ListItem button>
+                    <ListItemText
+                      primary={getActivtyPrimaryText(activity, authUsername)}
+                      secondary={
+                        <Typography variant="subtitle1" sx={{ ml: "0.5rem" }}>
+                          {dayjs(activity.created_at).fromNow()}
+                        </Typography>
+                      }
+                    />
+                  </ListItem>
+                </Stack>
+              </Fragment>
+            ))}
+          </List>
         </CardContent>
       </Card>
     </Stack>
   )
 }
 
-export default ProfileCard
+export default ActivityCard

@@ -25,7 +25,7 @@ const listStyle = {
 }
 
 const profileCardStyle = {
-  p: "0.5rem",
+  p: "0.25rem",
   maxWidth: "60%",
   minWidth: 330,
   minHeight: 340,
@@ -34,29 +34,16 @@ const profileCardStyle = {
   bgcolor: "white",
 }
 
-const profileCardContentStyle = {
-  // bgcolor: "#f0f0f0ff",
-}
-
-const profileStyle = {
-  // position: "relative",
-  mx: "1rem",
-  width: 100,
-  height: 100,
-  bgcolor: "background.paper",
-  borderRadius: "2px",
-  borderRadius: 0,
-  bgcolor: "#b3e5e8",
-  fontSize: 80,
-  borderStyle: "outset",
-}
-
 const profileMedia = {
-  mr: "1rem",
+  my: "0.25rem",
+  p: "0.25rem",
+
   height: 120,
   width: 120,
+  border: "1px",
   bgcolor: "#f0f0f0ff",
-  borderRadius: "0.75rem 0.75rem 0 0 ",
+  borderRadius: "0.75rem",
+  borderStyle: "outset",
 }
 
 export {
@@ -64,7 +51,5 @@ export {
   cardContentStyle,
   listStyle,
   profileCardStyle,
-  profileCardContentStyle,
-  profileStyle,
   profileMedia,
 }

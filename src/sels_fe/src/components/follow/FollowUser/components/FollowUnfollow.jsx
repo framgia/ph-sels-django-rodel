@@ -26,7 +26,7 @@ const FollowUnfollow = ({ authUser, user, followed }) => {
       (followed) => followed?.followee.username === user.username
     )
     setIsFollowing(follow)
-  }, [followedUsers])
+  }, [followedUsers, user])
 
   return !isFollowing ? (
     <Button

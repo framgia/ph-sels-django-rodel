@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 
-import { Box, Stack } from "@mui/material"
+import { Box, Stack, Typography } from "@mui/material"
 
 import ActivityCard from "./components/ActivityCard"
 import ProfileCard from "./components/ProfileCard"
@@ -43,6 +43,10 @@ function Activity({ authUser }) {
 
   return (
     <Box sx={{ mt: "2rem", mx: "auto", width: "80%" }}>
+      <Typography variant="h4" color="primary">
+        Activities
+      </Typography>
+      <br />
       <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
         <ProfileCard
           authUserActivities={authUserActivities}

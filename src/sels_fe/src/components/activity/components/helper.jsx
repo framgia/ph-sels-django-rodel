@@ -3,7 +3,7 @@ import { Stack, Typography } from "@mui/material"
 const getActivtyPrimaryText = (activity, authUsername) => {
   const { user, activity_type, followed, started_lesson } = activity
 
-  return activity_type == "Follow" ? (
+  return activity_type === "Follow" ? (
     <Stack direction="row" spacing="0.25rem">
       <Typography color="green">
         {user.username === authUsername ? "You" : user.username}
@@ -13,7 +13,7 @@ const getActivtyPrimaryText = (activity, authUsername) => {
         {followed.username === authUsername ? "You" : followed.username}
       </Typography>
     </Stack>
-  ) : activity_type == "Unfollow" ? (
+  ) : activity_type === "Unfollow" ? (
     <Stack direction="row" spacing="0.25rem">
       <Typography color="green">
         {user.username === authUsername ? "You" : user.username}
@@ -34,11 +34,11 @@ const getActivtyPrimaryText = (activity, authUsername) => {
   )
 }
 const getAuthUserActivtyPrimaryText = (activity) => {
-  const { user, activity_type, followed, started_lesson } = activity
+  const { activity_type, followed, started_lesson } = activity
 
-  return activity_type == "Follow" ? (
+  return activity_type === "Follow" ? (
     <Typography color="blue">Followed {followed.username}</Typography>
-  ) : activity_type == "Unfollow" ? (
+  ) : activity_type === "Unfollow" ? (
     <Typography color="blue">Unfollowed {followed.username}</Typography>
   ) : (
     <Typography color="blue">Started {started_lesson?.quiz?.name}</Typography>

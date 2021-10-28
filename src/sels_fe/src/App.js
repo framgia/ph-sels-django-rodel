@@ -11,7 +11,6 @@ import {
   UserSignin,
   UserSignup,
 } from "./components/user"
-import { FollowedUser, FollowUser } from "./components/follow"
 import { QuizMain } from "./pages/quiz"
 import { HomeMain } from "./pages/home"
 import { AdminMain } from "./pages/admin"

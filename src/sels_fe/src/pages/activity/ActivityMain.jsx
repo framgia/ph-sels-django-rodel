@@ -39,7 +39,6 @@ function ActivityMain() {
   return isAuthenticated ? (
     <>
       <ESLNavBar />
-      Activity
       <Switch>
         <Route exact path={`${path}`}>
           <Activity authUser={authUser} />

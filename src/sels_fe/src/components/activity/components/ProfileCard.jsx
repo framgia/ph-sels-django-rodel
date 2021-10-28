@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react"
+import React, { Fragment } from "react"
 
 import {
   Stack,
@@ -10,52 +10,47 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material"
-import {
-  profileCardStyle,
-  profileCardContentStyle,
-  profileStyle,
-  profileMedia,
-} from "./style"
+import { profileCardStyle, profileMedia } from "./style"
 import { getAuthUserActivtyPrimaryText } from "./helper"
 
 const ProfileCard = ({ authUserActivities, authUser }) => {
   return (
-    <Stack direction="row" spacing={6} sx={{ justifyContent: "left" }}>
-      <Card elevation={0} sx={profileCardStyle}>
-        <CardContent sx={profileCardContentStyle}>
-          <Stack direction="row" spacing={0} sx={{ justifyContent: "left" }}>
+    <Card elevation={0} sx={profileCardStyle}>
+      <Stack direction="row" spacing={0} sx={{ justifyContent: "left" }}>
+        <CardContent>
+          <Stack direction="column" spacing={0} sx={{ justifyContent: "left" }}>
             <CardMedia
               component="img"
               image="static/images/profile.png"
               alt="quiz icon"
               sx={profileMedia}
             />
+            <Typography variant="h6">{authUser?.username}</Typography>
+          </Stack>
+        </CardContent>
+        <CardContent>
+          <List sx={{ minWidth: 240, justifyContent: "left" }}>
             <Stack
               direction="column"
               spacing={0}
-              sx={{ justifyContent: "center" }}
+              sx={{ justifyContent: "left" }}
             >
-              <Typography variant="h6" sx={{}}>
-                {authUser?.username}
-              </Typography>
-              <List sx={{ justifyContent: "left" }}>
-                {authUserActivities?.map((activity) => (
-                  <Fragment key={activity.id}>
-                    <Stack direction="column" spacing="2rem">
-                      <ListItem button>
-                        <ListItemText
-                          primary={getAuthUserActivtyPrimaryText(activity)}
-                        />
-                      </ListItem>
-                    </Stack>
-                  </Fragment>
-                ))}
-              </List>
+              {authUserActivities?.map((activity) => (
+                <Fragment key={activity.id}>
+                  <Stack direction="column" spacing="2rem">
+                    <ListItem button>
+                      <ListItemText
+                        primary={getAuthUserActivtyPrimaryText(activity)}
+                      />
+                    </ListItem>
+                  </Stack>
+                </Fragment>
+              ))}
             </Stack>
-          </Stack>
+          </List>
         </CardContent>
-      </Card>
-    </Stack>
+      </Stack>
+    </Card>
   )
 }
 
