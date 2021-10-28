@@ -21,7 +21,7 @@ const ProfileCard = ({ authUserActivities, authUser }) => {
           <Stack direction="column" spacing={0} sx={{ justifyContent: "left" }}>
             <CardMedia
               component="img"
-              image="static/images/profile.png"
+              image={"static/images/authProfile.jpg"}
               alt="quiz icon"
               sx={profileMedia}
             />
@@ -38,7 +38,7 @@ const ProfileCard = ({ authUserActivities, authUser }) => {
               {authUserActivities?.map((activity) => (
                 <Fragment key={activity.id}>
                   <Stack direction="column" spacing="2rem">
-                    <ListItem button>
+                    <ListItem button dense>
                       <ListItemText
                         primary={getAuthUserActivtyPrimaryText(activity)}
                       />

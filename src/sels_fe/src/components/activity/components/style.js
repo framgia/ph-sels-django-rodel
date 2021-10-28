@@ -1,7 +1,7 @@
 const cardStyle = {
   p: "0.5rem",
   maxWidth: "60%",
-  minWidth: 440,
+  minWidth: 500,
   minHeight: 340,
   maxHeight: 540,
   borderRadius: 0,
