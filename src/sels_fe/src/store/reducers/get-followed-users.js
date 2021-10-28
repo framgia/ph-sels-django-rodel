@@ -32,7 +32,7 @@ const getFollowedUserFail = (state = initialState, action) => {
 const followUserSuccess = (state = initialState, action) => {
   return {
     ...state,
-    followed_user_list: action.payload.users,
+    followed_user_list: [...state.followed_user_list, action.payload.user],
     msg: action.payload.msg,
     error: null,
   }
@@ -45,7 +45,9 @@ const followUserFail = (state = initialState, action) => {
 const unfollowUserSuccess = (state = initialState, action) => {
   return {
     ...state,
-    followed_user_list: action.payload.users,
+    followed_user_list: state.followed_user_list.filter(
+      (followed) => followed.id !== parseInt(action.payload.follow_id)
+    ),
     msg: action.payload.msg,
     error: null,
   }

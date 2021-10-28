@@ -1,51 +1,49 @@
-import { 
+import {
   FOLLOW_USER_SUCCESS,
   FOLLOW_USER_FAIL,
   UNFOLLOW_USER_SUCCESS,
-  UNFOLLOW_USER_FAIL
+  UNFOLLOW_USER_FAIL,
 } from "./action-types"
 
-
-const followUserSuccess = user => {
+const followUserSuccess = (user) => {
   return {
     type: FOLLOW_USER_SUCCESS,
     payload: {
       user,
-    }
+    },
   }
 }
 
-const followUserFail = error => {
+const followUserFail = (error) => {
   return {
     type: FOLLOW_USER_FAIL,
     payload: {
-      error
-    }
+      error,
+    },
   }
 }
 
-const unfollowUserSuccess = user => {
+const unfollowUserSuccess = (follow_id) => {
   return {
     type: UNFOLLOW_USER_SUCCESS,
     payload: {
-      user,
-    }
+      follow_id,
+    },
   }
 }
 
-const unfollowUserFail = error => {
+const unfollowUserFail = (error) => {
   return {
     type: UNFOLLOW_USER_FAIL,
     payload: {
-      error
-    }
+      error,
+    },
   }
 }
-
 
 export {
   followUserSuccess,
   followUserFail,
   unfollowUserSuccess,
-  unfollowUserFail
+  unfollowUserFail,
 }
