@@ -34,25 +34,25 @@ const ActivityCard = ({ userFollowedUserActivities, authUser }) => {
             {userFollowedUserActivities?.map((activity) => (
               <Fragment key={activity.id}>
                 <Stack direction="row" spacing={2}>
-                  <ListItemIcon>
-                    <CardMedia
-                      component="img"
-                      image={
-                        authUser?.id === activity.user.id
-                          ? "static/images/authProfile.jpg"
-                          : "static/images/profile.png"
-                      }
-                      alt="profile icon"
-                      sx={{
-                        ml: "1rem",
-                        width: 40,
-                        height: 40,
-                        alignSelf: "center",
-                        borderRadius: "50%",
-                      }}
-                    />
-                  </ListItemIcon>
                   <ListItem button>
+                    <ListItemIcon>
+                      <CardMedia
+                        component="img"
+                        image={
+                          authUser?.id === activity.user.id
+                            ? "static/images/authProfile.jpg"
+                            : "static/images/profile.png"
+                        }
+                        alt="profile icon"
+                        sx={{
+                          mr: "1rem",
+                          width: 60,
+                          height: 60,
+                          alignSelf: "center",
+                          borderRadius: "50%",
+                        }}
+                      />
+                    </ListItemIcon>
                     <ListItemText
                       primary={getActivtyPrimaryText(activity, authUsername)}
                       secondary={
