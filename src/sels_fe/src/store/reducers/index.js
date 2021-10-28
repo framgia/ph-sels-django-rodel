@@ -11,6 +11,7 @@ import { answerReducer } from "./answer"
 import { userReducer } from "./user"
 import { lessonReducer } from "./lesson"
 import { answeredReducer } from "./answered"
+import { activityReducer } from "./activity"
 
 const reducers = combineReducers({
   Signup: signupReducer,
@@ -24,6 +25,7 @@ const reducers = combineReducers({
   User: userReducer,
   Lesson: lessonReducer,
   Answered: answeredReducer,
+  Activity: activityReducer,
 })
 
 export default reducers

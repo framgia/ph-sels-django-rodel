@@ -25,4 +25,4 @@ yarn-error.log*
 #remove or comment out before creating commit for user authentication
 # /src/store/actions/GetUsers
 # /src/components/follow
-# /src/components/quiz/Quiz/try.jsx
+/src/components/dashboard

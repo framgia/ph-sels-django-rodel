@@ -15,15 +15,25 @@ import { AppBar, Toolbar, Typography, Stack, Divider } from "@mui/material"
 import Popup from "reactjs-popup"
 import "reactjs-popup/dist/index.css"
 
+import RowingIcon from "@mui/icons-material/Rowing"
+import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns"
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import PersonIcon from "@mui/icons-material/Person"
-import ExitToAppIcon from "@mui/icons-material/ExitToApp"
+import LogoutIcon from "@mui/icons-material/Logout"
 
 const ESLNavBar = () => {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
   const authUser = useSelector((state) => state.AuthUser.data)
   const history = useHistory()
+
+  const handleActivity = () => {
+    history.push(`/activities`)
+  }
+
+  const handleFollow = () => {
+    history.push(`/follow`)
+  }
 
   const handleSignout = () => {
     history.push(`/signout`)
@@ -68,23 +78,57 @@ const ESLNavBar = () => {
               arrow={false}
               position="bottom right"
             >
-              <MenuList>
-                <Divider />
-                <MenuItem>
-                  <ListItemIcon>
-                    <PersonIcon fontSize="Large" />
-                  </ListItemIcon>
-                  <ListItemText>User Account</ListItemText>
-                </MenuItem>
-                <Divider />
-                <MenuItem button onClick={handleSignout}>
-                  <ListItemIcon>
-                    <ExitToAppIcon fontSize="Large" />
-                  </ListItemIcon>
-                  <ListItemText>Signout</ListItemText>
-                </MenuItem>
-                <Divider />
-              </MenuList>
+              {(close) => (
+                <MenuList>
+                  <Divider />
+                  <MenuItem
+                    button
+                    onClick={() => {
+                      handleActivity()
+                      close()
+                    }}
+                  >
+                    <ListItemIcon>
+                      <RowingIcon />
+                    </ListItemIcon>
+                    <ListItemText>Activities</ListItemText>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem
+                    button
+                    onClick={() => {
+                      handleFollow()
+                      close()
+                    }}
+                  >
+                    <ListItemIcon>
+                      <FollowTheSignsIcon />
+                    </ListItemIcon>
+                    <ListItemText>Follow Users</ListItemText>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem>
+                    <ListItemIcon>
+                      <PersonIcon />
+                    </ListItemIcon>
+                    <ListItemText>User Account</ListItemText>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem
+                    button
+                    onClick={() => {
+                      handleSignout()
+                      close()
+                    }}
+                  >
+                    <ListItemIcon>
+                      <LogoutIcon />
+                    </ListItemIcon>
+                    <ListItemText>Signout</ListItemText>
+                  </MenuItem>
+                  <Divider />
+                </MenuList>
+              )}
             </Popup>
           ) : (
             <Button onClick={() => history.push(`/signin`)}>Login</Button>

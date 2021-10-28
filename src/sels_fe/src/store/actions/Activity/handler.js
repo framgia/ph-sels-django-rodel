@@ -1,21 +1,24 @@
 import {
-  postUserSuccess,
-  postUserFail,
-  getUserSuccess,
-  getUserFail,
-  getUserListSuccess,
-  getUserListFail,
-  updateUserSuccess,
-  updateUserFail,
-  deleteUserSuccess,
-  deleteUserFail,
+  postActivitySuccess,
+  postActivityFail,
+  postBulkActivitySuccess,
+  postBulkActivityFail,
+  getActivitySuccess,
+  getActivityFail,
+  getActivityListSuccess,
+  getActivityListFail,
+  updateActivitySuccess,
+  updateActivityFail,
+  deleteActivitySuccess,
+  deleteActivityFail,
 } from "./response"
 
 import { baseURL } from "../../../adapters"
 
-const postUser = async (data) => {
+const postActivity = async (data) => {
+  console.log(data)
   const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}users/`
+  const url = `${baseURL}activity/`
   const resquestOption = {
     method: "POST",
     headers: {
@@ -29,9 +32,25 @@ const postUser = async (data) => {
   return await response
 }
 
-const fetchUser = async (user_id) => {
+const postBulkActivity = async (data) => {
   const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}users/`
+  const url = `${baseURL}activities/bulk`
+  const resquestOption = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(data),
+  }
+  const response = await fetch(url, resquestOption)
+  return await response
+}
+
+const fetchActivity = async (activity_id) => {
+  const accessToken = localStorage.getItem("access_token")
+  const url = `${baseURL}activity/`
   const resquestOption = {
     method: "GET",
     headers: {
@@ -44,9 +63,9 @@ const fetchUser = async (user_id) => {
   return await response
 }
 
-const fetchUserList = async () => {
+const fetchActivityList = async () => {
   const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}users/`
+  const url = `${baseURL}activity/`
   const resquestOption = {
     method: "GET",
     headers: {
@@ -59,9 +78,9 @@ const fetchUserList = async () => {
   return await response
 }
 
-const updateUser = async (user_id, data) => {
+const updateActivity = async (activity_id, data) => {
   const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}users/${user_id}/`
+  const url = `${baseURL}activity/${activity_id}/`
   const resquestOption = {
     method: "PUT",
     headers: {
@@ -75,9 +94,9 @@ const updateUser = async (user_id, data) => {
   return await response
 }
 
-const deleteUser = async (user_id) => {
+const deleteActivity = async (activity_id) => {
   const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}users/${user_id}/`
+  const url = `${baseURL}activity/${activity_id}/`
   const resquestOption = {
     method: "DELETE",
     headers: {
@@ -90,8 +109,8 @@ const deleteUser = async (user_id) => {
   return await response
 }
 
-function handlePostUser(data, dispatch) {
-  const response = postUser(data)
+function handlePostActivity(data, dispatch) {
+  const response = postActivity(data)
   response
     .then((res) => {
       if (res.ok) {
@@ -100,18 +119,18 @@ function handlePostUser(data, dispatch) {
         throw res
       }
     })
-    .then((data) => dispatch(postUserSuccess(data)))
+    .then((data) => dispatch(postActivitySuccess(data)))
     .catch((err) => {
       try {
-        err.json().then((error) => dispatch(postUserFail(error)))
+        err.json().then((error) => dispatch(postActivityFail(error)))
       } catch (e) {
         console.log(err)
       }
     })
 }
 
-function handleGetUser(user_id, dispatch) {
-  const response = fetchUser(user_id)
+function handlePostBulkActivity(data, dispatch) {
+  const response = postBulkActivity(data)
   response
     .then((res) => {
       if (res.ok) {
@@ -120,18 +139,32 @@ function handleGetUser(user_id, dispatch) {
         throw res
       }
     })
-    .then((data) => dispatch(getUserSuccess(data)))
+    .then((data) => dispatch(postBulkActivitySuccess(data)))
     .catch((err) => {
       try {
-        err.json().then((error) => dispatch(getUserFail(error)))
+        err.json().then((error) => dispatch(postBulkActivityFail(error)))
       } catch (e) {
         console.log(err)
       }
     })
 }
 
-function handleGetUserList(dispatch) {
-  const response = fetchUserList()
+function handleGetActivity(activity_id, dispatch) {
+  const response = fetchActivity(activity_id)
+  response
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw res.json()
+      }
+    })
+    .then((data) => dispatch(getActivitySuccess(data)))
+    .catch((error) => dispatch(getActivityFail(error)))
+}
+
+function handleGetActivityList(dispatch) {
+  const response = fetchActivityList()
   response
     .then((res) => {
       if (res.ok) {
@@ -140,18 +173,18 @@ function handleGetUserList(dispatch) {
         throw res
       }
     })
-    .then((data) => dispatch(getUserListSuccess(data)))
+    .then((data) => dispatch(getActivityListSuccess(data)))
     .catch((err) => {
       try {
-        err.json().then((error) => dispatch(getUserListFail(error)))
+        err.json().then((error) => dispatch(getActivityListFail(error)))
       } catch (e) {
         console.log(err)
       }
     })
 }
 
-function handleUpdateUser(user_id, user_data, dispatch) {
-  const response = updateUser(user_id, user_data)
+function handleUpdateActivity(activity_id, activity_data, dispatch) {
+  const response = updateActivity(activity_id, activity_data)
   response
     .then((res) => {
       if (res.ok) {
@@ -160,30 +193,30 @@ function handleUpdateUser(user_id, user_data, dispatch) {
         throw res
       }
     })
-    .then((data) => dispatch(updateUserSuccess(data)))
+    .then((data) => dispatch(updateActivitySuccess(data)))
     .catch((err) => {
       try {
-        err.json().then((error) => dispatch(updateUserFail(error)))
+        err.json().then((error) => dispatch(updateActivityFail(error)))
       } catch (e) {
         console.log(err)
       }
     })
 }
 
-function handleDeleteUser(user_id, dispatch) {
-  const response = deleteUser(user_id)
+function handleDeleteActivity(activity_id, dispatch) {
+  const response = deleteActivity(activity_id)
   response
     .then((res) => {
       if (res.ok) {
-        return dispatch(deleteUserSuccess(user_id))
+        return dispatch(deleteActivitySuccess(activity_id))
       } else {
         throw res
       }
     })
-    .then(() => console.log(`user ${user_id} deleted`))
+    .then(() => console.log(`activity ${activity_id} deleted`))
     .catch((err) => {
       try {
-        err.json().then((error) => dispatch(deleteUserFail(error)))
+        err.json().then((error) => dispatch(deleteActivityFail(error)))
       } catch (e) {
         console.log(err)
       }
@@ -191,9 +224,10 @@ function handleDeleteUser(user_id, dispatch) {
 }
 
 export {
-  handlePostUser,
-  handleGetUser,
-  handleGetUserList,
-  handleUpdateUser,
-  handleDeleteUser,
+  handlePostActivity,
+  handlePostBulkActivity,
+  handleGetActivity,
+  handleGetActivityList,
+  handleUpdateActivity,
+  handleDeleteActivity,
 }

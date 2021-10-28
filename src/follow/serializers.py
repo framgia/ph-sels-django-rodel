@@ -7,28 +7,30 @@ from .models import Follow
 User = get_user_model()
 
 
-
-
 class UserSerializer(serializers.ModelSerializer):
 
-  class Meta:
-    model = User
-    fields = [ 'id', 'username']
+    class Meta:
+        model = User
+        fields = ['id', 'username']
 
-    
+
 class FollowSerializer(serializers.ModelSerializer):
-  follower = UserSerializer(read_only=True)
-  followee = UserSerializer(read_only=True)
+    follower = UserSerializer(read_only=True)
+    followee = UserSerializer(read_only=True)
 
-  class Meta:
-    model = Follow
-    fields = [ 'id', 'follower', 'followee', 'status']
+    class Meta:
+        model = Follow
+        fields = ['id', 'follower', 'followee', 'status']
 
-    
+
 class FollowCreateSerializer(serializers.ModelSerializer):
-  
-  class Meta:
-    model = Follow
-    fields = [ 'id', 'follower', 'followee']
+    class Meta:
+        model = Follow
+        fields = ['id', 'follower', 'followee']
 
-
+    def to_representation(self, value):
+        if isinstance(value, Follow):
+            serializer = FollowSerializer(value)
+        else:
+            raise Exception('Unexpected type of tagged object')
+        return serializer.data

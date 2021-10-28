@@ -19,4 +19,5 @@ urlpatterns = [
     path('api/', include('answers_choices.urls'), name='answers_choices_api'),
     path('api/', include('lesson.urls'), name='lesson_api'),
     path('api/', include('answered_question.urls'), name='answered_question_api'),
+    path('api/', include('activity.urls'), name='activity_api'),
 ]

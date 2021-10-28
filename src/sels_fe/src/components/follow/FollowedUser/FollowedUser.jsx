@@ -23,23 +23,21 @@ import { Person } from "@material-ui/icons"
 const FollowedUser = () => {
   const authUser = useSelector((state) => state.AuthUser.data)
   const { isAuthenticated } = useSelector((state) => state.Signin)
-  const follows = useSelector((state) => state.FollowedUsers.followed_user_list)
+  const FollowedUsers = useSelector(
+    (state) => state.FollowedUsers.followed_user_list
+  )
 
   const [update, setUpdate] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getAuthUserDetails())
+    dispatch(getFollowedUserList())
     dispatch(getUserList())
   }, [dispatch])
 
-  useEffect(() => {
-    dispatch(getFollowedUserList())
-  }, [dispatch, follows.length, update])
-
   const handleUnfollowUser = (follow_id) => {
     dispatch(unfollowUser(follow_id))
-    dispatch(getFollowedUserList())
     setUpdate(!update)
   }
 
@@ -51,29 +49,27 @@ const FollowedUser = () => {
             Followed Users
           </Typography>
           <List>
-            {follows.length > 0
-              ? follows.map(
-                  (follow, index) =>
-                    authUser?.id !== follow.followee.id && (
-                      <React.Fragment key={follow.id}>
-                        <Divider />
-                        <ListItem>
-                          <ListItemIcon>
-                            <Person fontSize="large" />
-                          </ListItemIcon>
-                          <ListItemText primary={follow.followee.username} />
-                          <Button
-                            color="secondary"
-                            variant="outlined"
-                            onClick={() => handleUnfollowUser(follow.id)}
-                          >
-                            Unfollow
-                          </Button>
-                        </ListItem>
-                      </React.Fragment>
-                    )
+            {FollowedUsers?.map(
+              (follow, index) =>
+                authUser?.id !== follow.followee.id && (
+                  <React.Fragment key={follow.id}>
+                    <Divider />
+                    <ListItem>
+                      <ListItemIcon>
+                        <Person fontSize="large" />
+                      </ListItemIcon>
+                      <ListItemText primary={follow.followee.username} />
+                      <Button
+                        color="secondary"
+                        variant="outlined"
+                        onClick={() => handleUnfollowUser(follow.id)}
+                      >
+                        Unfollow
+                      </Button>
+                    </ListItem>
+                  </React.Fragment>
                 )
-              : null}
+            )}
           </List>
         </>
       ) : (
