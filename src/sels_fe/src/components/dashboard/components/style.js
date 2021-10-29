@@ -1,7 +1,7 @@
 const cardStyle = {
   p: "0.5rem",
   maxWidth: "60%",
-  minWidth: 600,
+  minWidth: 580,
   minHeight: 340,
   maxHeight: 540,
   borderRadius: 0,
@@ -21,7 +21,7 @@ const listStyle = {
   position: "relative",
   overflow: "auto",
   minHeight: 300,
-  maxHeight: 480,
+  maxHeight: 500,
 }
 
 const profileCardStyle = {
@@ -37,6 +37,7 @@ const profileCardStyle = {
 const profileMedia = {
   my: "0.25rem",
   p: "0.25rem",
+
   height: 120,
   width: 120,
   border: "1px",

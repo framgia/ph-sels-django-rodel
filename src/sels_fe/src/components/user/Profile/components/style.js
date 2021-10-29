@@ -35,7 +35,7 @@ const profileCardStyle = {
 }
 
 const profileMedia = {
-  my: "0.25rem",
+  mx: "auto",
   p: "0.25rem",
   height: 120,
   width: 120,

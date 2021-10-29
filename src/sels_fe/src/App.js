@@ -17,6 +17,7 @@ import { AdminMain } from "./pages/admin"
 import { LessonMain } from "./pages/lesson"
 import { ActivityMain } from "./pages/activity"
 import { FollowMain } from "./pages/follow"
+import UserMain from "./pages/user/UserMain"
 
 function App() {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
@@ -44,6 +45,7 @@ function App() {
         <Route path="/lesson" component={LessonMain} />
         <Route path="/admin" component={AdminMain} />
         <Route path="/activities" component={ActivityMain} />
+        <Route path="/user" component={UserMain} />
       </Router>
     </div>
   )

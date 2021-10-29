@@ -5,44 +5,44 @@ import { useDispatch, useSelector } from "react-redux"
 
 import {
   getUserList,
+  getActivityList,
   getQuizList,
   getQuestionList,
   getChoiceList,
   getAnswerList,
   getLessonList,
   getAnsweredList,
+  getFollowedUserList,
 } from "../../store/actions"
 
 import { Typography } from "@mui/material"
 
 import { ESLNavBar } from "../../components/header"
-import { TakeLesson, CategoryList } from "../../components/lesson"
+import { UserProfile } from "../../components/user"
 
-function LessonMain() {
+function UserMain() {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
-  const authUser = useSelector((state) => state.AuthUser.data)
   let { path } = useRouteMatch()
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(getUserList())
+    dispatch(getActivityList())
     dispatch(getQuizList())
     dispatch(getQuestionList())
     dispatch(getChoiceList())
     dispatch(getAnswerList())
     dispatch(getLessonList())
     dispatch(getAnsweredList())
+    dispatch(getFollowedUserList())
   }, [dispatch])
 
   return isAuthenticated ? (
     <>
       <ESLNavBar />
-
       <Switch>
-        <Route exact path={`${path}`}>
-          <CategoryList user={authUser} />
-        </Route>
-        <Route path={`${path}/:id`} onLeave={<TakeLesson user={authUser} />}>
-          <TakeLesson user={authUser} />
+        <Route path={`${path}/:id`}>
+          <UserProfile />
         </Route>
       </Switch>
     </>
@@ -53,4 +53,4 @@ function LessonMain() {
   )
 }
 
-export default LessonMain
+export default UserMain
