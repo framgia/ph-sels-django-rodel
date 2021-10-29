@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 
 import { Box, Stack, Typography } from "@mui/material"
 
-import ActivityCard from "./components/ActivityCard"
+import ActivityCardList from "./components/ActivityCardList"
 import ProfileCard from "./components/ProfileCard"
 
 function Activity({ authUser }) {
@@ -52,7 +52,7 @@ function Activity({ authUser }) {
           authUserActivities={authUserActivities}
           authUser={authUser}
         />
-        <ActivityCard
+        <ActivityCardList
           userFollowedUserActivities={userFollowedUserActivities}
           authUser={authUser}
         />

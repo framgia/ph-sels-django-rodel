@@ -5,7 +5,8 @@ import { followUser, unfollowUser } from "../../../../store/actions"
 
 import { Button } from "@mui/material"
 
-const FollowUnfollow = ({ authUser, user, followed }) => {
+const FollowUnfollow = ({ user, followed }) => {
+  const authUser = useSelector((state) => state.AuthUser.data)
   const followedUsers = useSelector(
     (state) => state.FollowedUsers.followed_user_list
   )
@@ -18,12 +19,13 @@ const FollowUnfollow = ({ authUser, user, followed }) => {
   const handleUnfollow = (followed) => {
     dispatch(unfollowUser(followed?.id))
   }
+
   const dispatch = useDispatch()
 
   useEffect(() => {
     let follow = true
     follow = followedUsers.some(
-      (followed) => followed?.followee.username === user.username
+      (followed) => followed?.followee.username === user?.username
     )
     setIsFollowing(follow)
   }, [followedUsers, user])
@@ -33,7 +35,8 @@ const FollowUnfollow = ({ authUser, user, followed }) => {
       variant="contained"
       fontSize="large"
       color="primary"
-      onClick={() => handleFollow(user.id)}
+      onClick={() => handleFollow(user?.id)}
+      style={{ width: "25ch", borderRadius: "60% 0", alignSelf: "center" }}
     >
       Follow
     </Button>
@@ -43,6 +46,7 @@ const FollowUnfollow = ({ authUser, user, followed }) => {
       fontSize="large"
       color="secondary"
       onClick={() => handleUnfollow(followed)}
+      style={{ width: "25ch", borderRadius: "0 60%", alignSelf: "center" }}
     >
       Unfollow
     </Button>

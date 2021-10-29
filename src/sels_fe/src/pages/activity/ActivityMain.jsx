@@ -12,13 +12,14 @@ import {
   getAnswerList,
   getLessonList,
   getAnsweredList,
+  getFollowedUserList,
 } from "../../store/actions"
 
 import { Typography } from "@mui/material"
 
 import { ESLNavBar } from "../../components/header"
 import { Activity } from "../../components/activity"
-
+import { ActivityDetail } from "../../components/activity"
 function ActivityMain() {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
   const authUser = useSelector((state) => state.AuthUser.data)
@@ -34,6 +35,7 @@ function ActivityMain() {
     dispatch(getAnswerList())
     dispatch(getLessonList())
     dispatch(getAnsweredList())
+    dispatch(getFollowedUserList())
   }, [dispatch])
 
   return isAuthenticated ? (
@@ -42,6 +44,9 @@ function ActivityMain() {
       <Switch>
         <Route exact path={`${path}`}>
           <Activity authUser={authUser} />
+        </Route>
+        <Route path={`${path}/:id`}>
+          <ActivityDetail authUser={authUser} />
         </Route>
       </Switch>
     </>

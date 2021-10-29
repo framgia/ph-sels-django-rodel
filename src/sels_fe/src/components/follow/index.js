@@ -1,7 +1,4 @@
-import FollowUser from "./FollowUser";
-import FollowedUser from './FollowedUser';
+import FollowUser, { FollowUnfollow } from "./FollowUser"
+import FollowedUser from "./FollowedUser"
 
-export {
-  FollowUser,
-  FollowedUser
-}
+export { FollowUser, FollowedUser, FollowUnfollow }

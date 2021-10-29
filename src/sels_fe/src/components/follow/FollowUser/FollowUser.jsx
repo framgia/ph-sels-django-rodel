@@ -1,11 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import {
-  getUserList,
-  getFollowedUserList,
-  getAuthUserDetails,
-} from "../../../store/actions"
+import { getUserList, getAuthUserDetails } from "../../../store/actions"
 
 import {
   Box,
@@ -31,7 +27,6 @@ const FollowUser = () => {
   useEffect(() => {
     dispatch(getUserList())
     dispatch(getAuthUserDetails())
-    dispatch(getFollowedUserList())
   }, [dispatch])
 
   return (
