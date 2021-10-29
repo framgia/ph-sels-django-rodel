@@ -10,10 +10,15 @@ const CategoryList = ({ user }) => {
   const lessonList = useSelector((state) => state.Lesson.lesson_list)
   const authUser = useSelector((state) => state.AuthUser.data)
   const [takenLessons, setTakenLessons] = useState([])
+  const [update, setUpdate] = useState([])
 
   useEffect(() => {
     setTakenLessons(lessonList.filter((lesson) => lesson.taken_by === user?.id))
-  }, [quizList, lessonList, user])
+  }, [quizList, lessonList, user, update])
+
+  useEffect(() => {
+    setUpdate(!update)
+  }, [lessonList])
 
   return (
     <Box component="div" sx={{ m: "1rem", mx: "auto", maxWidth: "90%" }}>

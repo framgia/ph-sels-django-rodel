@@ -56,7 +56,7 @@ const QuestionDetail = () => {
 
   useEffect(() => {
     setQuestionDetail(
-      question_list?.find((question) => question.id === parseInt(question_id))
+      question_list?.find((question) => question?.id === parseInt(question_id))
     )
   }, [question_list, question_id])
 
@@ -69,9 +69,9 @@ const QuestionDetail = () => {
   }, [choice_list, question_id])
 
   useEffect(() => {
-    setAnswer(
-      answer_list?.find((ans) => ans.question === parseInt(question_id))
-    )
+    let answer
+    answer = answer_list?.find((ans) => ans?.question === parseInt(question_id))
+    setAnswer(answer)
   }, [answer_list, question_id])
 
   return (

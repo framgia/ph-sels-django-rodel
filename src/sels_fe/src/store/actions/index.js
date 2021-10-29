@@ -57,6 +57,14 @@ import {
   updateAnswered,
   deleteAnswered,
 } from "./Answered/action"
+import {
+  postActivity,
+  postBulkActivity,
+  getActivity,
+  getActivityList,
+  updateActivity,
+  deleteActivity,
+} from "./Activity/action"
 
 export {
   authSignup,
@@ -106,4 +114,10 @@ export {
   getAnsweredList,
   updateAnswered,
   deleteAnswered,
+  postActivity,
+  postBulkActivity,
+  getActivity,
+  getActivityList,
+  updateActivity,
+  deleteActivity,
 }

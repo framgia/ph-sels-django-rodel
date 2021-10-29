@@ -2,6 +2,10 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+from activity.models import Activity
 
 USER = get_user_model()
 QUIZ = 'quiz.Quiz'
@@ -21,3 +25,15 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.quiz.name
+
+
+@receiver(post_save, sender=Lesson)
+def post_save_project(sender, instance, created, position=1, *args, **kwargs):
+    _user = instance.taken_by
+    if created:
+        activity = Activity(
+            user=_user,
+            started_lesson=instance,
+            activity_type='Lesson',
+        )
+        activity.save()

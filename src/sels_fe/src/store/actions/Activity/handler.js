@@ -1,24 +1,24 @@
 import {
-  postAnsweredSuccess,
-  postAnsweredFail,
-  postBulkAnsweredSuccess,
-  postBulkAnsweredFail,
-  getAnsweredSuccess,
-  getAnsweredFail,
-  getAnsweredListSuccess,
-  getAnsweredListFail,
-  updateAnsweredSuccess,
-  updateAnsweredFail,
-  deleteAnsweredSuccess,
-  deleteAnsweredFail,
+  postActivitySuccess,
+  postActivityFail,
+  postBulkActivitySuccess,
+  postBulkActivityFail,
+  getActivitySuccess,
+  getActivityFail,
+  getActivityListSuccess,
+  getActivityListFail,
+  updateActivitySuccess,
+  updateActivityFail,
+  deleteActivitySuccess,
+  deleteActivityFail,
 } from "./response"
 
 import { baseURL } from "../../../adapters"
 
-const postAnswered = async (data) => {
+const postActivity = async (data) => {
   console.log(data)
   const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}answered/`
+  const url = `${baseURL}activity/`
   const resquestOption = {
     method: "POST",
     headers: {
@@ -32,9 +32,9 @@ const postAnswered = async (data) => {
   return await response
 }
 
-const postBulkAnswered = async (data) => {
+const postBulkActivity = async (data) => {
   const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}answered-questions/bulk`
+  const url = `${baseURL}activities/bulk`
   const resquestOption = {
     method: "POST",
     headers: {
@@ -48,9 +48,9 @@ const postBulkAnswered = async (data) => {
   return await response
 }
 
-const fetchAnswered = async (answered_id) => {
+const fetchActivity = async (activity_id) => {
   const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}answered/`
+  const url = `${baseURL}activity/`
   const resquestOption = {
     method: "GET",
     headers: {
@@ -63,9 +63,9 @@ const fetchAnswered = async (answered_id) => {
   return await response
 }
 
-const fetchAnsweredList = async () => {
+const fetchActivityList = async () => {
   const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}answered/`
+  const url = `${baseURL}activity/`
   const resquestOption = {
     method: "GET",
     headers: {
@@ -78,9 +78,9 @@ const fetchAnsweredList = async () => {
   return await response
 }
 
-const updateAnswered = async (answered_id, data) => {
+const updateActivity = async (activity_id, data) => {
   const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}answered/${answered_id}/`
+  const url = `${baseURL}activity/${activity_id}/`
   const resquestOption = {
     method: "PUT",
     headers: {
@@ -94,9 +94,9 @@ const updateAnswered = async (answered_id, data) => {
   return await response
 }
 
-const deleteAnswered = async (answered_id) => {
+const deleteActivity = async (activity_id) => {
   const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}answered/${answered_id}/`
+  const url = `${baseURL}activity/${activity_id}/`
   const resquestOption = {
     method: "DELETE",
     headers: {
@@ -109,8 +109,8 @@ const deleteAnswered = async (answered_id) => {
   return await response
 }
 
-function handlePostAnswered(data, dispatch) {
-  const response = postAnswered(data)
+function handlePostActivity(data, dispatch) {
+  const response = postActivity(data)
   response
     .then((res) => {
       if (res.ok) {
@@ -119,18 +119,18 @@ function handlePostAnswered(data, dispatch) {
         throw res
       }
     })
-    .then((data) => dispatch(postAnsweredSuccess(data)))
+    .then((data) => dispatch(postActivitySuccess(data)))
     .catch((err) => {
       try {
-        err.json().then((error) => dispatch(postAnsweredFail(error)))
+        err.json().then((error) => dispatch(postActivityFail(error)))
       } catch (e) {
         console.log(err)
       }
     })
 }
 
-function handlePostBulkAnswered(data, dispatch) {
-  const response = postBulkAnswered(data)
+function handlePostBulkActivity(data, dispatch) {
+  const response = postBulkActivity(data)
   response
     .then((res) => {
       if (res.ok) {
@@ -139,18 +139,18 @@ function handlePostBulkAnswered(data, dispatch) {
         throw res
       }
     })
-    .then((data) => dispatch(postBulkAnsweredSuccess(data)))
+    .then((data) => dispatch(postBulkActivitySuccess(data)))
     .catch((err) => {
       try {
-        err.json().then((error) => dispatch(postBulkAnsweredFail(error)))
+        err.json().then((error) => dispatch(postBulkActivityFail(error)))
       } catch (e) {
         console.log(err)
       }
     })
 }
 
-function handleGetAnswered(answered_id, dispatch) {
-  const response = fetchAnswered(answered_id)
+function handleGetActivity(activity_id, dispatch) {
+  const response = fetchActivity(activity_id)
   response
     .then((res) => {
       if (res.ok) {
@@ -159,26 +159,12 @@ function handleGetAnswered(answered_id, dispatch) {
         throw res.json()
       }
     })
-    .then((data) => dispatch(getAnsweredSuccess(data)))
-    .catch((error) => dispatch(getAnsweredFail(error)))
+    .then((data) => dispatch(getActivitySuccess(data)))
+    .catch((error) => dispatch(getActivityFail(error)))
 }
 
-function handleGetAnsweredList(dispatch) {
-  const response = fetchAnsweredList()
-  response
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        throw res.json()
-      }
-    })
-    .then((data) => dispatch(getAnsweredListSuccess(data)))
-    .catch((error) => dispatch(getAnsweredListFail(error)))
-}
-
-function handleUpdateAnswered(answered_id, answered_data, dispatch) {
-  const response = updateAnswered(answered_id, answered_data)
+function handleGetActivityList(dispatch) {
+  const response = fetchActivityList()
   response
     .then((res) => {
       if (res.ok) {
@@ -187,30 +173,50 @@ function handleUpdateAnswered(answered_id, answered_data, dispatch) {
         throw res
       }
     })
-    .then((data) => dispatch(updateAnsweredSuccess(data)))
+    .then((data) => dispatch(getActivityListSuccess(data)))
     .catch((err) => {
       try {
-        err.json().then((error) => dispatch(updateAnsweredFail(error)))
+        err.json().then((error) => dispatch(getActivityListFail(error)))
       } catch (e) {
         console.log(err)
       }
     })
 }
 
-function handleDeleteAnswered(answered_id, dispatch) {
-  const response = deleteAnswered(answered_id)
+function handleUpdateActivity(activity_id, activity_data, dispatch) {
+  const response = updateActivity(activity_id, activity_data)
   response
     .then((res) => {
       if (res.ok) {
-        return dispatch(deleteAnsweredSuccess(answered_id))
+        return res.json()
       } else {
         throw res
       }
     })
-    .then(() => console.log(`answered ${answered_id} deleted`))
+    .then((data) => dispatch(updateActivitySuccess(data)))
     .catch((err) => {
       try {
-        err.json().then((error) => dispatch(deleteAnsweredFail(error)))
+        err.json().then((error) => dispatch(updateActivityFail(error)))
+      } catch (e) {
+        console.log(err)
+      }
+    })
+}
+
+function handleDeleteActivity(activity_id, dispatch) {
+  const response = deleteActivity(activity_id)
+  response
+    .then((res) => {
+      if (res.ok) {
+        return dispatch(deleteActivitySuccess(activity_id))
+      } else {
+        throw res
+      }
+    })
+    .then(() => console.log(`activity ${activity_id} deleted`))
+    .catch((err) => {
+      try {
+        err.json().then((error) => dispatch(deleteActivityFail(error)))
       } catch (e) {
         console.log(err)
       }
@@ -218,10 +224,10 @@ function handleDeleteAnswered(answered_id, dispatch) {
 }
 
 export {
-  handlePostAnswered,
-  handlePostBulkAnswered,
-  handleGetAnswered,
-  handleGetAnsweredList,
-  handleUpdateAnswered,
-  handleDeleteAnswered,
+  handlePostActivity,
+  handlePostBulkActivity,
+  handleGetActivity,
+  handleGetActivityList,
+  handleUpdateActivity,
+  handleDeleteActivity,
 }

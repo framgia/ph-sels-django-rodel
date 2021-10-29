@@ -117,11 +117,17 @@ function handleGetUser(user_id, dispatch) {
       if (res.ok) {
         return res.json()
       } else {
-        throw res.json()
+        throw res
       }
     })
     .then((data) => dispatch(getUserSuccess(data)))
-    .catch((error) => dispatch(getUserFail(error)))
+    .catch((err) => {
+      try {
+        err.json().then((error) => dispatch(getUserFail(error)))
+      } catch (e) {
+        console.log(err)
+      }
+    })
 }
 
 function handleGetUserList(dispatch) {
@@ -131,11 +137,17 @@ function handleGetUserList(dispatch) {
       if (res.ok) {
         return res.json()
       } else {
-        throw res.json()
+        throw res
       }
     })
     .then((data) => dispatch(getUserListSuccess(data)))
-    .catch((error) => dispatch(getUserListFail(error)))
+    .catch((err) => {
+      try {
+        err.json().then((error) => dispatch(getUserListFail(error)))
+      } catch (e) {
+        console.log(err)
+      }
+    })
 }
 
 function handleUpdateUser(user_id, user_data, dispatch) {

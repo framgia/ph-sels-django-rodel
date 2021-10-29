@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'answers_choices',
     'lesson',
     'answered_question',
+    'activity',
 
     'rest_framework',
     'rest_framework_simplejwt',
