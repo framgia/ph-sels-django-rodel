@@ -30,27 +30,29 @@ const FollowUnfollow = ({ user, followed }) => {
     setIsFollowing(follow)
   }, [followedUsers, user])
 
-  return !isFollowing ? (
-    <Button
-      variant="contained"
-      fontSize="large"
-      color="primary"
-      onClick={() => handleFollow(user?.id)}
-      style={{ width: "25ch", borderRadius: "60% 0", alignSelf: "center" }}
-    >
-      Follow
-    </Button>
-  ) : (
-    <Button
-      variant="contained"
-      fontSize="large"
-      color="secondary"
-      onClick={() => handleUnfollow(followed)}
-      style={{ width: "25ch", borderRadius: "0 60%", alignSelf: "center" }}
-    >
-      Unfollow
-    </Button>
-  )
+  return authUser.id !== user.id ? (
+    !isFollowing ? (
+      <Button
+        variant="contained"
+        fontSize="large"
+        color="primary"
+        onClick={() => handleFollow(user?.id)}
+        style={{ width: "25ch", borderRadius: "60% 0", alignSelf: "center" }}
+      >
+        Follow
+      </Button>
+    ) : (
+      <Button
+        variant="contained"
+        fontSize="large"
+        color="secondary"
+        onClick={() => handleUnfollow(followed)}
+        style={{ width: "25ch", borderRadius: "0 60%", alignSelf: "center" }}
+      >
+        Unfollow
+      </Button>
+    )
+  ) : null
 }
 
 export default FollowUnfollow

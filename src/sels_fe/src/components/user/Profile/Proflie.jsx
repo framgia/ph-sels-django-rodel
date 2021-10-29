@@ -19,17 +19,30 @@ const Profile = ({ user, authUser, currentActivities }) => {
   const followedUsers = useSelector(
     (state) => state.FollowedUsers.followed_user_list
   )
-  const [followerCount, setFollowerCount] = useState(0)
-  const [followingCount, setFollowingCount] = useState(0)
+  const [followers, setFollowerCount] = useState(0)
+  const [followees, setFollowingCount] = useState(0)
 
   useEffect(() => {
-    setFollowerCount(
-      followedUsers.filter((follow) => follow.followee.id === user.id).length
+    let followerList
+    followerList = followedUsers.filter(
+      (follow) => follow.followee.username === user.username
     )
-    setFollowingCount(
-      followedUsers.filter((follow) => follow.follower.id === user.id).length
-    )
+    setFollowerCount(followerList)
   }, [followedUsers, user])
+
+  useEffect(() => {
+    let followingList
+    followingList = followedUsers.filter(
+      (follow) => follow.follower.username === user.username
+    )
+    setFollowingCount(followingList)
+  }, [followedUsers, user])
+
+  useEffect(() => {
+    console.log(followedUsers)
+    console.log(followers)
+    console.log(followees)
+  }, [followees])
 
   return (
     <Box sx={{ mx: "auto", width: "80%" }}>
@@ -61,12 +74,12 @@ const Profile = ({ user, authUser, currentActivities }) => {
                 sx={{ justifyContent: "center" }}
               >
                 <Box variant="body1" width={100} height={60}>
-                  <Typography variant="body1">{followerCount}</Typography>
+                  <Typography variant="body1">{followers.length}</Typography>
                   <Typography variant="body1">Followers</Typography>
                 </Box>
                 <Divider orientation="vertical" flexItem />
                 <Box variant="body1" width={100} height={60}>
-                  <Typography variant="body1">{followingCount}</Typography>
+                  <Typography variant="body1">{followees.length}</Typography>
                   <Typography variant="body1">Following</Typography>
                 </Box>
               </Stack>
