@@ -21,7 +21,7 @@ const FollowUser = () => {
   const followedUsers = useSelector(
     (state) => state.FollowedUsers.followed_user_list
   )
-  const users = useSelector((state) => state.User.user_list)
+  const userList = useSelector((state) => state.User.user_list)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const FollowUser = () => {
             Users
           </Typography>
           <List>
-            {users?.map(
+            {userList?.map(
               (user) =>
                 username !== user.username && (
                   <React.Fragment key={user.id}>
@@ -55,7 +55,7 @@ const FollowUser = () => {
                             followed.followee.username === user.username &&
                             followed
                         )}
-                        users={users}
+                        users={userList}
                       />
                     </ListItem>
                   </React.Fragment>
