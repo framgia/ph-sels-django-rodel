@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from django.urls.conf import include
 
 from rest_framework import routers
@@ -9,8 +9,8 @@ router = routers.SimpleRouter()
 router.register(r'quiz', QuizViewSet)
 
 
-app_name='quiz'
+app_name = 'quiz'
 
 urlpatterns = [
-  path('', include(router.urls)),
+    path('', include(router.urls)),
 ]

@@ -12,7 +12,9 @@ import {
 } from "../actions/Quiz/action-types"
 
 export const initialState = {
-  quiz_list: [],
+  quiz_list: {
+    results: [],
+  },
   msg: "",
   error: "",
 }
@@ -20,7 +22,10 @@ export const initialState = {
 const postQuizSuccess = (state = initialState, action) => {
   return {
     ...state,
-    quiz_list: [...state.quiz_list, action.payload.quiz],
+    quiz_list: {
+      ...state.quiz_list,
+      results: [...state.quiz_list.results, action.payload.quiz],
+    },
     msg: "New quiz has created.",
     error: null,
   }
@@ -33,12 +38,15 @@ const postQuizFail = (state = initialState, action) => {
 const getQuizSuccess = (state = initialState, action) => {
   return {
     ...state,
-    quiz_list: [
+    quiz_list: {
       ...state.quiz_list,
-      state.quiz_list.map((quiz) =>
-        quiz.id === action.payload.quiz.id ? action.payload.quiz : quiz
-      ),
-    ],
+      results: [
+        ...state.quiz_list.results,
+        state.quiz_list.results.map((quiz) =>
+          quiz.id === action.payload.quiz.id ? action.payload.quiz : quiz
+        ),
+      ],
+    },
     error: null,
   }
 }
@@ -48,7 +56,11 @@ const getQuizFail = (state = initialState, action) => {
 }
 
 const getQuizListSuccess = (state = initialState, action) => {
-  return { ...state, quiz_list: action.payload.quizzes, error: null }
+  return {
+    ...state,
+    quiz_list: action.payload.quizzes,
+    error: null,
+  }
 }
 
 const getQuizListFail = (state = initialState, action) => {
@@ -56,15 +68,18 @@ const getQuizListFail = (state = initialState, action) => {
 }
 
 const updateQuizSuccess = (state = initialState, action) => {
-  const index = state.quiz_list.findIndex(
+  const index = state.quiz_list.results.findIndex(
     (quiz) => quiz.id === action.payload.quiz.id
   )
-  const newArray = [...state.quiz_list]
+  const newArray = [...state.quiz_list.results]
   newArray[index] = action.payload.quiz
 
   return {
     ...state,
-    quiz_list: newArray,
+    quiz_list: {
+      ...state.quiz_list,
+      results: newArray,
+    },
     error: null,
   }
 }
@@ -76,9 +91,12 @@ const updateQuizFail = (state = initialState, action) => {
 const deleteQuizSuccess = (state = initialState, action) => {
   return {
     ...state,
-    quiz_list: state.quiz_list.filter(
-      (quiz) => parseInt(quiz.id) !== parseInt(action.payload.quiz_id)
-    ),
+    quiz_list: {
+      ...state.quiz_list,
+      results: state.quiz_list.results.filter(
+        (quiz) => parseInt(quiz.id) !== parseInt(action.payload.quiz_id)
+      ),
+    },
     msg: "quiz deleted",
     error: null,
   }

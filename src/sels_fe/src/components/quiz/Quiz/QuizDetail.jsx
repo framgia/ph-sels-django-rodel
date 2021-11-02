@@ -32,7 +32,7 @@ import {
 } from ".."
 
 const QuizDetail = () => {
-  const { quiz_list } = useSelector((state) => state.Quiz)
+  const quizList = useSelector((state) => state.Quiz.quiz_list.resulta)
   const { question_list } = useSelector((state) => state.Question)
   const authUser = useSelector((state) => state.AuthUser.data)
 
@@ -73,17 +73,17 @@ const QuizDetail = () => {
     const endIndex = startIndex + pageLimit
     let nPages = questions.length / pageLimit
 
-    setQuizDetail(quiz_list?.find((quiz) => quiz.id === parseInt(id)))
+    setQuizDetail(quizList?.find((quiz) => quiz.id === parseInt(id)))
     setQuestions(
       question_list?.filter((question) => question.quiz === parseInt(id))
     )
     setPageQuestions(questions.slice(startIndex, endIndex))
     setPageCount(Math.ceil(nPages))
-  }, [quiz_list, question_list, page, pageCount, questions.length, id, update])
+  }, [quizList, question_list, page, pageCount, questions.length, id, update])
 
   useEffect(() => {
     setUpdate(!update)
-  }, [question_id, quiz_list, pageCount, question_list])
+  }, [question_id, quizList, pageCount, question_list])
 
   return (
     <Box component="div" sx={{ m: "1rem", mx: "auto", maxWidth: "95%" }}>

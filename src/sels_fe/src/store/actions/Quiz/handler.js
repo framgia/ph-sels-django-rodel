@@ -44,8 +44,10 @@ const fetchQuiz = async (quiz_id) => {
   return await response
 }
 
-const fetchQuizList = async () => {
-  const url = `${baseURL}quiz/`
+const fetchQuizList = async (query) => {
+  const url = query?.search
+    ? `${baseURL}quiz/?search=${query.search}`
+    : `${baseURL}quiz/`
   const resquestOption = {
     method: "GET",
     headers: {
@@ -124,8 +126,8 @@ function handleGetQuiz(quiz_id, dispatch) {
     })
 }
 
-function handleGetQuizList(dispatch) {
-  const response = fetchQuizList()
+function handleGetQuizList(query, dispatch) {
+  const response = fetchQuizList(query)
   response
     .then((res) => {
       if (res.ok) {

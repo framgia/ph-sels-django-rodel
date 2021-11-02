@@ -26,7 +26,7 @@ import { ESLNavBar } from "../../components/header"
 function QuizMain() {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
   const authUser = useSelector((state) => state.AuthUser.data)
-  const { quiz_list } = useSelector((state) => state.Quiz)
+  const quizList = useSelector((state) => state.Quiz.quiz_list.results)
   let { path } = useRouteMatch()
   const dispatch = useDispatch()
 
@@ -44,7 +44,7 @@ function QuizMain() {
         authUser?.is_admin ? (
           <Switch>
             <Route path={`${path}`} exact>
-              <QuizList quizzes={quiz_list} />
+              <QuizList quizzes={quizList} />
             </Route>
             <Route path={`${path}/create`} component={QuizCreate} />
             <Route path={`${path}/new`} component={QuizWithQuestionsCreate} />

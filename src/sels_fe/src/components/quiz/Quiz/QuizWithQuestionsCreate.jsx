@@ -22,7 +22,7 @@ const steps = [
   "Select Answers",
 ]
 function QuizWithQuestionsCreate() {
-  const quiz_list = useSelector((state) => state.Quiz.quiz_list)
+  const quiz_list = useSelector((state) => state.Quiz.quiz_list.results)
   const question_list = useSelector((state) => state.Question.question_list)
   const choices = useSelector((state) => state.Choice.choice_list)
   let errorQuiz = useSelector((state) => state.Quiz.error)

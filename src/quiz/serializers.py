@@ -13,7 +13,7 @@ class QuizSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quiz
-        fields = ['id', 'name', 'description',
+        fields = ['id', 'name', 'description', 'is_active',
                   'created_by', 'updated_at', 'created_at']
 
     def validate(self, data):
