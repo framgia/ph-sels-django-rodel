@@ -2,24 +2,30 @@ import React from "react"
 import { useHistory } from "react-router-dom"
 import { useSelector } from "react-redux"
 
-import { Box } from "@mui/system"
 import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Stack,
   Button,
   IconButton,
   ListItemIcon,
   ListItemText,
   MenuItem,
   MenuList,
-} from "@material-ui/core"
-import { AppBar, Toolbar, Typography, Stack, Divider } from "@mui/material"
+  Divider,
+} from "@mui/material"
 import Popup from "reactjs-popup"
 import "reactjs-popup/dist/index.css"
 
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import RowingIcon from "@mui/icons-material/Rowing"
 import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns"
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary"
-import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import PersonIcon from "@mui/icons-material/Person"
+import AccountCircleIcon from "@mui/icons-material/AccountCircle"
+import LoginIcon from "@mui/icons-material/Login"
 import LogoutIcon from "@mui/icons-material/Logout"
 
 const ESLNavBar = () => {
@@ -68,9 +74,25 @@ const ESLNavBar = () => {
           {isAuthenticated ? (
             <Popup
               trigger={
-                <IconButton size="medium" color="inherit" sx={{ mr: 2 }}>
-                  <AccountCircleIcon fontSize="large" />
-                </IconButton>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    p: "0 0.125rem 0.25rem  0.5rem",
+                    border: "1px solid #fff",
+                    borderRadius: "0.5rem",
+                    userSelect: "none",
+                  }}
+                >
+                  {authUser?.username}
+                  <ArrowDropDownIcon
+                    fontSize="small"
+                    sx={{
+                      position: "relative",
+                      top: "0.25rem",
+                      userSelect: "none",
+                    }}
+                  />
+                </Typography>
               }
               closeOnDocumentClick
               mouseLeaveDelay={300}
@@ -131,7 +153,15 @@ const ESLNavBar = () => {
               )}
             </Popup>
           ) : (
-            <Button onClick={() => history.push(`/signin`)}>Login</Button>
+            <Button
+              variant="contained"
+              endIcon={<LoginIcon />}
+              color="secondary"
+              sx={{ mr: 2 }}
+              onClick={() => history.push(`/signin`)}
+            >
+              Login
+            </Button>
           )}
         </Toolbar>
       </AppBar>
