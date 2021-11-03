@@ -1,6 +1,8 @@
 import React from "react"
 import { useHistory } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+
+import { authSignout } from "../../store/actions"
 
 import {
   AppBar,
@@ -10,10 +12,10 @@ import {
   Stack,
   Button,
   IconButton,
+  List,
+  ListItem,
   ListItemIcon,
   ListItemText,
-  MenuItem,
-  MenuList,
   Divider,
 } from "@mui/material"
 import Popup from "reactjs-popup"
@@ -24,7 +26,6 @@ import RowingIcon from "@mui/icons-material/Rowing"
 import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns"
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary"
 import PersonIcon from "@mui/icons-material/Person"
-import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import LoginIcon from "@mui/icons-material/Login"
 import LogoutIcon from "@mui/icons-material/Logout"
 
@@ -32,6 +33,7 @@ const ESLNavBar = () => {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
   const authUser = useSelector((state) => state.AuthUser.data)
   const history = useHistory()
+  const dispatch = useDispatch()
 
   const handleActivity = () => {
     history.push(`/activities`)
@@ -42,7 +44,8 @@ const ESLNavBar = () => {
   }
 
   const handleSignout = () => {
-    history.push(`/signout`)
+    dispatch(authSignout())
+    history.push("/signin")
   }
 
   return (
@@ -65,7 +68,7 @@ const ESLNavBar = () => {
                 Categories
               </Button>
             ) : null}
-            {authUser?.is_admin ? (
+            {isAuthenticated & authUser?.is_admin ? (
               <Button color="inherit" onClick={() => history.push(`/quiz`)}>
                 Quiz|Admin
               </Button>
@@ -74,36 +77,21 @@ const ESLNavBar = () => {
           {isAuthenticated ? (
             <Popup
               trigger={
-                <Typography
-                  variant="body1"
-                  sx={{
-                    p: "0 0.125rem 0.25rem  0.5rem",
-                    border: "1px solid #fff",
-                    borderRadius: "0.5rem",
-                    userSelect: "none",
-                  }}
-                >
+                <Button variant="outlined" color="inherit">
                   {authUser?.username}
-                  <ArrowDropDownIcon
-                    fontSize="small"
-                    sx={{
-                      position: "relative",
-                      top: "0.25rem",
-                      userSelect: "none",
-                    }}
-                  />
-                </Typography>
+                  <ArrowDropDownIcon fontSize="small" />
+                </Button>
               }
               closeOnDocumentClick
               mouseLeaveDelay={300}
-              mouseEnterDelay={0}
+              // mouseEnterDelay={0}
               arrow={false}
               position="bottom right"
             >
               {(close) => (
-                <MenuList>
+                <List>
                   <Divider />
-                  <MenuItem
+                  <ListItem
                     button
                     onClick={() => {
                       handleActivity()
@@ -114,9 +102,9 @@ const ESLNavBar = () => {
                       <RowingIcon />
                     </ListItemIcon>
                     <ListItemText>Activities</ListItemText>
-                  </MenuItem>
+                  </ListItem>
                   <Divider />
-                  <MenuItem
+                  <ListItem
                     button
                     onClick={() => {
                       handleFollow()
@@ -127,16 +115,16 @@ const ESLNavBar = () => {
                       <FollowTheSignsIcon />
                     </ListItemIcon>
                     <ListItemText>Follow Users</ListItemText>
-                  </MenuItem>
+                  </ListItem>
                   <Divider />
-                  <MenuItem>
+                  <ListItem button>
                     <ListItemIcon>
                       <PersonIcon />
                     </ListItemIcon>
                     <ListItemText>User Account</ListItemText>
-                  </MenuItem>
+                  </ListItem>
                   <Divider />
-                  <MenuItem
+                  <ListItem
                     button
                     onClick={() => {
                       handleSignout()
@@ -147,9 +135,9 @@ const ESLNavBar = () => {
                       <LogoutIcon />
                     </ListItemIcon>
                     <ListItemText>Signout</ListItemText>
-                  </MenuItem>
+                  </ListItem>
                   <Divider />
-                </MenuList>
+                </List>
               )}
             </Popup>
           ) : (
