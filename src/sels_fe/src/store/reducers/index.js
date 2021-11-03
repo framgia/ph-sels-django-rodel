@@ -13,10 +13,7 @@ import { lessonReducer } from "./lesson"
 import { answeredReducer } from "./answered"
 import { activityReducer } from "./activity"
 
-// const RESET_REDUX_STATE = "RESET_REDUX_STATE"
-import { AUTH_LOGOUT } from "../actions/UserSignin/action-types"
-
-const combinedReducer = combineReducers({
+const reducers = combineReducers({
   Signup: signupReducer,
   Signin: signinReducer,
   AuthUser: getAuthUserDetailsReducer,
@@ -30,26 +27,5 @@ const combinedReducer = combineReducers({
   Answered: answeredReducer,
   Activity: activityReducer,
 })
-
-const reducers = (state, action) => {
-  switch (action.type) {
-    case AUTH_LOGOUT:
-      delete state.Signup
-      delete state.Signin
-      delete state.AuthUser
-      delete state.FollowedUsers
-      delete state.Quiz
-      delete state.Question
-      delete state.Choice
-      delete state.Answer
-      delete state.User
-      delete state.Lesson
-      delete state.Answered
-      delete state.Activity
-      break
-    default:
-      return combinedReducer(state, action)
-  }
-}
 
 export default reducers

@@ -13,10 +13,9 @@ import {
 
 import { baseURL } from "../../../adapters"
 
-const accessToken = localStorage.getItem("access_token")
-
 const _handlePostQuiz = async (data) => {
   const url = `${baseURL}quiz/`
+  let accessToken = localStorage.getItem("access_token")
   const resquestOption = {
     method: "POST",
     headers: {
@@ -32,6 +31,7 @@ const _handlePostQuiz = async (data) => {
 
 const fetchQuiz = async (quiz_id) => {
   const url = `${baseURL}quiz/`
+  let accessToken = localStorage.getItem("access_token")
   const resquestOption = {
     method: "GET",
     headers: {
@@ -48,6 +48,7 @@ const fetchQuizList = async (query) => {
   const url = query?.search
     ? `${baseURL}quiz/?search=${query.search}`
     : `${baseURL}quiz/`
+  let accessToken = localStorage.getItem("access_token")
   const resquestOption = {
     method: "GET",
     headers: {
@@ -62,6 +63,7 @@ const fetchQuizList = async (query) => {
 
 const updateQuiz = async (quiz_id, data) => {
   const url = `${baseURL}quiz/${quiz_id}/`
+  let accessToken = localStorage.getItem("access_token")
   const resquestOption = {
     method: "PUT",
     headers: {
@@ -77,6 +79,7 @@ const updateQuiz = async (quiz_id, data) => {
 
 const deleteQuiz = async (quiz_id) => {
   const url = `${baseURL}quiz/${quiz_id}/`
+  let accessToken = localStorage.getItem("access_token")
   const resquestOption = {
     method: "DELETE",
     headers: {
@@ -133,11 +136,17 @@ function handleGetQuizList(query, dispatch) {
       if (res.ok) {
         return res.json()
       } else {
-        throw res.json()
+        throw res
       }
     })
     .then((data) => dispatch(getQuizListSuccess(data)))
-    .catch((error) => dispatch(getQuizListFail(error)))
+    .catch((err) => {
+      try {
+        err.json().then((error) => dispatch(getQuizListFail(error)))
+      } catch (e) {
+        console.log(err)
+      }
+    })
 }
 
 function handleUpdateQuiz(quiz_id, data, dispatch) {
@@ -158,7 +167,6 @@ function handleDeleteQuiz(quiz_id, dispatch) {
   const response = deleteQuiz(quiz_id)
   response
     .then((res) => {
-      console.log(res)
       if (res.ok) {
         dispatch(deleteQuizSuccess(quiz_id))
       } else {
