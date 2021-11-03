@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom"
 
 import { authSignup } from "../../../store/actions"
 
-import { Box, Typography } from "@material-ui/core"
+import { Box, Typography } from "@mui/material"
 import Button from "@material-ui/core/Button"
 
 import UserSignupForm from "./components/UserSignupForm"
@@ -31,7 +31,7 @@ const UserSignup = () => {
 
   useEffect(() => {
     signup.user?.id != null
-      ? history.push("/signup-success")
+      ? history.push("/signin")
       : console.log("failed to signup")
   }, [signup, history])
 
@@ -69,11 +69,11 @@ const UserSignup = () => {
       />
       <br />
       <Button
-        sx={{ mx: "auto", mb: 1, width: "50ch", borderRadius: 5 }}
-        type="secondary"
+        color="primary"
         disabled={onSubmit}
         variant="contained"
         onClick={handleSubmit}
+        sx={{ mx: "auto", mb: 1, width: "50ch", borderRadius: 5 }}
       >
         {onSubmit ? "SIGNING UP" : "SIGN UP"}
       </Button>

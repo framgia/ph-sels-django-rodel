@@ -21,8 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-#remove or comment out before creating commit for user authentication
-# /src/store/actions/GetUsers
-# /src/components/follow
-# /src/components/dashboard

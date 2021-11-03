@@ -6,7 +6,4 @@
 
 /*/__pycache__/*
 
-
-#uncomment before creating commit for user authentication
-# /sels_core/permissions.py
-# /follow
+db.sqlite3
