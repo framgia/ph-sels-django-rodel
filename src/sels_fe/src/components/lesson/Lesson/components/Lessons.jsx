@@ -42,7 +42,7 @@ const Lessons = ({ quizzes, takenLessons }) => {
   return (
     <Stack
       direction="column"
-      sx={{ m: "1rem", maxWidth: "100%", alignSelf: "center" }}
+      sx={{ my: "1rem", maxWidth: "100%", alignSelf: "center" }}
     >
       <Box
         component="form"
@@ -50,7 +50,6 @@ const Lessons = ({ quizzes, takenLessons }) => {
         noValidate
         autoComplete="off"
         onSubmit={(e) => e.preventDefault()}
-        sx={{ m: "1rem", maxWidth: "100%", justifyContent: "right" }}
       >
         <CustomFormControl>
           <CustomInputLabel labelFor="quiz-search" label="Search" />
@@ -61,7 +60,6 @@ const Lessons = ({ quizzes, takenLessons }) => {
             label="search"
             value={query.search}
             onChange={handleSearchChange}
-            sx={{ width: "50ch" }}
           />
         </CustomFormControl>
       </Box>
@@ -78,10 +76,9 @@ const Lessons = ({ quizzes, takenLessons }) => {
                 <Grid item xs={2} sm={4} md={4} key={index}>
                   <LessonCard
                     quiz={quiz}
-                    isTaken={
-                      takenLessons > 0 &&
-                      takenLessons.some((lesson) => lesson.quiz === quiz.id)
-                    }
+                    isTaken={takenLessons?.some(
+                      (lesson) => lesson.quiz === quiz.id
+                    )}
                     handleLesson={handleLesson}
                   />
                 </Grid>
