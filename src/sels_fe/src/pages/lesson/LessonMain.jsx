@@ -1,55 +1,23 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Switch, Route } from "react-router-dom"
 import { useRouteMatch } from "react-router"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 
-import {
-  getUserList,
-  getQuizList,
-  getQuestionList,
-  getChoiceList,
-  getAnswerList,
-  getLessonList,
-  getAnsweredList,
-} from "../../store/actions"
-
-import { Typography } from "@mui/material"
-
-import { ESLNavBar } from "../../components/header"
 import { TakeLesson, CategoryList } from "../../components/lesson"
 
 function LessonMain() {
-  const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
   const authUser = useSelector((state) => state.AuthUser.data)
   let { path } = useRouteMatch()
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getUserList())
-    dispatch(getQuizList())
-    dispatch(getQuestionList())
-    dispatch(getChoiceList())
-    dispatch(getAnswerList())
-    dispatch(getLessonList())
-    dispatch(getAnsweredList())
-  }, [dispatch])
 
-  return isAuthenticated ? (
-    <>
-      <ESLNavBar />
-
-      <Switch>
-        <Route exact path={`${path}`}>
-          <CategoryList user={authUser} />
-        </Route>
-        <Route path={`${path}/:id`} onLeave={<TakeLesson user={authUser} />}>
-          <TakeLesson user={authUser} />
-        </Route>
-      </Switch>
-    </>
-  ) : (
-    <Typography variant="h6" color="primary">
-      Signin to view this page.
-    </Typography>
+  return (
+    <Switch>
+      <Route exact path={`${path}`}>
+        <CategoryList user={authUser} />
+      </Route>
+      <Route path={`${path}/:id`} onLeave={<TakeLesson user={authUser} />}>
+        <TakeLesson user={authUser} />
+      </Route>
+    </Switch>
   )
 }
 

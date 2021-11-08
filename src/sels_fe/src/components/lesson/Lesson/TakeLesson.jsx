@@ -11,7 +11,7 @@ import LessonSavedResults from "./components/LessonSavedResults"
 
 function TakeLesson({ user }) {
   const { id } = useParams()
-  const quizList = useSelector((state) => state.Quiz.quiz_list)
+  const quizList = useSelector((state) => state.Quiz.quiz_list.results)
   const questionList = useSelector((state) => state.Question.question_list)
   const lessonList = useSelector((state) => state.Lesson.lesson_list)
   const error = useSelector((state) => state.Lesson.error)

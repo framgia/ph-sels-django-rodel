@@ -19,9 +19,9 @@ const getQuiz = (quiz_id) => {
   }
 }
 
-const getQuizList = () => {
+const getQuizList = (query) => {
   return (dispatch) => {
-    handleGetQuizList(dispatch)
+    handleGetQuizList(query, dispatch)
   }
 }
 

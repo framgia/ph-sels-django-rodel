@@ -19,16 +19,16 @@ const QuizUpdate = () => {
   const { id } = useParams()
   const history = useHistory()
   const error = useSelector((state) => state.Quiz.error)
-  const { quiz_list } = useSelector((state) => state.Quiz)
+  const quizList = useSelector((state) => state.Quiz.quiz_list.results)
 
   const handleChange = (event) => {
     const { name, value } = event.target
     setQuiz({ ...quiz, [name]: value })
   }
   useEffect(() => {
-    const q = quiz_list?.find((item) => parseInt(item.id) === parseInt(id))
+    const q = quizList?.find((item) => parseInt(item.id) === parseInt(id))
     setQuiz({ ...quiz, name: q.name, description: q.description })
-  }, [quiz_list, id])
+  }, [quizList, id])
 
   const handleSubmitQuiz = () => {
     dispatch(updateQuiz(id, quiz))

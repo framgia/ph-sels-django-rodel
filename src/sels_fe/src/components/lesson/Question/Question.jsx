@@ -20,9 +20,10 @@ function Question({ question, handleAnswered }) {
   }, [choice_list, question])
 
   useEffect(() => {
-    setCurrentAnswer(
-      answer_list?.find((answer) => answer.question === question.id)
-    )
+    let answer = {}
+    answer = answer_list?.find((answer) => answer?.question === question?.id)
+
+    setCurrentAnswer(answer)
   }, [answer_list, question])
 
   return (

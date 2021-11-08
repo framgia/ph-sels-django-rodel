@@ -17,7 +17,6 @@ import {
 
 import { Typography } from "@mui/material"
 
-import { ESLNavBar } from "../../components/header"
 import { Activity } from "../../components/activity"
 import { ActivityDetail } from "../../components/activity"
 function ActivityMain() {
@@ -40,7 +39,6 @@ function ActivityMain() {
 
   return isAuthenticated ? (
     <>
-      <ESLNavBar />
       <Switch>
         <Route exact path={`${path}`}>
           <Activity authUser={authUser} />

@@ -30,7 +30,7 @@ const FollowUnfollow = ({ user, followed }) => {
     setIsFollowing(follow)
   }, [followedUsers, user])
 
-  return authUser.id !== user.id ? (
+  return authUser?.id !== user?.id ? (
     !isFollowing ? (
       <Button
         variant="contained"

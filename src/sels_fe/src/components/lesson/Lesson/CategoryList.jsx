@@ -6,14 +6,16 @@ import { Box, Typography } from "@material-ui/core"
 import Lessons from "./components/Lessons"
 
 const CategoryList = ({ user }) => {
-  const quizList = useSelector((state) => state.Quiz.quiz_list)
+  const quizList = useSelector((state) => state.Quiz.quiz_list.results)
   const lessonList = useSelector((state) => state.Lesson.lesson_list)
   const authUser = useSelector((state) => state.AuthUser.data)
   const [takenLessons, setTakenLessons] = useState([])
   const [update, setUpdate] = useState([])
 
   useEffect(() => {
-    setTakenLessons(lessonList.filter((lesson) => lesson.taken_by === user?.id))
+    let lessons = []
+    lessons = lessonList.filter((lesson) => lesson.taken_by === user?.id)
+    setTakenLessons(lessons)
   }, [quizList, lessonList, user, update])
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const CategoryList = ({ user }) => {
   }, [lessonList])
 
   return (
-    <Box component="div" sx={{ m: "1rem", mx: "auto", maxWidth: "90%" }}>
+    <Box component="div" sx={{ mx: "auto", maxWidth: "90%" }}>
       <Typography variant="h4" color="primary">
         Categories
       </Typography>

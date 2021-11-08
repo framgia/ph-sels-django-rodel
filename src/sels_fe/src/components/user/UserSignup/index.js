@@ -1,7 +1,3 @@
-import Signup from "./UserSignup";
-import SignupSuccessRedirect from './SignupSuccessRedirect';
+import Signup from "./UserSignup"
 
 export default Signup
-export {
-  SignupSuccessRedirect
-}

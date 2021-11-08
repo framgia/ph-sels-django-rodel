@@ -10,8 +10,6 @@ import {
   getAnswerList,
 } from "../../store/actions"
 
-import { Typography } from "@mui/material"
-
 import {
   QuizCreate,
   QuizList,
@@ -21,12 +19,8 @@ import {
   QuizWithQuestionsCreate,
 } from "../../components/quiz"
 
-import { ESLNavBar } from "../../components/header"
-
 function QuizMain() {
-  const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
-  const authUser = useSelector((state) => state.AuthUser.data)
-  const { quiz_list } = useSelector((state) => state.Quiz)
+  const quizList = useSelector((state) => state.Quiz.quiz_list.results)
   let { path } = useRouteMatch()
   const dispatch = useDispatch()
 
@@ -38,37 +32,16 @@ function QuizMain() {
   }, [dispatch])
 
   return (
-    <>
-      <ESLNavBar />
-      {isAuthenticated ? (
-        authUser?.is_admin ? (
-          <Switch>
-            <Route path={`${path}`} exact>
-              <QuizList quizzes={quiz_list} />
-            </Route>
-            <Route path={`${path}/create`} component={QuizCreate} />
-            <Route path={`${path}/new`} component={QuizWithQuestionsCreate} />
-            <Route path={`${path}/:id/edit`} component={QuizUpdate} />
-            <Route path={`${path}/:id/delete`} component={QuizDelete} />
-            <Route path={`${path}/:id`} component={QuizDetail} />
-          </Switch>
-        ) : (
-          <>
-            <br />
-            <Typography variant="h5" color="secondary">
-              Unauthorized:
-            </Typography>
-            <Typography variant="h6" color="error">
-              You don't have admin previlege to view this
-            </Typography>
-          </>
-        )
-      ) : (
-        <Typography variant="h6" color="primary">
-          Signin to view this page
-        </Typography>
-      )}
-    </>
+    <Switch>
+      <Route path={`${path}`} exact>
+        <QuizList quizzes={quizList} />
+      </Route>
+      <Route path={`${path}/create`} component={QuizCreate} />
+      <Route path={`${path}/new`} component={QuizWithQuestionsCreate} />
+      <Route path={`${path}/:id/edit`} component={QuizUpdate} />
+      <Route path={`${path}/:id/delete`} component={QuizDelete} />
+      <Route path={`${path}/:id`} component={QuizDetail} />
+    </Switch>
   )
 }
 

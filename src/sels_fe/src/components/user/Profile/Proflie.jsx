@@ -38,12 +38,6 @@ const Profile = ({ user, authUser, currentActivities }) => {
     setFollowingCount(followingList)
   }, [followedUsers, user])
 
-  useEffect(() => {
-    console.log(followedUsers)
-    console.log(followers)
-    console.log(followees)
-  }, [followees])
-
   return (
     <Box sx={{ mx: "auto", width: "80%" }}>
       <Typography variant="h5" color="green">

@@ -1,31 +1,39 @@
 import React from "react"
 import { useHistory } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
-import { Box } from "@mui/system"
+import { authSignout } from "../../store/actions"
+
 import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Stack,
   Button,
   IconButton,
+  List,
+  ListItem,
   ListItemIcon,
   ListItemText,
-  MenuItem,
-  MenuList,
-} from "@material-ui/core"
-import { AppBar, Toolbar, Typography, Stack, Divider } from "@mui/material"
+  Divider,
+} from "@mui/material"
 import Popup from "reactjs-popup"
 import "reactjs-popup/dist/index.css"
 
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import RowingIcon from "@mui/icons-material/Rowing"
 import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns"
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary"
-import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import PersonIcon from "@mui/icons-material/Person"
+import LoginIcon from "@mui/icons-material/Login"
 import LogoutIcon from "@mui/icons-material/Logout"
 
 const ESLNavBar = () => {
   const isAuthenticated = useSelector((state) => state.Signin.isAuthenticated)
   const authUser = useSelector((state) => state.AuthUser.data)
   const history = useHistory()
+  const dispatch = useDispatch()
 
   const handleActivity = () => {
     history.push(`/activities`)
@@ -36,7 +44,8 @@ const ESLNavBar = () => {
   }
 
   const handleSignout = () => {
-    history.push(`/signout`)
+    dispatch(authSignout())
+    history.push("/signin")
   }
 
   return (
@@ -59,7 +68,7 @@ const ESLNavBar = () => {
                 Categories
               </Button>
             ) : null}
-            {authUser?.is_admin ? (
+            {isAuthenticated & authUser?.is_admin ? (
               <Button color="inherit" onClick={() => history.push(`/quiz`)}>
                 Quiz|Admin
               </Button>
@@ -68,20 +77,21 @@ const ESLNavBar = () => {
           {isAuthenticated ? (
             <Popup
               trigger={
-                <IconButton size="medium" color="inherit" sx={{ mr: 2 }}>
-                  <AccountCircleIcon fontSize="large" />
-                </IconButton>
+                <Button variant="outlined" color="inherit">
+                  {authUser?.username}
+                  <ArrowDropDownIcon fontSize="small" />
+                </Button>
               }
               closeOnDocumentClick
               mouseLeaveDelay={300}
-              mouseEnterDelay={0}
+              // mouseEnterDelay={0}
               arrow={false}
               position="bottom right"
             >
               {(close) => (
-                <MenuList>
+                <List>
                   <Divider />
-                  <MenuItem
+                  <ListItem
                     button
                     onClick={() => {
                       handleActivity()
@@ -92,9 +102,9 @@ const ESLNavBar = () => {
                       <RowingIcon />
                     </ListItemIcon>
                     <ListItemText>Activities</ListItemText>
-                  </MenuItem>
+                  </ListItem>
                   <Divider />
-                  <MenuItem
+                  <ListItem
                     button
                     onClick={() => {
                       handleFollow()
@@ -105,16 +115,16 @@ const ESLNavBar = () => {
                       <FollowTheSignsIcon />
                     </ListItemIcon>
                     <ListItemText>Follow Users</ListItemText>
-                  </MenuItem>
+                  </ListItem>
                   <Divider />
-                  <MenuItem>
+                  <ListItem button>
                     <ListItemIcon>
                       <PersonIcon />
                     </ListItemIcon>
                     <ListItemText>User Account</ListItemText>
-                  </MenuItem>
+                  </ListItem>
                   <Divider />
-                  <MenuItem
+                  <ListItem
                     button
                     onClick={() => {
                       handleSignout()
@@ -125,13 +135,21 @@ const ESLNavBar = () => {
                       <LogoutIcon />
                     </ListItemIcon>
                     <ListItemText>Signout</ListItemText>
-                  </MenuItem>
+                  </ListItem>
                   <Divider />
-                </MenuList>
+                </List>
               )}
             </Popup>
           ) : (
-            <Button onClick={() => history.push(`/signin`)}>Login</Button>
+            <Button
+              variant="contained"
+              endIcon={<LoginIcon />}
+              color="secondary"
+              sx={{ mr: 2 }}
+              onClick={() => history.push(`/signin`)}
+            >
+              Login
+            </Button>
           )}
         </Toolbar>
       </AppBar>

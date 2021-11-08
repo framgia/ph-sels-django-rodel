@@ -59,7 +59,6 @@ const handleSignin = async (credentials, dispatch) => {
       }
     })
     .then((data) => {
-      console.log(data)
       data.json().then((data) => {
         const access_exp_date = new Date(
           new Date().getTime() + tokenTimeout.access * 1000

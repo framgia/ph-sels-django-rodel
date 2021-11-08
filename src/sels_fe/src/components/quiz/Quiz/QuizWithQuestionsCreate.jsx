@@ -4,16 +4,16 @@ import { useHistory } from "react-router"
 
 import { postBulkQuestion, postQuiz, updateQuiz } from "../../../store/actions"
 
-import { Stepper, StepButton, Step, Box } from "@mui/material"
-import { IconButton, Button, Typography } from "@material-ui/core"
+import {
+  Stepper,
+  StepButton,
+  Step,
+  Box,
+  Button,
+  Typography,
+} from "@mui/material"
 
-import { Delete } from "@material-ui/icons"
-import { Divider, Stack } from "@mui/material"
-
-import QuizForm from "./components/QuizForm"
-import QuestionsForm from "./../Question/components/QuestionForm"
-import ChoiceForm from "./../Choice/components/ChoiceForm"
-import AnswersSelect from "../Answer/components/AnswersSelect"
+import QuizCreateSteps from "./QuizCreateSteps"
 
 const steps = [
   "Add Quiz Details",
@@ -21,8 +21,9 @@ const steps = [
   "Add Choices",
   "Select Answers",
 ]
+
 function QuizWithQuestionsCreate() {
-  const quiz_list = useSelector((state) => state.Quiz.quiz_list)
+  const quiz_list = useSelector((state) => state.Quiz.quiz_list.results)
   const question_list = useSelector((state) => state.Question.question_list)
   const choices = useSelector((state) => state.Choice.choice_list)
   let errorQuiz = useSelector((state) => state.Quiz.error)
@@ -150,7 +151,7 @@ function QuizWithQuestionsCreate() {
   }
 
   return (
-    <Box sx={{ m: "auto", width: "90%" }}>
+    <Box sx={{ m: "1rem", mx: "auto", width: "90%" }}>
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
@@ -176,71 +177,20 @@ function QuizWithQuestionsCreate() {
         ) : (
           <>
             <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-            {activeStep === 0 ? (
-              <QuizForm
-                quiz={quiz}
-                onChange={handleQuizChange}
-                error={errorQuiz}
-              />
-            ) : activeStep === 1 ? (
-              <>
-                {questions.map((question, index) => (
-                  <React.Fragment key={index}>
-                    <Box
-                      component="form"
-                      onSubmit={(e) => e.preventDefault()}
-                      sx={{ m: "1rem", mx: "auto", maxWidth: "80%" }}
-                    >
-                      <Stack
-                        direction="row"
-                        spacing={4}
-                        sx={{ justifyContent: "center" }}
-                      >
-                        <QuestionsForm
-                          question={question}
-                          onChange={handleQuestionsChange}
-                          index={index}
-                        />
-                        <IconButton
-                          color="secondary"
-                          onClick={() => removeQuestionsForm(index)}
-                        >
-                          <Delete fontSize="medium" />
-                        </IconButton>
-                      </Stack>
-                    </Box>
-                    <Divider />
-                  </React.Fragment>
-                ))}
-                <Button
-                  variant="outlined"
-                  disabled={completed[activeStep]}
-                  onClick={addQuestionsForm}
-                >
-                  Add Question
-                </Button>
-              </>
-            ) : activeStep === 2 ? (
-              <>
-                <Divider />
-                <Box
-                  component="div"
-                  sx={{ m: "1rem", mx: "auto", maxWidth: "80%" }}
-                >
-                  <Stack direction="row" sx={{ justifyContent: "center" }}>
-                    <ChoiceForm questions={currentQuestions} />
-                  </Stack>
-                </Box>
-              </>
-            ) : (
-              activeStep === 3 && (
-                <AnswersSelect
-                  questions={currentQuestions}
-                  choices={choices}
-                  onChange={handleSetQuestionAnswer}
-                />
-              )
-            )}
+            <QuizCreateSteps
+              activeStep={activeStep}
+              quiz={quiz}
+              handleQuizChange={handleQuizChange}
+              errorQuiz={errorQuiz}
+              questions={questions}
+              handleQuestionsChange={handleQuestionsChange}
+              removeQuestionsForm={removeQuestionsForm}
+              completed={completed}
+              addQuestionsForm={addQuestionsForm}
+              currentQuestions={currentQuestions}
+              choices={choices}
+              handleSetQuestionAnswer={handleSetQuestionAnswer}
+            />
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
                 color="inherit"
@@ -272,11 +222,6 @@ function QuizWithQuestionsCreate() {
                   <Button
                     color="primary"
                     variant="outlined"
-                    // disabled={
-                    //   activeStep === 2 && currentQuestions.length > 0
-                    //     ? false
-                    //     : true
-                    // }
                     onClick={handleComplete}
                   >
                     {completedSteps() === totalSteps() - 1
