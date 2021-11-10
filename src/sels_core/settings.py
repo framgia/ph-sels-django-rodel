@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_filters',
 
     'user',
+    'user_profile',
     'follow',
     'quiz',
     'answers_choices',

@@ -43,21 +43,23 @@ function PagesRoute({ authUser, auth }) {
   }, [dispatch, auth])
 
   return (
-    <Switch>
-      <Route exact path="/" component={HomeMain} />
-      <Route path="/signup" component={UserSignup} />
-      <Route path="/signin" component={UserSignin} />
-      <AuthenticatedRoute auth={auth}>
-        <Route path="/follow" component={FollowMain} />
-        <Route path="/lesson" component={LessonMain} />
-        <Route path="/admin" component={AdminMain} />
-        <Route path="/activities" component={ActivityMain} />
-        <Route path="/user" component={UserMain} />
-        <AdminRoute authUser={authUser}>
-          <Route path="/quiz" component={QuizMain} />
-        </AdminRoute>
-      </AuthenticatedRoute>
-    </Switch>
+    <>
+      <Switch>
+        <Route exact path='/' component={HomeMain} />
+        <Route path='/signup' component={UserSignup} />
+        <Route path='/signin' component={UserSignin} />
+        <AuthenticatedRoute auth={auth}>
+          <Route path='/follow' component={FollowMain} />
+          <Route path='/lesson' component={LessonMain} />
+          <Route path='/admin' component={AdminMain} />
+          <Route path='/activities' component={ActivityMain} />
+          <Route path='/user' component={UserMain} />
+          <AdminRoute is_admin={authUser?.is_admin}>
+            <Route path='/quiz' component={QuizMain} />
+          </AdminRoute>
+        </AuthenticatedRoute>
+      </Switch>
+    </>
   )
 }
 

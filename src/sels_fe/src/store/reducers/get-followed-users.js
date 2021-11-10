@@ -1,7 +1,4 @@
-import {
-  GET_FOLLOWED_USER_SUCCESS,
-  GET_FOLLOWED_USER_FAIL,
-} from "../actions/GetFollowedUsers/action-types"
+import { GET_FOLLOWED_USER_SUCCESS } from "../actions/GetFollowedUsers/action-types"
 
 import {
   FOLLOW_USER_SUCCESS,
@@ -23,10 +20,6 @@ const getFollowedUserSuccess = (state = initialState, action) => {
     msg: action.payload.msg,
     error: null,
   }
-}
-
-const getFollowedUserFail = (state = initialState, action) => {
-  return { ...state, msg: action.payload.msg, error: action.payload.error }
 }
 
 const followUserSuccess = (state = initialState, action) => {
@@ -61,8 +54,6 @@ const getFollowedUsersReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_FOLLOWED_USER_SUCCESS:
       return getFollowedUserSuccess(state, action)
-    case GET_FOLLOWED_USER_FAIL:
-      return getFollowedUserFail(state, action)
     case FOLLOW_USER_SUCCESS:
       return followUserSuccess(state, action)
     case FOLLOW_USER_FAIL:

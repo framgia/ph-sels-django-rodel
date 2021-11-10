@@ -1,3 +1,4 @@
+import React, { Fragment } from "react"
 import { Box, IconButton, Button, Divider, Stack } from "@mui/material"
 import { Delete } from "@material-ui/icons"
 
@@ -15,7 +16,7 @@ const BulkQuestionCreate = ({
   return (
     <>
       {questions.map((question, index) => (
-        <React.Fragment key={index}>
+        <Fragment key={index}>
           <Box
             component="form"
             onSubmit={(e) => e.preventDefault()}
@@ -40,7 +41,7 @@ const BulkQuestionCreate = ({
             </Stack>
           </Box>
           <Divider />
-        </React.Fragment>
+        </Fragment>
       ))}
       <Button
         variant="outlined"

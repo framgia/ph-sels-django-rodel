@@ -1,193 +1,46 @@
 import {
   postUserSuccess,
-  postUserFail,
   getUserSuccess,
-  getUserFail,
   getUserListSuccess,
-  getUserListFail,
   updateUserSuccess,
-  updateUserFail,
   deleteUserSuccess,
-  deleteUserFail,
 } from "./response"
 
-import { baseURL } from "../../../adapters"
+import api from "../../../adapters"
 
-const postUser = async (data) => {
-  const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}users/`
-  const resquestOption = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify(data),
-  }
-  const response = await fetch(url, resquestOption)
-  return await response
-}
-
-const fetchUser = async (user_id) => {
-  const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}users/`
-  const resquestOption = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  }
-  const response = await fetch(url, resquestOption)
-  return await response
-}
-
-const fetchUserList = async () => {
-  const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}users/`
-  const resquestOption = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  }
-  const response = await fetch(url, resquestOption)
-  return await response
-}
-
-const updateUser = async (user_id, data) => {
-  const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}users/${user_id}/`
-  const resquestOption = {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify(data),
-  }
-  const response = await fetch(url, resquestOption)
-  return await response
-}
-
-const deleteUser = async (user_id) => {
-  const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}users/${user_id}/`
-  const resquestOption = {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  }
-  const response = await fetch(url, resquestOption)
-  return await response
-}
-
-function handlePostUser(data, dispatch) {
-  const response = postUser(data)
-  response
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        throw res
-      }
-    })
-    .then((data) => dispatch(postUserSuccess(data)))
-    .catch((err) => {
-      try {
-        err.json().then((error) => dispatch(postUserFail(error)))
-      } catch (e) {
-        console.log(err)
-      }
-    })
+function handlePostUser(post_data, dispatch) {
+  ;(async () => {
+    const response = await api.post(`users/`, post_data)
+    dispatch(postUserSuccess(response.data))
+  })()
 }
 
 function handleGetUser(user_id, dispatch) {
-  const response = fetchUser(user_id)
-  response
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        throw res
-      }
-    })
-    .then((data) => dispatch(getUserSuccess(data)))
-    .catch((err) => {
-      try {
-        err.json().then((error) => dispatch(getUserFail(error)))
-      } catch (e) {
-        console.log(err)
-      }
-    })
+  ;(async () => {
+    const response = await api.get(`users/${user_id}/`)
+    dispatch(getUserSuccess(response.data))
+  })()
 }
 
 function handleGetUserList(dispatch) {
-  const response = fetchUserList()
-  response
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        throw res
-      }
-    })
-    .then((data) => dispatch(getUserListSuccess(data)))
-    .catch((err) => {
-      try {
-        err.json().then((error) => dispatch(getUserListFail(error)))
-      } catch (e) {
-        console.log(err)
-      }
-    })
+  ;(async () => {
+    const response = await api.get(`users/`)
+    dispatch(getUserListSuccess(response.data))
+  })()
 }
 
-function handleUpdateUser(user_id, user_data, dispatch) {
-  const response = updateUser(user_id, user_data)
-  response
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        throw res
-      }
-    })
-    .then((data) => dispatch(updateUserSuccess(data)))
-    .catch((err) => {
-      try {
-        err.json().then((error) => dispatch(updateUserFail(error)))
-      } catch (e) {
-        console.log(err)
-      }
-    })
+function handleUpdateUser(user_id, data, dispatch) {
+  ;(async () => {
+    const response = await api.put(`users/${user_id}/`, data)
+    dispatch(updateUserSuccess(response.data))
+  })()
 }
 
 function handleDeleteUser(user_id, dispatch) {
-  const response = deleteUser(user_id)
-  response
-    .then((res) => {
-      if (res.ok) {
-        return dispatch(deleteUserSuccess(user_id))
-      } else {
-        throw res
-      }
-    })
-    .then(() => console.log(`user ${user_id} deleted`))
-    .catch((err) => {
-      try {
-        err.json().then((error) => dispatch(deleteUserFail(error)))
-      } catch (e) {
-        console.log(err)
-      }
-    })
+  ;(async () => {
+    await api.delete(`users/${user_id}/`)
+    dispatch(deleteUserSuccess(user_id))
+  })()
 }
 
 export {

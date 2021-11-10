@@ -9,7 +9,7 @@ import thunk from "redux-thunk"
 import { Provider } from "react-redux"
 import _reducers from "./store/reducers"
 
-const store = createStore(
+export const store = createStore(
   _reducers,
   compose(
     applyMiddleware(thunk),
