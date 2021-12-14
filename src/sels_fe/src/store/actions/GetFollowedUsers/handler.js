@@ -1,38 +1,12 @@
-import { getFollowedUserSuccess, getFollowedUserFail } from "./response"
+import { getFollowedUserSuccess } from "./response"
 
-import { baseURL } from "../../../adapters"
-
-const fetchFollowedUserList = () => {
-  const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}follows/`
-  const resquestOption = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  }
-  const response = fetch(url, resquestOption)
-  return response
-}
+import api from "../../../adapters"
 
 function handleFollowedUserList(dispatch) {
-  const response = fetchFollowedUserList()
-  response
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        throw res.json()
-      }
-    })
-    .then((users) => {
-      dispatch(getFollowedUserSuccess(users))
-    })
-    .catch((error) => {
-      dispatch(getFollowedUserFail(error))
-    })
+  ;(async () => {
+    const response = await api.get(`follows/`)
+    dispatch(getFollowedUserSuccess(response.data))
+  })()
 }
 
 export { handleFollowedUserList }

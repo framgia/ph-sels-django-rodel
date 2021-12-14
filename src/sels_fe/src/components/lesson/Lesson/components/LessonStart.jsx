@@ -13,7 +13,7 @@ const LessonStart = ({
   return (
     <>
       <Stack
-        direction="row"
+        direction='row'
         spacing={2}
         sx={{
           ml: "10%",
@@ -22,8 +22,8 @@ const LessonStart = ({
           justifySelf: "left",
         }}
       >
-        <Typography variant="subtitle1">Score:</Typography>
-        <Typography variant="body1" color="green">
+        <Typography variant='subtitle1'>Score:</Typography>
+        <Typography variant='body1' color='green'>
           {correctAnswersCount}/{questions.length}
         </Typography>
       </Stack>
@@ -32,11 +32,11 @@ const LessonStart = ({
         handleAnswered={handleAnswered}
       />
       <br />
-      <Stack direction="row" sx={{ mx: "auto", width: "85%" }}>
+      <Stack direction='row' sx={{ mx: "auto", width: "85%" }}>
         <Box sx={{ flex: "1 1 auto" }} />
         <Button
-          color="primary"
-          variant="contained"
+          color='primary'
+          variant='contained'
           disabled={!isAnswered}
           onClick={handleSubmit}
         >

@@ -17,7 +17,7 @@ function AuthenticatedRoute({ auth, children }) {
           state: { from: location.pathname },
         }}
       />
-      <Typography variant="subtitle2" color="secondary">
+      <Typography variant='subtitle2' color='secondary'>
         You are not signed in.
       </Typography>
     </>

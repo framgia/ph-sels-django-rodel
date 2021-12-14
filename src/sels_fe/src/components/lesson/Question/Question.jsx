@@ -27,9 +27,9 @@ function Question({ question, handleAnswered }) {
   }, [answer_list, question])
 
   return (
-    <Box component="div" sx={{ m: "auto", width: "90%", color: "success" }}>
+    <Box component='div' sx={{ m: "auto", width: "90%", color: "success" }}>
       <Box
-        component="div"
+        component='div'
         sx={{
           p: "2rem 3.5rem",
           mx: "auto",
@@ -37,7 +37,7 @@ function Question({ question, handleAnswered }) {
           bgcolor: "#f0f0f0",
         }}
       >
-        <Stack direction="row" sx={{ mx: "auto", justifyContent: "center" }}>
+        <Stack direction='row' sx={{ mx: "auto", justifyContent: "center" }}>
           <Card
             sx={{
               width: "80%",
@@ -47,9 +47,9 @@ function Question({ question, handleAnswered }) {
             <CardContent>
               <Typography
                 gutterBottom
-                variant="h5"
-                color="primary"
-                component="div"
+                variant='h5'
+                color='primary'
+                component='div'
               >
                 {question.question}
               </Typography>

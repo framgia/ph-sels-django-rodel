@@ -2,218 +2,58 @@ import {
   postLessonSuccess,
   postLessonFail,
   postBulkLessonSuccess,
-  postBulkLessonFail,
   getLessonSuccess,
-  getLessonFail,
   getLessonListSuccess,
-  getLessonListFail,
   updateLessonSuccess,
-  updateLessonFail,
   deleteLessonSuccess,
-  deleteLessonFail,
 } from "./response"
 
-import { baseURL } from "../../../adapters"
+import api from "../../../adapters"
 
-const postLesson = async (data) => {
-  const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}lesson/`
-  const resquestOption = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify(data),
-  }
-  const response = await fetch(url, resquestOption)
-  return await response
+function handlePostLesson(post_data, dispatch) {
+  ;(async () => {
+    try {
+      const response = await api.post(`lesson/`, post_data)
+      dispatch(postLessonSuccess(response.data))
+    } catch (error) {
+      dispatch(postLessonFail(error))
+    }
+  })()
 }
 
-const postBulkLesson = async (data) => {
-  const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}lessons/bulk`
-  const resquestOption = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify(data),
-  }
-  const response = await fetch(url, resquestOption)
-  return await response
-}
-
-const fetchLesson = async (lesson_id) => {
-  const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}lesson/`
-  const resquestOption = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  }
-  const response = await fetch(url, resquestOption)
-  return await response
-}
-
-const fetchLessonList = async () => {
-  const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}lesson/`
-  const resquestOption = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  }
-  const response = await fetch(url, resquestOption)
-  return await response
-}
-
-const updateLesson = async (lesson_id, data) => {
-  const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}lesson/${lesson_id}/`
-  const resquestOption = {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify(data),
-  }
-  const response = await fetch(url, resquestOption)
-  return await response
-}
-
-const deleteLesson = async (lesson_id) => {
-  const accessToken = localStorage.getItem("access_token")
-  const url = `${baseURL}lesson/${lesson_id}/`
-  const resquestOption = {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  }
-  const response = await fetch(url, resquestOption)
-  return await response
-}
-
-function handlePostLesson(data, dispatch) {
-  const response = postLesson(data)
-  response
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        throw res
-      }
-    })
-    .then((data) => dispatch(postLessonSuccess(data)))
-    .catch((err) => {
-      try {
-        err.json().then((error) => dispatch(postLessonFail(error)))
-      } catch (e) {
-        console.log(err)
-      }
-    })
-}
-
-function handlePostBulkLesson(data, dispatch) {
-  const response = postBulkLesson(data)
-  response
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        throw res
-      }
-    })
-    .then((data) => dispatch(postBulkLessonSuccess(data)))
-    .catch((err) => {
-      try {
-        err.json().then((error) => dispatch(postBulkLessonFail(error)))
-      } catch (e) {
-        console.log(err)
-      }
-    })
+function handlePostBulkLesson(post_data, dispatch) {
+  ;(async () => {
+    const response = await api.post(`lessons/bulk/`, post_data)
+    dispatch(postBulkLessonSuccess(response.data))
+  })()
 }
 
 function handleGetLesson(lesson_id, dispatch) {
-  const response = fetchLesson(lesson_id)
-  response
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        throw res.json()
-      }
-    })
-    .then((data) => dispatch(getLessonSuccess(data)))
-    .catch((error) => dispatch(getLessonFail(error)))
+  ;(async () => {
+    const response = await api.get(`lesson/${lesson_id}/`)
+    dispatch(getLessonSuccess(response.data))
+  })()
 }
 
 function handleGetLessonList(dispatch) {
-  const response = fetchLessonList()
-  response
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        throw res.json()
-      }
-    })
-    .then((data) => dispatch(getLessonListSuccess(data)))
-    .catch((error) => dispatch(getLessonListFail(error)))
+  ;(async () => {
+    const response = await api.get(`lesson/`)
+    dispatch(getLessonListSuccess(response.data))
+  })()
 }
 
-function handleUpdateLesson(lesson_id, lesson_data, dispatch) {
-  const response = updateLesson(lesson_id, lesson_data)
-  response
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        throw res
-      }
-    })
-    .then((data) => dispatch(updateLessonSuccess(data)))
-    .catch((err) => {
-      try {
-        err.json().then((error) => dispatch(updateLessonFail(error)))
-      } catch (e) {
-        console.log(err)
-      }
-    })
+function handleUpdateLesson(lesson_id, data, dispatch) {
+  ;(async () => {
+    const response = await api.put(`lesson/${lesson_id}/`, data)
+    dispatch(updateLessonSuccess(response.data))
+  })()
 }
 
 function handleDeleteLesson(lesson_id, dispatch) {
-  const response = deleteLesson(lesson_id)
-  response
-    .then((res) => {
-      if (res.ok) {
-        return dispatch(deleteLessonSuccess(lesson_id))
-      } else {
-        throw res
-      }
-    })
-    .then(() => console.log(`lesson ${lesson_id} deleted`))
-    .catch((err) => {
-      try {
-        err.json().then((error) => dispatch(deleteLessonFail(error)))
-      } catch (e) {
-        console.log(err)
-      }
-    })
+  ;(async () => {
+    await api.delete(`lesson/${lesson_id}/`)
+    dispatch(deleteLessonSuccess(lesson_id))
+  })()
 }
 
 export {

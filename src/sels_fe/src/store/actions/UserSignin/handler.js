@@ -78,7 +78,11 @@ const handleSignin = async (credentials, dispatch) => {
       })
     })
     .catch((err) => {
-      err.json().then((error) => dispatch(authFail(error)))
+      try {
+        err.json().then((error) => dispatch(authFail(error)))
+      } catch (e) {
+        console.log(err)
+      }
     })
 }
 

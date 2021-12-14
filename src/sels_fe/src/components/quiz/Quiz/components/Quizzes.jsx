@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { Fragment, useState, useEffect, useRef } from "react"
 import { useHistory } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
@@ -104,7 +104,7 @@ const Quizzes = ({ quizzes }) => {
       <List>
         {quizzes.length > 0
           ? quizzes.map((quiz) => (
-              <React.Fragment key={quiz.id}>
+              <Fragment key={quiz.id}>
                 <Divider />
                 <ListItem button onClick={() => handleViewQuiz(quiz.id)}>
                   <ListItemIcon>
@@ -144,7 +144,7 @@ const Quizzes = ({ quizzes }) => {
                     </Stack>
                   </ListItemSecondaryAction>
                 </ListItem>
-              </React.Fragment>
+              </Fragment>
             ))
           : null}
       </List>
